@@ -16,7 +16,7 @@ const FeaturedVendors = () => (
       <p className="text-muted-foreground text-center mb-12 max-w-xl mx-auto">
         Top-rated professionals trusted by thousands of families
       </p>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {VENDORS.map(v => (
           <div key={v.id} className="bg-card rounded-2xl overflow-hidden border shadow-sm hover:shadow-lg transition-shadow duration-300">
             <img src={v.photo} alt={v.name} className="w-full h-48 object-cover" />
