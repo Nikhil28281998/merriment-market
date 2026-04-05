@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar } from "@/components/ui/calendar";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { mockVendors, mockReviews } from "@/data/mockData";
+import { mockVendors } from "@/data/mockData";
 
 const VendorProfile = () => {
   const { id } = useParams();
