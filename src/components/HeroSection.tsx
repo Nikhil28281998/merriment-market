@@ -44,7 +44,7 @@ const HeroSection = () => {
                 <SelectValue placeholder="Event Type" />
               </SelectTrigger>
               <SelectContent>
-                {EVENT_TYPES.map(t => (
+                {eventTypes.map(t => (
                   <SelectItem key={t} value={t}>{t}</SelectItem>
                 ))}
               </SelectContent>
