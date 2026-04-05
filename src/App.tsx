@@ -12,6 +12,8 @@ import BookVendor from "./pages/BookVendor.tsx";
 import BookingConfirmation from "./pages/BookingConfirmation.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
 import VendorDashboard from "./pages/VendorDashboard.tsx";
+import VendorOnboarding from "./pages/VendorOnboarding.tsx";
+import VendorOnboardingConfirmation from "./pages/VendorOnboardingConfirmation.tsx";
 import HowItWorksPage from "./pages/HowItWorksPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
@@ -33,6 +35,8 @@ const App = () => (
           <Route path="/booking-confirmation" element={<BookingConfirmation />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/vendor-dashboard" element={<VendorDashboard />} />
+          <Route path="/vendor-onboarding" element={<VendorOnboarding />} />
+          <Route path="/vendor-onboarding-confirmation" element={<VendorOnboardingConfirmation />} />
           <Route path="/how-it-works" element={<HowItWorksPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
