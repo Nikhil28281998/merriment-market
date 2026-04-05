@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar } from "@/components/ui/calendar";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { mockVendors, mockReviews } from "@/data/mockData";
+import { mockVendors } from "@/data/mockData";
 
 const VendorProfile = () => {
   const { id } = useParams();
@@ -96,7 +96,7 @@ const VendorProfile = () => {
           <section className="mt-10">
             <h2 className="font-heading text-xl font-bold mb-4">Reviews</h2>
             <div className="space-y-4">
-              {mockReviews.map(review => (
+              {vendor.reviews.map(review => (
                 <Card key={review.id}>
                   <CardContent className="p-5">
                     <div className="flex items-center gap-2 mb-2">
