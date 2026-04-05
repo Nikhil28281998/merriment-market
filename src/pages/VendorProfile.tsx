@@ -96,7 +96,7 @@ const VendorProfile = () => {
           <section className="mt-10">
             <h2 className="font-heading text-xl font-bold mb-4">Reviews</h2>
             <div className="space-y-4">
-              {mockReviews.map(review => (
+              {vendor.reviews.map(review => (
                 <Card key={review.id}>
                   <CardContent className="p-5">
                     <div className="flex items-center gap-2 mb-2">
