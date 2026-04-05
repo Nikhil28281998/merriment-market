@@ -1,23 +1,34 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { categories } from "@/data/mockData";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const [role, setRole] = useState<"customer" | "vendor">("customer");
-  const [form, setForm] = useState({ fullName: "", email: "", phone: "", password: "", confirmPassword: "" });
   const [agreed, setAgreed] = useState(false);
 
-  const handleChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement>) =>
-    setForm(prev => ({ ...prev, [field]: e.target.value }));
+  // Shared fields
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  // Vendor-only fields
+  const [businessName, setBusinessName] = useState("");
+  const [category, setCategory] = useState("");
+  const [city, setCity] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Will integrate with Supabase auth
+    navigate(role === "vendor" ? "/vendor-onboarding" : "/");
   };
 
   return (
@@ -35,41 +46,64 @@ const SignUp = () => {
             <button
               type="button"
               onClick={() => setRole("customer")}
-              className={`p-4 rounded-xl border-2 text-center transition-all ${role === "customer" ? "border-accent bg-accent/5" : "border-border hover:border-accent/30"}`}
+              className={`p-4 rounded-xl border-2 text-center transition-all ${role === "customer" ? "border-primary bg-primary/5" : "border-border hover:border-primary/30"}`}
             >
               <span className="text-2xl block mb-1">🎉</span>
-              <span className="text-sm font-semibold">I want to book vendors</span>
+              <span className="text-sm font-semibold">I am a Customer</span>
             </button>
             <button
               type="button"
               onClick={() => setRole("vendor")}
-              className={`p-4 rounded-xl border-2 text-center transition-all ${role === "vendor" ? "border-accent bg-accent/5" : "border-border hover:border-accent/30"}`}
+              className={`p-4 rounded-xl border-2 text-center transition-all ${role === "vendor" ? "border-primary bg-primary/5" : "border-border hover:border-primary/30"}`}
             >
               <span className="text-2xl block mb-1">💼</span>
-              <span className="text-sm font-semibold">I want to list my services</span>
+              <span className="text-sm font-semibold">I am a Vendor</span>
             </button>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <Label htmlFor="fullName">Full Name</Label>
-              <Input id="fullName" placeholder="John Doe" value={form.fullName} onChange={handleChange("fullName")} required className="mt-1" />
+              <Input id="fullName" placeholder="John Doe" value={fullName} onChange={e => setFullName(e.target.value)} required className="mt-1" />
             </div>
+
+            {role === "vendor" && (
+              <>
+                <div>
+                  <Label htmlFor="businessName">Business Name</Label>
+                  <Input id="businessName" placeholder="e.g. Anand Studio Photography" value={businessName} onChange={e => setBusinessName(e.target.value)} required className="mt-1" />
+                </div>
+                <div>
+                  <Label htmlFor="category">Service Category</Label>
+                  <Select value={category} onValueChange={setCategory}>
+                    <SelectTrigger className="mt-1"><SelectValue placeholder="Select category" /></SelectTrigger>
+                    <SelectContent>
+                      {categories.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label htmlFor="city">City</Label>
+                  <Input id="city" placeholder="e.g. Edison, NJ" value={city} onChange={e => setCity(e.target.value)} required className="mt-1" />
+                </div>
+              </>
+            )}
+
             <div>
               <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" placeholder="john@example.com" value={form.email} onChange={handleChange("email")} required className="mt-1" />
+              <Input id="email" type="email" placeholder="john@example.com" value={email} onChange={e => setEmail(e.target.value)} required className="mt-1" />
             </div>
             <div>
               <Label htmlFor="phone">Phone Number</Label>
-              <Input id="phone" type="tel" placeholder="(555) 123-4567" value={form.phone} onChange={handleChange("phone")} required className="mt-1" />
+              <Input id="phone" type="tel" placeholder="(555) 123-4567" value={phone} onChange={e => setPhone(e.target.value)} required className="mt-1" />
             </div>
             <div>
               <Label htmlFor="password">Password</Label>
-              <Input id="password" type="password" placeholder="••••••••" value={form.password} onChange={handleChange("password")} required className="mt-1" />
+              <Input id="password" type="password" placeholder="••••••••" value={password} onChange={e => setPassword(e.target.value)} required className="mt-1" />
             </div>
             <div>
               <Label htmlFor="confirmPassword">Confirm Password</Label>
-              <Input id="confirmPassword" type="password" placeholder="••••••••" value={form.confirmPassword} onChange={handleChange("confirmPassword")} required className="mt-1" />
+              <Input id="confirmPassword" type="password" placeholder="••••••••" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} required className="mt-1" />
             </div>
 
             <div className="flex items-start gap-2">
@@ -80,7 +114,7 @@ const SignUp = () => {
             </div>
 
             <Button type="submit" variant="hero" size="lg" className="w-full" disabled={!agreed}>
-              Sign Up
+              {role === "vendor" ? "Sign Up as Vendor" : "Sign Up as Customer"}
             </Button>
 
             <div className="relative my-6">
