@@ -8,13 +8,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { CalendarIcon, Search } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
-
-const EVENT_TYPES = [
-  "Wedding", "Baby Shower", "Birthday Party", "Gender Reveal", "Naming Ceremony",
-  "Housewarming", "Car Pooja", "Halloween Party", "Christmas Party", "Graduation",
-  "Anniversary", "Quinceañera", "Baptism", "Bar Mitzvah", "Maternity Shoot",
-  "Baby Photoshoot", "Other"
-];
+import { eventTypes } from "@/data/mockData";
 
 const HeroSection = () => {
   const navigate = useNavigate();
@@ -50,7 +44,7 @@ const HeroSection = () => {
                 <SelectValue placeholder="Event Type" />
               </SelectTrigger>
               <SelectContent>
-                {EVENT_TYPES.map(t => (
+                {eventTypes.map(t => (
                   <SelectItem key={t} value={t}>{t}</SelectItem>
                 ))}
               </SelectContent>

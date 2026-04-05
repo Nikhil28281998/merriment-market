@@ -4,10 +4,11 @@ export const categories = [
 ] as const;
 
 export const eventTypes = [
-  "Wedding", "Baby Shower", "Birthday Party", "Gender Reveal", "Naming Ceremony",
-  "Housewarming", "Car Pooja", "Halloween Party", "Christmas Party", "Graduation",
-  "Anniversary", "Quinceañera", "Baptism", "Bar Mitzvah", "Maternity Shoot",
-  "Baby Photoshoot", "Other",
+  "Wedding", "Baby Shower", "Birthday Party", "Gender Reveal",
+  "Naming Ceremony / Namkaran", "Housewarming / Griha Pravesh", "Car Pooja",
+  "Halloween Party", "Christmas Party", "Graduation", "Anniversary",
+  "Quinceañera", "Baptism", "Bar / Bat Mitzvah", "Maternity Photoshoot",
+  "Baby Photoshoot", "Eid Celebration", "Diwali Event", "Other",
 ] as const;
 
 export interface Vendor {
