@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const Footer = () => (
   <footer className="hero-gradient text-primary-foreground">
     <div className="container py-12">
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         <div>
           <span className="font-heading text-2xl font-bold">Eventz<span className="text-accent">Hub</span></span>
           <p className="text-primary-foreground/70 text-sm mt-3 leading-relaxed">

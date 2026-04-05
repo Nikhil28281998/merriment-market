@@ -31,7 +31,7 @@ const FeaturedVendors = () => (
               </div>
               <div className="flex items-center justify-between mt-4">
                 <span className="text-sm font-semibold">From <span className="text-accent">${v.price}</span></span>
-                <Button size="sm" variant="outline" asChild>
+                <Button size="sm" variant="outline" className="min-h-[44px]" asChild>
                   <Link to={`/vendor/${v.id}`}>View Profile</Link>
                 </Button>
               </div>

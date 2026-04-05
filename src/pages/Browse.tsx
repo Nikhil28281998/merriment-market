@@ -139,7 +139,7 @@ const Browse = () => {
                       </div>
                       <div className="flex items-center justify-between">
                         <span className="text-sm font-semibold">From ${vendor.startingPrice}</span>
-                        <Button variant="accent" size="sm" asChild>
+                        <Button variant="accent" size="sm" className="min-h-[44px]" asChild>
                           <Link to={`/vendor/${vendor.id}`}>View Profile</Link>
                         </Button>
                       </div>
