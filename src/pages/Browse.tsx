@@ -120,7 +120,7 @@ const Browse = () => {
             {filtered.length === 0 ? (
               <p className="text-center text-muted-foreground py-16">No vendors found matching your criteria.</p>
             ) : (
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
                 {filtered.map(vendor => (
                   <Card key={vendor.id} className="overflow-hidden hover:shadow-lg transition-shadow">
                     <img src={vendor.photo} alt={vendor.name} className="w-full h-48 object-cover" />
@@ -139,7 +139,7 @@ const Browse = () => {
                       </div>
                       <div className="flex items-center justify-between">
                         <span className="text-sm font-semibold">From ${vendor.startingPrice}</span>
-                        <Button variant="accent" size="sm" asChild>
+                        <Button variant="accent" size="sm" className="min-h-[44px]" asChild>
                           <Link to={`/vendor/${vendor.id}`}>View Profile</Link>
                         </Button>
                       </div>

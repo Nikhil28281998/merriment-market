@@ -37,8 +37,8 @@ const HeroSection = () => {
         </p>
 
         {/* Search bar */}
-        <div className="bg-background rounded-2xl shadow-2xl p-3 md:p-4 max-w-4xl mx-auto">
-          <div className="flex flex-col md:flex-row gap-3">
+        <div className="bg-background rounded-2xl shadow-2xl p-4 md:p-5 max-w-4xl mx-auto">
+          <div className="flex flex-col gap-3 md:flex-row">
             <Select value={eventType} onValueChange={setEventType}>
               <SelectTrigger className="flex-1 h-12 border-border">
                 <SelectValue placeholder="Event Type" />
@@ -69,7 +69,7 @@ const HeroSection = () => {
               </PopoverContent>
             </Popover>
 
-            <Button variant="hero" size="lg" className="h-12 px-8" onClick={handleSearch}>
+            <Button variant="hero" size="lg" className="h-12 px-8 min-h-[44px]" onClick={handleSearch}>
               <Search className="mr-2 h-4 w-4" />
               Search Vendors
             </Button>
