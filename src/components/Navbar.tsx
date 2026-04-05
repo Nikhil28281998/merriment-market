@@ -40,6 +40,7 @@ const Navbar = () => {
           <Link to="/" className="block py-2 text-sm font-medium" onClick={() => setMobileOpen(false)}>Home</Link>
           <Link to="/browse" className="block py-2 text-sm font-medium" onClick={() => setMobileOpen(false)}>Browse Vendors</Link>
           <Link to="/how-it-works" className="block py-2 text-sm font-medium" onClick={() => setMobileOpen(false)}>How It Works</Link>
+          <Link to="/vendor-onboarding" className="block py-2 text-sm font-medium" onClick={() => setMobileOpen(false)}>List Your Services</Link>
           <div className="flex gap-3 pt-2">
             <Button variant="ghost" asChild className="flex-1"><Link to="/login">Log In</Link></Button>
             <Button variant="accent" asChild className="flex-1"><Link to="/signup">Sign Up</Link></Button>
