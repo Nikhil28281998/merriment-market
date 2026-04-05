@@ -19,7 +19,7 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-8">
           <Link to="/" className="text-sm font-medium text-foreground hover:text-accent transition-colors">Home</Link>
           <Link to="/browse" className="text-sm font-medium text-foreground hover:text-accent transition-colors">Browse Vendors</Link>
-          <a href="#how-it-works" className="text-sm font-medium text-foreground hover:text-accent transition-colors">How It Works</a>
+          <Link to="/how-it-works" className="text-sm font-medium text-foreground hover:text-accent transition-colors">How It Works</Link>
         </div>
 
         <div className="hidden md:flex items-center gap-3">
@@ -38,7 +38,7 @@ const Navbar = () => {
         <div className="md:hidden border-t bg-background p-4 space-y-3">
           <Link to="/" className="block py-2 text-sm font-medium" onClick={() => setMobileOpen(false)}>Home</Link>
           <Link to="/browse" className="block py-2 text-sm font-medium" onClick={() => setMobileOpen(false)}>Browse Vendors</Link>
-          <a href="#how-it-works" className="block py-2 text-sm font-medium" onClick={() => setMobileOpen(false)}>How It Works</a>
+          <Link to="/how-it-works" className="block py-2 text-sm font-medium" onClick={() => setMobileOpen(false)}>How It Works</Link>
           <div className="flex gap-3 pt-2">
             <Button variant="ghost" asChild className="flex-1"><Link to="/login">Log In</Link></Button>
             <Button variant="accent" asChild className="flex-1"><Link to="/signup">Sign Up</Link></Button>
