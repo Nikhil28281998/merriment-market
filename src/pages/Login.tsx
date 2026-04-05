@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -7,12 +7,14 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [role, setRole] = useState<"customer" | "vendor">("customer");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Will integrate with Supabase auth
+    navigate(role === "vendor" ? "/vendor-dashboard" : "/");
   };
 
   return (
@@ -23,6 +25,26 @@ const Login = () => {
           <div className="text-center mb-8">
             <h1 className="font-heading text-3xl font-bold mb-2">Welcome Back</h1>
             <p className="text-muted-foreground">Log in to your EventzHub account</p>
+          </div>
+
+          {/* Role selector */}
+          <div className="grid grid-cols-2 gap-3 mb-8">
+            <button
+              type="button"
+              onClick={() => setRole("customer")}
+              className={`p-4 rounded-xl border-2 text-center transition-all ${role === "customer" ? "border-primary bg-primary/5" : "border-border hover:border-primary/30"}`}
+            >
+              <span className="text-2xl block mb-1">🎉</span>
+              <span className="text-sm font-semibold">I am a Customer</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setRole("vendor")}
+              className={`p-4 rounded-xl border-2 text-center transition-all ${role === "vendor" ? "border-primary bg-primary/5" : "border-border hover:border-primary/30"}`}
+            >
+              <span className="text-2xl block mb-1">💼</span>
+              <span className="text-sm font-semibold">I am a Vendor</span>
+            </button>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -39,7 +61,7 @@ const Login = () => {
             </div>
 
             <Button type="submit" variant="hero" size="lg" className="w-full">
-              Log In
+              {role === "vendor" ? "Log In as Vendor" : "Log In as Customer"}
             </Button>
 
             <div className="relative my-6">
