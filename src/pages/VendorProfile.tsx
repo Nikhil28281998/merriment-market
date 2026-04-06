@@ -133,6 +133,7 @@ const VendorProfile = () => {
           </section>
         </div>
       </main>
+      {chatOpen && <ChatWindow vendorName={vendor.name} onClose={() => setChatOpen(false)} />}
       <Footer />
     </div>
   );
