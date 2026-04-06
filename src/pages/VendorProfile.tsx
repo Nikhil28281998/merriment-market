@@ -1,13 +1,16 @@
+import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { Star, MapPin, CheckCircle } from "lucide-react";
+import { Star, MapPin, CheckCircle, MessageCircle, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar } from "@/components/ui/calendar";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ChatWindow from "@/components/ChatWindow";
 import { mockVendors } from "@/data/mockData";
 
 const VendorProfile = () => {
+  const [chatOpen, setChatOpen] = useState(false);
   const { id } = useParams();
   const vendor = mockVendors.find(v => v.id === id);
 
