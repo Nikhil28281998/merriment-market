@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { Star, MapPin, CheckCircle, MessageCircle, ShieldCheck, Phone } from "lucide-react";
+import { Star, MapPin, CheckCircle, MessageCircle, ShieldCheck, Phone, ShoppingCart, Check } from "lucide-react";
+import { useCart } from "@/contexts/CartContext";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar } from "@/components/ui/calendar";
@@ -13,6 +15,7 @@ const VendorProfile = () => {
   const [chatOpen, setChatOpen] = useState(false);
   const [showCallDialog, setShowCallDialog] = useState(false);
   const [callConfirmed, setCallConfirmed] = useState(false);
+  const { addItem, items } = useCart();
   const { id } = useParams();
   const vendor = mockVendors.find(v => v.id === id);
 
@@ -100,9 +103,27 @@ const VendorProfile = () => {
                         </li>
                       ))}
                     </ul>
-                    <Button variant="hero" className="w-full" asChild>
-                      <Link to={`/book/${vendor.id}?package=${pkg.id}`}>Book This Package</Link>
-                    </Button>
+                    {(() => {
+                      const inCart = items.some(i => i.vendor.id === vendor.id && i.package.id === pkg.id);
+                      return (
+                        <div className="flex gap-2">
+                          <Button
+                            variant={inCart ? "outline" : "accent"}
+                            className="flex-1 min-h-[44px] gap-2"
+                            disabled={inCart}
+                            onClick={() => {
+                              addItem(vendor, pkg);
+                              toast.success(`${pkg.name} added to cart!`);
+                            }}
+                          >
+                            {inCart ? <><Check className="h-4 w-4" /> In Cart</> : <><ShoppingCart className="h-4 w-4" /> Add to Cart</>}
+                          </Button>
+                          <Button variant="hero" className="flex-1 min-h-[44px]" asChild>
+                            <Link to={`/book/${vendor.id}?package=${pkg.id}`}>Book Now</Link>
+                          </Button>
+                        </div>
+                      );
+                    })()}
                   </CardContent>
                 </Card>
               ))}
