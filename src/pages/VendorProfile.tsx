@@ -18,7 +18,6 @@ const VendorProfile = () => {
   const { addItem, items } = useCart();
   const { id } = useParams();
   const vendor = mockVendors.find(v => v.id === id);
-  const vendor = mockVendors.find(v => v.id === id);
 
   if (!vendor) {
     return (
