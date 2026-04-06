@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { Star, MapPin, CheckCircle, MessageCircle, ShieldCheck, Phone } from "lucide-react";
+import { Star, MapPin, CheckCircle, MessageCircle, ShieldCheck, Phone, ShoppingCart, Check } from "lucide-react";
+import { useCart } from "@/contexts/CartContext";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar } from "@/components/ui/calendar";
