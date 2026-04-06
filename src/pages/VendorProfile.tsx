@@ -1,13 +1,16 @@
+import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { Star, MapPin, CheckCircle } from "lucide-react";
+import { Star, MapPin, CheckCircle, MessageCircle, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar } from "@/components/ui/calendar";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ChatWindow from "@/components/ChatWindow";
 import { mockVendors } from "@/data/mockData";
 
 const VendorProfile = () => {
+  const [chatOpen, setChatOpen] = useState(false);
   const { id } = useParams();
   const vendor = mockVendors.find(v => v.id === id);
 
@@ -42,6 +45,14 @@ const VendorProfile = () => {
               <div className="flex flex-wrap items-center gap-4 mt-2 text-sm text-muted-foreground">
                 <span className="flex items-center gap-1"><MapPin className="h-4 w-4" /> {vendor.city}, {vendor.state}</span>
                 <span className="flex items-center gap-1"><Star className="h-4 w-4 fill-yellow-400 text-yellow-400" /> {vendor.rating} ({vendor.reviewCount} reviews)</span>
+              </div>
+              <div className="mt-4 flex flex-wrap items-center gap-3">
+                <Button variant="accent" onClick={() => setChatOpen(true)} className="gap-2">
+                  <MessageCircle className="h-4 w-4" /> Message Vendor
+                </Button>
+                <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                  <ShieldCheck className="h-4 w-4 text-green-600" /> Contact this vendor securely through EventzHub
+                </span>
               </div>
             </div>
           </div>
@@ -122,6 +133,7 @@ const VendorProfile = () => {
           </section>
         </div>
       </main>
+      {chatOpen && <ChatWindow vendorName={vendor.name} onClose={() => setChatOpen(false)} />}
       <Footer />
     </div>
   );

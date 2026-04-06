@@ -106,6 +106,15 @@ const SignUp = () => {
               <Input id="confirmPassword" type="password" placeholder="••••••••" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} required className="mt-1" />
             </div>
 
+            {role === "vendor" && (
+              <div className="flex items-start gap-2">
+                <Checkbox id="vendorTerms" required className="mt-1" />
+                <Label htmlFor="vendorTerms" className="text-sm text-muted-foreground leading-snug">
+                  I agree to process all bookings from EventzHub customers through the EventzHub platform. I understand that sharing personal contact information with customers before a confirmed booking, or accepting payment outside the platform, is a violation of EventzHub terms and may result in removal from the platform.
+                </Label>
+              </div>
+            )}
+
             <div className="flex items-start gap-2">
               <Checkbox id="terms" checked={agreed} onCheckedChange={(v) => setAgreed(v === true)} className="mt-1" />
               <Label htmlFor="terms" className="text-sm text-muted-foreground leading-snug">
