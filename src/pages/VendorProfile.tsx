@@ -103,9 +103,27 @@ const VendorProfile = () => {
                         </li>
                       ))}
                     </ul>
-                    <Button variant="hero" className="w-full" asChild>
-                      <Link to={`/book/${vendor.id}?package=${pkg.id}`}>Book This Package</Link>
-                    </Button>
+                    {(() => {
+                      const inCart = items.some(i => i.vendor.id === vendor.id && i.package.id === pkg.id);
+                      return (
+                        <div className="flex gap-2">
+                          <Button
+                            variant={inCart ? "outline" : "accent"}
+                            className="flex-1 min-h-[44px] gap-2"
+                            disabled={inCart}
+                            onClick={() => {
+                              addItem(vendor, pkg);
+                              toast.success(`${pkg.name} added to cart!`);
+                            }}
+                          >
+                            {inCart ? <><Check className="h-4 w-4" /> In Cart</> : <><ShoppingCart className="h-4 w-4" /> Add to Cart</>}
+                          </Button>
+                          <Button variant="hero" className="flex-1 min-h-[44px]" asChild>
+                            <Link to={`/book/${vendor.id}?package=${pkg.id}`}>Book Now</Link>
+                          </Button>
+                        </div>
+                      );
+                    })()}
                   </CardContent>
                 </Card>
               ))}
