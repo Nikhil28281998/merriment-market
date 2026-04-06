@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { Star, MapPin, CheckCircle, MessageCircle, ShieldCheck } from "lucide-react";
+import { Star, MapPin, CheckCircle, MessageCircle, ShieldCheck, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar } from "@/components/ui/calendar";
@@ -11,6 +11,8 @@ import { mockVendors } from "@/data/mockData";
 
 const VendorProfile = () => {
   const [chatOpen, setChatOpen] = useState(false);
+  const [showCallDialog, setShowCallDialog] = useState(false);
+  const [callConfirmed, setCallConfirmed] = useState(false);
   const { id } = useParams();
   const vendor = mockVendors.find(v => v.id === id);
 
@@ -50,9 +52,13 @@ const VendorProfile = () => {
                 <Button variant="accent" onClick={() => setChatOpen(true)} className="gap-2">
                   <MessageCircle className="h-4 w-4" /> Message Vendor
                 </Button>
-                <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                  <ShieldCheck className="h-4 w-4 text-green-600" /> Contact this vendor securely through EventzHub
-                </span>
+                <Button variant="outline" onClick={() => { setShowCallDialog(true); setCallConfirmed(false); }} className="gap-2">
+                  <Phone className="h-4 w-4" /> Call Vendor
+                </Button>
+              </div>
+              <div className="mt-3 flex items-center gap-1.5 text-xs text-muted-foreground">
+                <ShieldCheck className="h-4 w-4 text-green-600 shrink-0" />
+                All communication through EventzHub is monitored and recorded for your safety.
               </div>
             </div>
           </div>
@@ -133,6 +139,41 @@ const VendorProfile = () => {
           </section>
         </div>
       </main>
+
+      {/* Call Vendor Dialog */}
+      {showCallDialog && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={() => setShowCallDialog(false)}>
+          <div className="bg-background rounded-2xl shadow-2xl p-6 max-w-sm mx-4 w-full" onClick={e => e.stopPropagation()}>
+            {!callConfirmed ? (
+              <>
+                <div className="flex items-center gap-3 mb-4">
+                  <Phone className="h-6 w-6 text-accent" />
+                  <h3 className="font-heading text-lg font-bold">Call Vendor</h3>
+                </div>
+                <p className="text-sm text-muted-foreground mb-6">
+                  Calls are connected securely through EventzHub. This call will be recorded for safety purposes. Click confirm to connect.
+                </p>
+                <div className="flex gap-3">
+                  <Button variant="outline" className="flex-1" onClick={() => setShowCallDialog(false)}>Cancel</Button>
+                  <Button variant="accent" className="flex-1" onClick={() => setCallConfirmed(true)}>Confirm</Button>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="text-center">
+                  <Phone className="h-10 w-10 text-accent mx-auto mb-3" />
+                  <h3 className="font-heading text-lg font-bold mb-2">Call Connected</h3>
+                  <p className="text-sm text-muted-foreground mb-4">Please dial the number below to connect with this vendor through EventzHub:</p>
+                  <p className="text-2xl font-bold text-accent mb-4">(888) 555-0199</p>
+                  <p className="text-xs text-muted-foreground mb-4">This is an EventzHub relay number. The vendor's personal number is never shared.</p>
+                  <Button variant="outline" className="w-full" onClick={() => setShowCallDialog(false)}>Close</Button>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
       {chatOpen && <ChatWindow vendorName={vendor.name} onClose={() => setChatOpen(false)} />}
       <Footer />
     </div>
