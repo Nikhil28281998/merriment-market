@@ -46,6 +46,14 @@ const VendorProfile = () => {
                 <span className="flex items-center gap-1"><MapPin className="h-4 w-4" /> {vendor.city}, {vendor.state}</span>
                 <span className="flex items-center gap-1"><Star className="h-4 w-4 fill-yellow-400 text-yellow-400" /> {vendor.rating} ({vendor.reviewCount} reviews)</span>
               </div>
+              <div className="mt-4 flex flex-wrap items-center gap-3">
+                <Button variant="accent" onClick={() => setChatOpen(true)} className="gap-2">
+                  <MessageCircle className="h-4 w-4" /> Message Vendor
+                </Button>
+                <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                  <ShieldCheck className="h-4 w-4 text-green-600" /> Contact this vendor securely through EventzHub
+                </span>
+              </div>
             </div>
           </div>
 
