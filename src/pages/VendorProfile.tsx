@@ -11,6 +11,8 @@ import { mockVendors } from "@/data/mockData";
 
 const VendorProfile = () => {
   const [chatOpen, setChatOpen] = useState(false);
+  const [showCallDialog, setShowCallDialog] = useState(false);
+  const [callConfirmed, setCallConfirmed] = useState(false);
   const { id } = useParams();
   const vendor = mockVendors.find(v => v.id === id);
 
@@ -50,9 +52,13 @@ const VendorProfile = () => {
                 <Button variant="accent" onClick={() => setChatOpen(true)} className="gap-2">
                   <MessageCircle className="h-4 w-4" /> Message Vendor
                 </Button>
-                <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                  <ShieldCheck className="h-4 w-4 text-green-600" /> Contact this vendor securely through EventzHub
-                </span>
+                <Button variant="outline" onClick={() => { setShowCallDialog(true); setCallConfirmed(false); }} className="gap-2">
+                  <Phone className="h-4 w-4" /> Call Vendor
+                </Button>
+              </div>
+              <div className="mt-3 flex items-center gap-1.5 text-xs text-muted-foreground">
+                <ShieldCheck className="h-4 w-4 text-green-600 shrink-0" />
+                All communication through EventzHub is monitored and recorded for your safety.
               </div>
             </div>
           </div>
