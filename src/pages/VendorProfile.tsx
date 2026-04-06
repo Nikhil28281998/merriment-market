@@ -15,7 +15,9 @@ const VendorProfile = () => {
   const [chatOpen, setChatOpen] = useState(false);
   const [showCallDialog, setShowCallDialog] = useState(false);
   const [callConfirmed, setCallConfirmed] = useState(false);
+  const { addItem, items } = useCart();
   const { id } = useParams();
+  const vendor = mockVendors.find(v => v.id === id);
   const vendor = mockVendors.find(v => v.id === id);
 
   if (!vendor) {
