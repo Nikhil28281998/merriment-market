@@ -35,4 +35,69 @@ export const eventBundles: EventBundle[] = [
     mustHave: ["Priest/Pandit", "Florist", "Caterer"],
     recommended: ["Photographer", "Decorator"],
   },
+  {
+    eventType: "Graduation",
+    mustHave: ["Photographer", "Caterer"],
+    recommended: ["Videographer", "Decorator", "Cake Designer", "DJ"],
+  },
+  {
+    eventType: "Anniversary",
+    mustHave: ["Photographer", "Caterer", "Decorator"],
+    recommended: ["Videographer", "Florist", "Cake Designer", "DJ"],
+  },
+  {
+    eventType: "Christmas Party",
+    mustHave: ["Decorator", "Caterer", "DJ"],
+    recommended: ["Photographer", "Cake Designer", "Florist"],
+  },
+  {
+    eventType: "Quinceañera",
+    mustHave: ["Photographer", "Videographer", "Decorator", "Caterer", "Cake Designer"],
+    recommended: ["DJ", "Florist", "Makeup Artist", "Event Planner"],
+  },
+  {
+    eventType: "Baptism",
+    mustHave: ["Photographer", "Caterer", "Cake Designer"],
+    recommended: ["Videographer", "Decorator", "Florist"],
+  },
+  {
+    eventType: "Bar / Bat Mitzvah",
+    mustHave: ["Photographer", "Videographer", "Caterer", "DJ"],
+    recommended: ["Decorator", "Florist", "Cake Designer", "Event Planner"],
+  },
+  {
+    eventType: "Diwali Event",
+    mustHave: ["Decorator", "Caterer"],
+    recommended: ["Photographer", "Florist", "DJ", "Makeup Artist"],
+  },
+  {
+    eventType: "Eid Celebration",
+    mustHave: ["Caterer", "Decorator"],
+    recommended: ["Photographer", "Videographer", "Florist", "Makeup Artist"],
+  },
+  {
+    eventType: "Naming Ceremony / Namkaran",
+    mustHave: ["Priest/Pandit", "Photographer", "Caterer"],
+    recommended: ["Decorator", "Florist", "Videographer", "Cake Designer"],
+  },
+  {
+    eventType: "Maternity Photoshoot",
+    mustHave: ["Photographer", "Makeup Artist"],
+    recommended: ["Videographer", "Decorator", "Florist"],
+  },
+  {
+    eventType: "Baby Photoshoot",
+    mustHave: ["Photographer"],
+    recommended: ["Makeup Artist", "Decorator"],
+  },
+  {
+    eventType: "Car Pooja",
+    mustHave: ["Priest/Pandit"],
+    recommended: ["Photographer", "Florist"],
+  },
+  {
+    eventType: "Other",
+    mustHave: ["Photographer", "Caterer"],
+    recommended: ["Decorator", "DJ", "Videographer", "Florist", "Cake Designer", "Event Planner"],
+  },
 ];

@@ -1,14 +1,17 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Trash2, Tag, ShieldCheck, CreditCard, Smartphone } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Trash2, Tag, ShieldCheck, CreditCard, Smartphone, AlertCircle, Loader } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useCart } from "@/contexts/CartContext";
+import { createPaymentIntent, confirmPayment } from "@/lib/payment-api";
+import { BookingData } from "@/lib/payment-types";
 
 const PROMO_CODES: Record<string, number> = {
   WELCOME10: 10,
@@ -17,11 +20,15 @@ const PROMO_CODES: Record<string, number> = {
 };
 
 const Cart = () => {
+  const navigate = useNavigate();
   const { items, removeItem, clearCart } = useCart();
   const [promoCode, setPromoCode] = useState("");
   const [appliedPromo, setAppliedPromo] = useState<{ code: string; percent: number } | null>(null);
   const [promoError, setPromoError] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("card");
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [paymentError, setPaymentError] = useState("");
+  const [customerEmail, setCustomerEmail] = useState("");
 
   const subtotal = items.reduce((sum, item) => sum + item.package.price, 0);
   const bundleDiscount = items.length >= 2 ? Math.round(subtotal * 0.1) : 0;
@@ -39,6 +46,80 @@ const Cart = () => {
     } else {
       setPromoError("Invalid promo code");
       setAppliedPromo(null);
+    }
+  };
+
+  const handlePayment = async () => {
+    if (!customerEmail) {
+      setPaymentError("Please enter your email address");
+      return;
+    }
+
+    if (items.length === 0) {
+      setPaymentError("Your cart is empty");
+      return;
+    }
+
+    setIsProcessing(true);
+    setPaymentError("");
+
+    try {
+      // Get first item as reference (for multi-vendor bookings, this needs different handling)
+      const firstItem = items[0];
+
+      // Create booking data
+      const bookingData: BookingData = {
+        customerId: "user-" + Date.now(), // TODO: Get from auth context
+        vendorId: firstItem.vendor.id,
+        vendorName: firstItem.vendor.name,
+        category: firstItem.vendor.category,
+        packageName: firstItem.package.name,
+        eventDate: new Date().toISOString().split("T")[0], // TODO: Get from user input
+        eventType: "general", // TODO: Get from selection
+        subtotal,
+        bundleDiscount,
+        promoDiscount,
+        serviceFee,
+        total,
+        vendorPayoutAmount: total - serviceFee,
+      };
+
+      // Step 1: Create payment intent
+      const paymentIntentResponse = await createPaymentIntent(
+        bookingData,
+        bookingData.customerId
+      );
+
+      // Step 2: In real implementation, show Stripe payment form here
+      // For now, we'll show a success message and navigate to confirmation
+
+      // Step 3: Confirm payment (in real app, this happens after Stripe processes payment)
+      const confirmResult = await confirmPayment(
+        paymentIntentResponse.clientSecret,
+        bookingData,
+        bookingData.customerId
+      );
+
+      if (confirmResult.success) {
+        // Clear cart and navigate to confirmation
+        clearCart();
+        navigate("/booking-confirmation", {
+          state: {
+            bookingId: confirmResult.bookingId,
+            bookingData,
+            paymentIntentId: confirmResult.paymentIntentId,
+          },
+        });
+      } else {
+        setPaymentError(confirmResult.error || "Payment failed");
+      }
+    } catch (error) {
+      console.error("Payment error:", error);
+      setPaymentError(
+        error instanceof Error ? error.message : "Payment processing failed"
+      );
+    } finally {
+      setIsProcessing(false);
     }
   };
 
@@ -100,6 +181,21 @@ const Cart = () => {
                 </CardContent>
               </Card>
 
+              {/* Email */}
+              <Card>
+                <CardContent className="p-4">
+                  <Label className="text-sm font-semibold mb-2 block">Email Address *</Label>
+                  <Input
+                    type="email"
+                    placeholder="your@email.com"
+                    value={customerEmail}
+                    onChange={(e) => setCustomerEmail(e.target.value)}
+                    required
+                  />
+                  <p className="text-xs text-muted-foreground mt-1">Booking confirmation will be sent here</p>
+                </CardContent>
+              </Card>
+
               {/* Payment Method */}
               <Card>
                 <CardHeader><CardTitle className="text-lg">Payment Method</CardTitle></CardHeader>
@@ -121,6 +217,10 @@ const Cart = () => {
                       <Label htmlFor="google" className="cursor-pointer flex-1">Google Pay</Label>
                     </div>
                   </RadioGroup>
+                  <p className="text-xs text-muted-foreground mt-3 flex items-center gap-2">
+                    <ShieldCheck className="h-3.5 w-3.5 text-green-600" />
+                    Payments are processed securely by Stripe.
+                  </p>
                 </CardContent>
               </Card>
             </div>
@@ -154,14 +254,38 @@ const Cart = () => {
                     <span>Total</span>
                     <span>${total}</span>
                   </div>
-                  <Button variant="hero" className="w-full min-h-[44px]" asChild>
-                    <Link to="/booking-confirmation">Confirm and Pay</Link>
+                  {paymentError && (
+                    <Alert variant="destructive">
+                      <AlertCircle className="h-4 w-4" />
+                      <AlertDescription>{paymentError}</AlertDescription>
+                    </Alert>
+                  )}
+                  <Button
+                    variant="hero"
+                    className="w-full min-h-[44px]"
+                    onClick={handlePayment}
+                    disabled={isProcessing || items.length === 0}
+                  >
+                    {isProcessing ? (
+                      <>
+                        <Loader className="h-4 w-4 mr-2 animate-spin" />
+                        Processing Payment...
+                      </>
+                    ) : (
+                      `Confirm and Pay $${total}`
+                    )}
                   </Button>
                   <div className="flex items-center gap-2 text-xs text-muted-foreground mt-2">
                     <ShieldCheck className="h-4 w-4 text-green-600 shrink-0" />
                     Payment held safely in escrow until your event is complete.
                   </div>
-                  <Button variant="ghost" size="sm" className="w-full text-muted-foreground" onClick={clearCart}>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="w-full text-muted-foreground"
+                    onClick={clearCart}
+                    disabled={isProcessing}
+                  >
                     Clear Cart
                   </Button>
                 </CardContent>

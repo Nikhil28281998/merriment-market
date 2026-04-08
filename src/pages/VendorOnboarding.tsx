@@ -12,7 +12,8 @@ import { Calendar } from "@/components/ui/calendar";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { categories } from "@/data/mockData";
+import { categories, eventTypes } from "@/data/mockData";
+import { categoryEventDefaults } from "@/data/vendorEventInsights";
 
 const LANGUAGES = ["English", "Hindi", "Telugu", "Tamil", "Spanish", "Arabic", "Other"] as const;
 const US_STATES = [
@@ -20,6 +21,17 @@ const US_STATES = [
   "MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC",
   "SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"
 ];
+
+const US_STATE_NAMES: Record<string, string> = {
+  AL:"Alabama",AK:"Alaska",AZ:"Arizona",AR:"Arkansas",CA:"California",CO:"Colorado",CT:"Connecticut",
+  DE:"Delaware",FL:"Florida",GA:"Georgia",HI:"Hawaii",ID:"Idaho",IL:"Illinois",IN:"Indiana",IA:"Iowa",
+  KS:"Kansas",KY:"Kentucky",LA:"Louisiana",ME:"Maine",MD:"Maryland",MA:"Massachusetts",MI:"Michigan",
+  MN:"Minnesota",MS:"Mississippi",MO:"Missouri",MT:"Montana",NE:"Nebraska",NV:"Nevada",NH:"New Hampshire",
+  NJ:"New Jersey",NM:"New Mexico",NY:"New York",NC:"North Carolina",ND:"North Dakota",OH:"Ohio",
+  OK:"Oklahoma",OR:"Oregon",PA:"Pennsylvania",RI:"Rhode Island",SC:"South Carolina",SD:"South Dakota",
+  TN:"Tennessee",TX:"Texas",UT:"Utah",VT:"Vermont",VA:"Virginia",WA:"Washington",WV:"West Virginia",
+  WI:"Wisconsin",WY:"Wyoming",
+};
 
 interface PackageItem {
   name: string;
@@ -35,7 +47,7 @@ interface PortfolioItem {
   caption: string;
 }
 
-const STEP_LABELS = ["Basic Info", "About", "Portfolio", "Packages", "Availability", "Review"];
+const STEP_LABELS = ["Basic Info", "About", "Portfolio", "Bank Details", "Packages", "Availability", "Review"];
 
 const VendorOnboarding = () => {
   const navigate = useNavigate();
@@ -44,10 +56,30 @@ const VendorOnboarding = () => {
   // Step 1
   const [businessName, setBusinessName] = useState("");
   const [category, setCategory] = useState("");
+  const [selectedEventTypes, setSelectedEventTypes] = useState<string[]>([]);
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [zip, setZip] = useState("");
   const [phone, setPhone] = useState("");
+  const [servesNationwide, setServesNationwide] = useState(false);
+  const [serviceStates, setServiceStates] = useState<string[]>([]);
+
+  const handleCategoryChange = (value: string) => {
+    setCategory(value);
+    setSelectedEventTypes(categoryEventDefaults[value] ?? []);
+  };
+
+  const toggleEventType = (type: string) => {
+    setSelectedEventTypes(prev =>
+      prev.includes(type) ? prev.filter(t => t !== type) : [...prev, type]
+    );
+  };
+
+  const toggleServiceState = (abbr: string) => {
+    setServiceStates(prev =>
+      prev.includes(abbr) ? prev.filter(s => s !== abbr) : [...prev, abbr]
+    );
+  };
 
   // Step 2
   const [bio, setBio] = useState("");
@@ -57,7 +89,17 @@ const VendorOnboarding = () => {
   // Step 3
   const [portfolio, setPortfolio] = useState<PortfolioItem[]>([]);
 
-  // Step 4
+  // Step 4 - Bank Details
+  const [accountHolderName, setAccountHolderName] = useState("");
+  const [bankName, setBankName] = useState("");
+  const [accountType, setAccountType] = useState("checking");
+  const [accountNumber, setAccountNumber] = useState("");
+  const [routingNumber, setRoutingNumber] = useState("");
+  const [taxId, setTaxId] = useState("");
+  const [businessType, setBusinessType] = useState("sole-proprietor");
+  const [stripeConnectId, setStripeConnectId] = useState("");
+
+  // Step 5
   const [packages, setPackages] = useState<PackageItem[]>([
     { name: "", description: "", price: "", duration: "", includes: "" },
   ]);
@@ -116,7 +158,7 @@ const VendorOnboarding = () => {
     navigate("/vendor-onboarding-confirmation");
   };
 
-  const next = () => setStep(s => Math.min(s + 1, 6));
+  const next = () => setStep(s => Math.min(s + 1, 7));
   const prev = () => setStep(s => Math.max(s - 1, 1));
 
   return (
@@ -143,7 +185,7 @@ const VendorOnboarding = () => {
                   {isDone ? <Check className="h-3 w-3" /> : <span>{stepNum}</span>}
                   <span className="hidden sm:inline">{label}</span>
                 </button>
-                {i < 5 && <div className={`w-6 h-0.5 ${step > stepNum ? "bg-accent" : "bg-border"}`} />}
+                {i < 6 && <div className={`w-6 h-0.5 ${step > stepNum ? "bg-accent" : "bg-border"}`} />}
               </div>
             );
           })}
@@ -160,13 +202,46 @@ const VendorOnboarding = () => {
               </div>
               <div>
                 <Label>Service Category *</Label>
-                <Select value={category} onValueChange={setCategory}>
+                <Select value={category} onValueChange={handleCategoryChange}>
                   <SelectTrigger className="mt-1"><SelectValue placeholder="Select category" /></SelectTrigger>
                   <SelectContent>
                     {categories.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
                   </SelectContent>
                 </Select>
               </div>
+
+              {category && (
+                <div>
+                  <Label className="mb-1 block">Event Types You Cover *</Label>
+                  <p className="text-xs text-muted-foreground mb-3">
+                    Select all event types you offer services for. You will appear in Browse results for each selected type.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {eventTypes.map(type => {
+                      const selected = selectedEventTypes.includes(type);
+                      return (
+                        <button
+                          key={type}
+                          type="button"
+                          onClick={() => toggleEventType(type)}
+                          className={`px-3 py-1.5 rounded-full border text-xs font-medium transition-all ${
+                            selected
+                              ? "bg-accent text-accent-foreground border-accent"
+                              : "border-border text-muted-foreground hover:border-accent/50"
+                          }`}
+                        >
+                          {type}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  {selectedEventTypes.length > 0 && (
+                    <p className="mt-2 text-xs text-muted-foreground">
+                      {selectedEventTypes.length} event type{selectedEventTypes.length !== 1 ? "s" : ""} selected
+                    </p>
+                  )}
+                </div>
+              )}
               <div className="grid grid-cols-3 gap-3">
                 <div>
                   <Label>City *</Label>
@@ -187,6 +262,57 @@ const VendorOnboarding = () => {
               <div>
                 <Label>Phone Number *</Label>
                 <Input className="mt-1" type="tel" placeholder="(555) 123-4567" value={phone} onChange={e => setPhone(e.target.value)} />
+              </div>
+
+              <div className="border rounded-xl p-4 space-y-3 bg-muted/30">
+                <div>
+                  <Label className="text-sm font-semibold">Service Area</Label>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Where can you travel to serve clients? Customers searching in other states will also find you.
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Checkbox
+                    id="nationwide"
+                    checked={servesNationwide}
+                    onCheckedChange={v => {
+                      setServesNationwide(v === true);
+                      if (v === true) setServiceStates([]);
+                    }}
+                  />
+                  <Label htmlFor="nationwide" className="text-sm cursor-pointer font-medium">
+                    I serve clients anywhere in the USA (Nationwide)
+                  </Label>
+                </div>
+                {!servesNationwide && (
+                  <div>
+                    <p className="text-xs text-muted-foreground mb-2">
+                      Select all states you can travel to (your home state is always included):
+                    </p>
+                    <div className="grid grid-cols-5 sm:grid-cols-8 gap-1.5 max-h-48 overflow-y-auto pr-1">
+                      {US_STATES.filter(s => s !== state).map(abbr => (
+                        <button
+                          key={abbr}
+                          type="button"
+                          title={US_STATE_NAMES[abbr]}
+                          onClick={() => toggleServiceState(abbr)}
+                          className={`px-2 py-1 rounded border text-xs font-medium transition-all ${
+                            serviceStates.includes(abbr)
+                              ? "bg-accent text-accent-foreground border-accent"
+                              : "border-border text-muted-foreground hover:border-accent/50"
+                          }`}
+                        >
+                          {abbr}
+                        </button>
+                      ))}
+                    </div>
+                    {serviceStates.length > 0 && (
+                      <p className="text-xs text-muted-foreground mt-2">
+                        Serving {state ? `${state} (home)` : "home state"} + {serviceStates.length} additional state{serviceStates.length !== 1 ? "s" : ""}
+                      </p>
+                    )}
+                  </div>
+                )}
               </div>
             </CardContent>
           </Card>
@@ -258,8 +384,105 @@ const VendorOnboarding = () => {
           </Card>
         )}
 
-        {/* Step 4 */}
+        {/* Step 4 - Bank Details */}
         {step === 4 && (
+          <Card>
+            <CardHeader>
+              <CardTitle>Bank Account Details for Payouts</CardTitle>
+              <p className="text-sm text-muted-foreground">Your payment information. EventzHub will securely hold funds from bookings and transfer your earnings after each event.</p>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <p className="text-sm text-blue-900">
+                  <strong>🔒 Security & Privacy:</strong> Your bank details are encrypted and stored securely. We never share your information with third parties. Funds are held in escrow and released to you after event completion.
+                </p>
+              </div>
+
+              {/* Account Holder Information */}
+              <div className="border-t pt-4">
+                <h3 className="font-semibold text-sm mb-4">Account Holder Information</h3>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div>
+                    <Label>Full Name (as on bank account) *</Label>
+                    <Input className="mt-1" placeholder="John Smith" value={accountHolderName} onChange={e => setAccountHolderName(e.target.value)} />
+                  </div>
+                  <div>
+                    <Label>Business Type *</Label>
+                    <Select value={businessType} onValueChange={setBusinessType}>
+                      <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="sole-proprietor">Sole Proprietor (Self-Employed)</SelectItem>
+                        <SelectItem value="llc">LLC (Limited Liability Company)</SelectItem>
+                        <SelectItem value="corporation">S-Corp / C-Corp</SelectItem>
+                        <SelectItem value="partnership">Partnership</SelectItem>
+                        <SelectItem value="trust">Trust / Estate</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+              </div>
+
+              {/* Tax Information */}
+              <div className="border-t pt-4">
+                <h3 className="font-semibold text-sm mb-4">Tax Information</h3>
+                <div>
+                  <Label>Tax ID / SSN (for 1099 forms, required when earnings exceed $20,000/year) *</Label>
+                  <p className="text-xs text-muted-foreground mb-2">Last 4 digits and your full EIN/SSN (encrypted)</p>
+                  <Input className="mt-1" placeholder="XXX-XX-1234" value={taxId} onChange={e => setTaxId(e.target.value)} />
+                </div>
+              </div>
+
+              {/* Bank Account Details */}
+              <div className="border-t pt-4">
+                <h3 className="font-semibold text-sm mb-4">Bank Account Details</h3>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div>
+                    <Label>Bank Name *</Label>
+                    <Input className="mt-1" placeholder="e.g. Chase Bank, Bank of America" value={bankName} onChange={e => setBankName(e.target.value)} />
+                  </div>
+                  <div>
+                    <Label>Account Type *</Label>
+                    <Select value={accountType} onValueChange={setAccountType}>
+                      <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="checking">Checking</SelectItem>
+                        <SelectItem value="savings">Savings</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+                <div className="grid sm:grid-cols-2 gap-4 mt-4">
+                  <div>
+                    <Label>Routing Number (9 digits) *</Label>
+                    <Input className="mt-1" placeholder="021000021" value={routingNumber} onChange={e => setRoutingNumber(e.target.value.replace(/\D/g, "").slice(0, 9))} />
+                  </div>
+                  <div>
+                    <Label>Account Number *</Label>
+                    <Input className="mt-1" type="password" placeholder="•••••••••••" value={accountNumber} onChange={e => setAccountNumber(e.target.value)} />
+                  </div>
+                </div>
+              </div>
+
+              {/* Stripe Connection Info */}
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4 mt-4">
+                <h4 className="font-semibold text-sm text-green-900 mb-2">Stripe Connect (Optional)</h4>
+                <p className="text-xs text-green-800 mb-2">
+                  For additional security and faster payouts, you can connect your Stripe account directly. <a href="https://stripe.com" target="_blank" rel="noopener noreferrer" className="underline font-semibold">Learn more</a>
+                </p>
+                <Input className="mt-2" placeholder="Stripe Connect ID (optional)" value={stripeConnectId} onChange={e => setStripeConnectId(e.target.value)} />
+              </div>
+
+              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+                <p className="text-xs text-yellow-900">
+                  <strong>Note:</strong> You'll pass payout verification as part of account approval. EventzHub uses encrypted transfers and follows all banking regulations (ACH transfers, NACHA compliance, SOX Regulation).
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Step 5 */}
+        {step === 5 && (
           <Card>
             <CardHeader>
               <CardTitle>Pricing Packages</CardTitle>
@@ -309,8 +532,8 @@ const VendorOnboarding = () => {
           </Card>
         )}
 
-        {/* Step 5 */}
-        {step === 5 && (
+        {/* Step 6 */}
+        {step === 6 && (
           <Card>
             <CardHeader>
               <CardTitle>Availability</CardTitle>
@@ -340,19 +563,43 @@ const VendorOnboarding = () => {
           </Card>
         )}
 
-        {/* Step 6 - Review */}
-        {step === 6 && (
+        {/* Step 7 - Review */}
+        {step === 7 && (
           <div className="space-y-6">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle className="text-lg">Basic Information</CardTitle>
                 <Button variant="ghost" size="sm" onClick={() => setStep(1)}>Edit</Button>
               </CardHeader>
-              <CardContent className="grid sm:grid-cols-2 gap-3 text-sm">
-                <div><span className="text-muted-foreground">Business Name:</span> <span className="font-medium">{businessName || "—"}</span></div>
-                <div><span className="text-muted-foreground">Category:</span> <span className="font-medium">{category || "—"}</span></div>
-                <div><span className="text-muted-foreground">Location:</span> <span className="font-medium">{city ? `${city}, ${state} ${zip}` : "—"}</span></div>
-                <div><span className="text-muted-foreground">Phone:</span> <span className="font-medium">{phone || "—"}</span></div>
+              <CardContent className="space-y-3 text-sm">
+                <div className="grid sm:grid-cols-2 gap-3">
+                  <div><span className="text-muted-foreground">Business Name:</span> <span className="font-medium">{businessName || "—"}</span></div>
+                  <div><span className="text-muted-foreground">Category:</span> <span className="font-medium">{category || "—"}</span></div>
+                  <div><span className="text-muted-foreground">Location:</span> <span className="font-medium">{city ? `${city}, ${state} ${zip}` : "—"}</span></div>
+                  <div><span className="text-muted-foreground">Phone:</span> <span className="font-medium">{phone || "—"}</span></div>
+                </div>
+                <div>
+                  <p className="text-muted-foreground mb-1">Service Area:</p>
+                  <p className="font-medium text-sm">
+                    {servesNationwide
+                      ? "Nationwide — serves clients across all US states"
+                      : serviceStates.length === 0
+                        ? `${state || "Home state"} only`
+                        : `${state || "Home"}${serviceStates.length > 0 ? `, ${serviceStates.join(", ")}` : ""}`}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-muted-foreground mb-1.5">Event Types Covered:</p>
+                  {selectedEventTypes.length === 0 ? (
+                    <p className="text-muted-foreground italic">None selected — you won't appear in event-filtered searches.</p>
+                  ) : (
+                    <div className="flex flex-wrap gap-1.5">
+                      {selectedEventTypes.map(type => (
+                        <Badge key={type} variant="secondary" className="text-xs">{type}</Badge>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </CardContent>
             </Card>
 
@@ -388,8 +635,24 @@ const VendorOnboarding = () => {
 
             <Card>
               <CardHeader className="flex flex-row items-center justify-between">
-                <CardTitle className="text-lg">Pricing Packages ({packages.filter(p => p.name).length})</CardTitle>
+                <CardTitle className="text-lg">Bank Details for Payouts</CardTitle>
                 <Button variant="ghost" size="sm" onClick={() => setStep(4)}>Edit</Button>
+              </CardHeader>
+              <CardContent className="space-y-2 text-sm">
+                <div><span className="text-muted-foreground">Account Holder Name:</span> <span className="font-medium">{accountHolderName || "—"}</span></div>
+                <div><span className="text-muted-foreground">Business Type:</span> <span className="font-medium">{businessType.replace(/-/g, " ") || "—"}</span></div>
+                <div><span className="text-muted-foreground">Bank Name:</span> <span className="font-medium">{bankName || "—"}</span></div>
+                <div><span className="text-muted-foreground">Account Type:</span> <span className="font-medium">{accountType} Account</span></div>
+                <div><span className="text-muted-foreground">Routing Number:</span> <span className="font-medium">{routingNumber ? `***${routingNumber.slice(-4)}` : "—"}</span></div>
+                <div><span className="text-muted-foreground">Account Number:</span> <span className="font-medium">{accountNumber ? `***${accountNumber.slice(-4)}` : "—"}</span></div>
+                {taxId && <div><span className="text-muted-foreground">Tax ID:</span> <span className="font-medium">Provided</span></div>}
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between">
+                <CardTitle className="text-lg">Pricing Packages ({packages.filter(p => p.name).length})</CardTitle>
+                <Button variant="ghost" size="sm" onClick={() => setStep(5)}>Edit</Button>
               </CardHeader>
               <CardContent className="space-y-3">
                 {packages.filter(p => p.name).map((pkg, i) => (
@@ -409,7 +672,7 @@ const VendorOnboarding = () => {
             <Card>
               <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle className="text-lg">Availability</CardTitle>
-                <Button variant="ghost" size="sm" onClick={() => setStep(5)}>Edit</Button>
+                <Button variant="ghost" size="sm" onClick={() => setStep(6)}>Edit</Button>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
@@ -425,7 +688,7 @@ const VendorOnboarding = () => {
         )}
 
         {/* Navigation buttons */}
-        {step < 6 && (
+        {step < 7 && (
           <div className="flex justify-between mt-8">
             <Button variant="outline" onClick={prev} disabled={step === 1}>
               <ArrowLeft className="h-4 w-4 mr-2" /> Back

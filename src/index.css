@@ -1,83 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Jost:wght@400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
-
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 216 50% 16%;
+    /* ── Luxury Cream & Champagne background ── */
+    --background: 38 30% 97%;
+    --foreground: 220 35% 10%;
 
     --card: 0 0% 100%;
-    --card-foreground: 216 50% 16%;
+    --card-foreground: 220 35% 10%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 216 50% 16%;
+    --popover-foreground: 220 35% 10%;
 
-    --primary: 220 65% 16%;
-    --primary-foreground: 0 0% 100%;
+    /* ── Primary: Midnight Navy ── */
+    --primary: 222 60% 12%;
+    --primary-foreground: 38 50% 94%;
 
-    --secondary: 220 20% 96%;
-    --secondary-foreground: 220 65% 16%;
+    --secondary: 38 25% 93%;
+    --secondary-foreground: 222 60% 12%;
 
-    --muted: 220 20% 96%;
-    --muted-foreground: 220 10% 46%;
+    --muted: 38 20% 94%;
+    --muted-foreground: 220 15% 46%;
 
-    --accent: 7 79% 54%;
-    --accent-foreground: 0 0% 100%;
+    /* ── Accent: Champagne Gold ── */
+    --accent: 43 82% 48%;
+    --accent-foreground: 222 60% 10%;
 
-    --destructive: 0 84% 60%;
+    --destructive: 0 72% 52%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 15% 91%;
-    --input: 220 15% 91%;
-    --ring: 220 65% 16%;
+    --border: 38 20% 86%;
+    --input: 38 20% 86%;
+    --ring: 43 82% 48%;
 
     --radius: 0.75rem;
 
-    --hero-gradient: linear-gradient(135deg, hsl(220, 65%, 16%) 0%, hsl(220, 50%, 25%) 50%, hsl(220, 40%, 32%) 100%);
-    --accent-gradient: linear-gradient(135deg, hsl(7, 79%, 54%) 0%, hsl(15, 85%, 58%) 100%);
-    --section-alt: 220 20% 97%;
+    /* ── Luxury gradients ── */
+    --hero-gradient: linear-gradient(150deg, hsl(222, 60%, 8%) 0%, hsl(226, 55%, 14%) 40%, hsl(215, 50%, 20%) 70%, hsl(205, 45%, 22%) 100%);
+    --accent-gradient: linear-gradient(135deg, hsl(43, 85%, 44%) 0%, hsl(36, 90%, 54%) 50%, hsl(43, 80%, 60%) 100%);
+    --gold-gradient: linear-gradient(135deg, hsl(43, 85%, 44%) 0%, hsl(36, 90%, 54%) 100%);
+    --emerald-gradient: linear-gradient(135deg, hsl(158, 60%, 20%) 0%, hsl(165, 55%, 28%) 100%);
+    --burgundy-gradient: linear-gradient(135deg, hsl(348, 55%, 28%) 0%, hsl(10, 50%, 35%) 100%);
+    --section-alt: 38 22% 95%;
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 38 22% 97%;
+    --sidebar-foreground: 220 35% 20%;
+    --sidebar-primary: 222 60% 12%;
+    --sidebar-primary-foreground: 38 50% 94%;
+    --sidebar-accent: 38 22% 92%;
+    --sidebar-accent-foreground: 222 60% 12%;
+    --sidebar-border: 38 20% 88%;
+    --sidebar-ring: 43 82% 48%;
   }
 
   .dark {
-    --background: 220 50% 6%;
-    --foreground: 0 0% 95%;
-    --card: 220 50% 10%;
-    --card-foreground: 0 0% 95%;
-    --popover: 220 50% 10%;
-    --popover-foreground: 0 0% 95%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 220 65% 16%;
-    --secondary: 220 30% 15%;
-    --secondary-foreground: 0 0% 95%;
-    --muted: 220 30% 15%;
-    --muted-foreground: 220 10% 60%;
-    --accent: 7 79% 54%;
-    --accent-foreground: 0 0% 100%;
+    --background: 222 55% 5%;
+    --foreground: 38 40% 92%;
+    --card: 222 50% 9%;
+    --card-foreground: 38 40% 92%;
+    --popover: 222 50% 9%;
+    --popover-foreground: 38 40% 92%;
+    --primary: 38 50% 88%;
+    --primary-foreground: 222 60% 10%;
+    --secondary: 222 40% 14%;
+    --secondary-foreground: 38 40% 88%;
+    --muted: 222 40% 14%;
+    --muted-foreground: 222 15% 60%;
+    --accent: 43 82% 52%;
+    --accent-foreground: 222 60% 8%;
     --destructive: 0 62% 30%;
     --destructive-foreground: 0 0% 95%;
-    --border: 220 30% 18%;
-    --input: 220 30% 18%;
-    --ring: 220 20% 70%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --border: 222 35% 18%;
+    --input: 222 35% 18%;
+    --ring: 43 82% 52%;
+    --sidebar-background: 222 55% 7%;
+    --sidebar-foreground: 38 40% 88%;
+    --sidebar-primary: 43 82% 52%;
+    --sidebar-primary-foreground: 222 60% 8%;
+    --sidebar-accent: 222 40% 14%;
+    --sidebar-accent-foreground: 38 40% 88%;
+    --sidebar-border: 222 35% 18%;
+    --sidebar-ring: 43 82% 52%;
   }
 }
 
@@ -88,10 +95,11 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a84c' fill-opacity='0.025'%3E%3Cpath d='M30 30l15-15v30L30 30zm0 0L15 15v30L30 30z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Jost', sans-serif;
   }
 }
 
@@ -102,7 +110,132 @@
   .accent-gradient {
     background: var(--accent-gradient);
   }
+  .gold-gradient {
+    background: var(--gold-gradient);
+  }
   .section-alt {
     background-color: hsl(var(--section-alt));
   }
+
+  /* ── Luxury text gradients ── */
+  .text-gradient-gold {
+    background: linear-gradient(135deg, hsl(43, 85%, 44%) 0%, hsl(36, 90%, 58%) 50%, hsl(50, 90%, 62%) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .text-gradient-navy {
+    background: linear-gradient(135deg, hsl(222, 60%, 20%) 0%, hsl(215, 55%, 30%) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .text-gradient-brand {
+    background: linear-gradient(135deg, hsl(222, 60%, 30%) 0%, hsl(43, 82%, 44%) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .text-gradient-rose {
+    background: linear-gradient(135deg, hsl(348, 55%, 32%) 0%, hsl(10, 60%, 42%) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ── Luxury card & glow effects ── */
+  .card-hover {
+    @apply transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl;
+  }
+  .card-luxury {
+    border: 1px solid hsl(38 20% 86%);
+    box-shadow: 0 2px 12px hsl(222 60% 10% / 0.06), 0 1px 3px hsl(222 60% 10% / 0.04);
+    transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+  }
+  .card-luxury:hover {
+    border-color: hsl(43 82% 55% / 0.5);
+    box-shadow: 0 8px 40px hsl(222 60% 10% / 0.12), 0 2px 8px hsl(43 82% 48% / 0.1);
+    transform: translateY(-4px);
+  }
+  .glow-gold {
+    box-shadow: 0 0 24px hsl(43 82% 48% / 0.4), 0 6px 24px hsl(43 82% 48% / 0.2);
+  }
+  .glow-accent {
+    box-shadow: 0 0 24px hsl(43 82% 48% / 0.35), 0 4px 16px hsl(43 82% 48% / 0.18);
+  }
+
+  /* ── Glass effects ── */
+  .glass {
+    background: rgba(255, 252, 245, 0.92);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+  .glass-dark {
+    background: rgba(20, 24, 40, 0.55);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  /* ── Gold divider / ornament ── */
+  .gold-divider {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .gold-divider::before,
+  .gold-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(43 82% 48% / 0.5), transparent);
+  }
+
+  /* ── Luxury section label ── */
+  .section-eyebrow {
+    @apply text-[11px] font-bold uppercase tracking-[0.2em] text-accent;
+  }
+
+  /* ── Cormorant display font ── */
+  .font-display {
+    font-family: 'Cormorant Garamond', serif;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-14px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes fade-up {
+  0% { opacity: 0; transform: translateY(28px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 18px hsl(43 82% 48% / 0.3); }
+  50% { box-shadow: 0 0 40px hsl(43 82% 48% / 0.7), 0 0 70px hsl(43 82% 48% / 0.2); }
+}
+
+@keyframes gold-shimmer {
+  0% { background-position: -300% center; }
+  100% { background-position: 300% center; }
+}
+
+.animate-float { animation: float 5s ease-in-out infinite; }
+.animate-float-delayed { animation: float 5s ease-in-out 2s infinite; }
+.animate-fade-up { animation: fade-up 0.8s ease-out both; }
+.animate-glow-pulse { animation: glow-pulse 3s ease-in-out infinite; }
+.animate-gold-shimmer {
+  background: linear-gradient(135deg, hsl(43, 85%, 44%) 0%, hsl(50, 90%, 62%) 25%, hsl(43, 85%, 44%) 50%, hsl(36, 90%, 54%) 75%, hsl(43, 85%, 44%) 100%);
+  background-size: 300% auto;
+  animation: gold-shimmer 4s linear infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }

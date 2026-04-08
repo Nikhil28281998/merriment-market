@@ -1,7 +1,11 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
-import CategoryGrid from "@/components/CategoryGrid";
+import BudgetEstimator from "@/components/BudgetEstimator";
+import BrowseByCelebration from "@/components/BrowseByCelebration";
 import FeaturedVendors from "@/components/FeaturedVendors";
+import InspirationSection from "@/components/InspirationSection";
+import CityBrowse from "@/components/CityBrowse";
+import CategoryGrid from "@/components/CategoryGrid";
 import HowItWorks from "@/components/HowItWorks";
 import Footer from "@/components/Footer";
 
@@ -10,9 +14,13 @@ const Index = () => (
     <Navbar />
     <main className="flex-1">
       <HeroSection />
-      <CategoryGrid />
+      <BrowseByCelebration />
       <FeaturedVendors />
+      <InspirationSection />
+      <CityBrowse />
+      <CategoryGrid />
       <HowItWorks />
+      <BudgetEstimator />
     </main>
     <Footer />
   </div>

@@ -16,15 +16,8 @@ interface ChatWindowProps {
   onClose: () => void;
 }
 
-const sampleMessages: Message[] = [
-  { id: 1, from: "customer", text: "Hi! I'm interested in your services for a wedding in June.", time: "10:30 AM", read: true },
-  { id: 2, from: "vendor", text: "Thank you for reaching out! I'd love to help. What date are you looking at?", time: "10:32 AM", read: true },
-  { id: 3, from: "customer", text: "June 15th. Do you have availability?", time: "10:35 AM", read: true },
-  { id: 4, from: "vendor", text: "Yes, June 15th is open! Would you like to discuss packages?", time: "10:38 AM", read: false },
-];
-
 const ChatWindow = ({ vendorName, onClose }: ChatWindowProps) => {
-  const [messages, setMessages] = useState<Message[]>(sampleMessages);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [newMsg, setNewMsg] = useState("");
 
   const handleSend = () => {

@@ -1,6 +1,6 @@
 export const categories = [
   "Photographer", "Decorator", "Caterer", "DJ", "Florist",
-  "Videographer", "Priest/Pandit", "Makeup Artist", "Cake Designer", "Event Planner",
+  "Videographer", "Priest/Pandit", "Makeup Artist", "Cake Designer", "Event Planner", "Venue",
 ] as const;
 
 export const eventTypes = [
@@ -26,6 +26,21 @@ export interface Vendor {
   portfolio: string[];
   packages: VendorPackage[];
   reviews: Review[];
+  mediaVideos?: VendorMediaVideo[];
+  verified?: boolean;
+  /**
+   * States (abbreviations) this vendor is willing to travel to and serve,
+   * in addition to their home state. Use ["Nationwide"] to indicate USA-wide service.
+   */
+  serviceStates?: string[];
+}
+
+export interface VendorMediaVideo {
+  id: string;
+  title: string;
+  sourceType: "embed" | "upload";
+  sourceUrl: string;
+  thumbnailUrl?: string;
 }
 
 export interface VendorPackage {
@@ -78,11 +93,16 @@ export const mockVendors: Vendor[] = [
       { id: "p1b", name: "Premium", description: "Our most popular package for full-day events", price: 1200, includes: ["8 hours of coverage", "400 edited digital photos", "Private online gallery", "Engagement session", "Custom photo album", "2 photographers"] },
       { id: "p1c", name: "Grand Celebration", description: "Multi-day coverage for elaborate celebrations", price: 2800, includes: ["2-day coverage (up to 16 hrs)", "800+ edited photos", "Engagement + pre-wedding shoot", "Premium leather album", "Canvas prints (3)", "2 photographers + assistant"] },
     ],
+    mediaVideos: [
+      { id: "mv1a", title: "Wedding Story Reel", sourceType: "embed", sourceUrl: "https://www.youtube.com/embed/EI3U0w7d7fI" },
+      { id: "mv1b", title: "Behind The Shoot", sourceType: "upload", sourceUrl: "https://cdn.coverr.co/videos/coverr-wedding-photographer-5767/1080p.mp4", thumbnailUrl: "https://images.unsplash.com/photo-1519741497674-611481863552?w=640&h=360&fit=crop" },
+    ],
     reviews: [
       { id: "r1a", author: "Meera P.", rating: 5, text: "Anand Studio made our wedding day unforgettable. The candid shots were absolutely breathtaking and every single photo looked like it belonged in a magazine. Highly recommend!", date: "2025-11-20" },
       { id: "r1b", author: "Raj & Sunita T.", rating: 5, text: "We booked the Premium package for our daughter's wedding and were blown away. The team was professional, punctual, and incredibly creative. The album is stunning.", date: "2025-10-08" },
       { id: "r1c", author: "Kevin L.", rating: 4, text: "Great quality photos and very responsive communication. Delivered everything on time. Would have loved a few more candid family shots, but overall a wonderful experience.", date: "2025-09-15" },
     ],
+    serviceStates: ["NJ", "NY", "CT", "PA"],
   },
   {
     id: "2",
@@ -112,6 +132,7 @@ export const mockVendors: Vendor[] = [
       { id: "r2b", author: "Fatima H.", rating: 5, text: "Used them for my daughter's sweet sixteen. The pink and gold theme was executed flawlessly. The team was courteous and cleaned up everything after.", date: "2025-11-10" },
       { id: "r2c", author: "David R.", rating: 4, text: "Beautiful work on our anniversary party. The lighting really set the mood. Slight delay on setup but the end result was fantastic.", date: "2025-08-22" },
     ],
+    serviceStates: ["TX", "OK", "LA", "AR", "NM"],
   },
   {
     id: "3",
@@ -141,6 +162,7 @@ export const mockVendors: Vendor[] = [
       { id: "r3b", author: "James & Tara W.", rating: 5, text: "We hired them for a 200-person reception and the service was seamless. Every dish was fresh, flavorful, and beautifully presented.", date: "2025-10-14" },
       { id: "r3c", author: "Neha S.", rating: 4, text: "Delicious food and great variety. The paneer tikka was outstanding. Only feedback is the dessert could have had more options, but overall fantastic.", date: "2025-09-03" },
     ],
+    serviceStates: ["Nationwide"],
   },
   {
     id: "4",
@@ -169,6 +191,7 @@ export const mockVendors: Vendor[] = [
       { id: "r4b", author: "Carlos M.", rating: 5, text: "Hired him for my 30th birthday and the energy was incredible. Great mix of genres, read the room perfectly, and the lighting was amazing.", date: "2025-10-20" },
       { id: "r4c", author: "Lisa T.", rating: 4, text: "Very professional and talented. Music selection was on point. Just wish the sound check had started a bit earlier, but once we got going it was non-stop fun.", date: "2025-09-10" },
     ],
+    serviceStates: ["CA", "NV", "AZ", "OR", "WA"],
   },
   {
     id: "5",
@@ -198,6 +221,7 @@ export const mockVendors: Vendor[] = [
       { id: "r5b", author: "Amanda C.", rating: 5, text: "I used them for my baby shower and the centerpieces were absolutely beautiful. Soft pastels with peonies and eucalyptus — exactly what I wanted.", date: "2025-10-02" },
       { id: "r5c", author: "Rachel S.", rating: 5, text: "Incredible attention to detail. They matched the flowers perfectly to our wedding color palette. The arch installation took my breath away.", date: "2025-08-30" },
     ],
+    serviceStates: ["NJ", "NY", "CT", "PA", "DE"],
   },
   {
     id: "6",
@@ -225,6 +249,7 @@ export const mockVendors: Vendor[] = [
       { id: "r6b", author: "Pooja D.", rating: 5, text: "He performed our baby's naming ceremony with so much warmth and care. Very patient, very knowledgeable, and arrived right on time. Highly recommended!", date: "2025-11-01" },
       { id: "r6c", author: "Anil & Kavita S.", rating: 5, text: "We've used Pandit Raghunath Ji for our housewarming and car pooja. Both times he was wonderful — thorough, respectful, and genuinely kind.", date: "2025-09-18" },
     ],
+    serviceStates: ["NY", "NJ", "CT", "PA", "MA"],
   },
   {
     id: "7",
@@ -252,6 +277,231 @@ export const mockVendors: Vendor[] = [
       { id: "r7a", author: "Nina & Rohit B.", rating: 5, text: "Our wedding film made us cry happy tears! CineStory captured moments we didn't even know happened. The drone shots of the venue were stunning.", date: "2025-11-22" },
       { id: "r7b", author: "Jennifer P.", rating: 5, text: "The same-day edit they played at our reception blew everyone away. Professional, creative, and so easy to work with throughout the entire process.", date: "2025-10-05" },
       { id: "r7c", author: "Sameer A.", rating: 4, text: "Really high-quality work. The highlight reel was beautifully edited. Delivery took about 6 weeks which felt long, but the result was well worth the wait.", date: "2025-08-14" },
+    ],
+    serviceStates: ["Nationwide"],
+  },
+  {
+    id: "17",
+    name: "Sweet Memories Cake Studio",
+    category: "Cake Designer",
+    city: "Atlanta",
+    state: "GA",
+    rating: 4.9,
+    reviewCount: 142,
+    startingPrice: 180,
+    photo: "https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?w=200&h=200&fit=crop",
+    coverPhoto: "https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=1200&h=400&fit=crop",
+    bio: "Sweet Memories Cake Studio creates breathtaking custom cakes for every celebration. Based in Atlanta, we hand-craft multi-tiered wedding cakes, novelty birthday cakes, and elegant celebration desserts using fresh, premium ingredients tailored to any theme or color palette.",
+    portfolio: [
+      "https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1562440499-64c9a111f713?w=400&h=300&fit=crop",
+    ],
+    packages: [
+      { id: "p9a", name: "Classic Cake", description: "Elegant 2-tier cake for up to 50 guests", price: 180, includes: ["2-tier fondant cake", "Custom design consultation", "Delivery within 30 miles", "Cake cutting set"] },
+      { id: "p9b", name: "Celebration Cake", description: "3-tier showstopper for 50–100 guests", price: 380, includes: ["3-tier cake", "Edible flowers & decorations", "Flavor of choice (3 layers)", "Delivery & setup", "Dessert table options"] },
+      { id: "p9c", name: "Grand Wedding Cake", description: "Luxury multi-tier for 100+ guests", price: 750, includes: ["4–5-tier cake", "Custom sugar flowers", "Multiple cake flavors", "Dessert table (cupcakes, macarons)", "Delivery & on-site setup", "Tasting session included"] },
+    ],
+    reviews: [
+      { id: "r9a", author: "Kavya B.", rating: 5, text: "The wedding cake was absolutely stunning and delicious! Every single guest complimented it. Sweet Memories nailed our floral design theme perfectly.", date: "2025-11-18" },
+      { id: "r9b", author: "Tracy M.", rating: 5, text: "Ordered the Celebration Cake for my daughter's quinceañera. It was a masterpiece — beautiful and tasted incredible. Highly recommend!", date: "2025-10-04" },
+      { id: "r9c", author: "Arun K.", rating: 4, text: "Fantastic cake for our baby shower. Loved the pastel design. Delivery was on time and the team was very friendly.", date: "2025-09-12" },
+    ],
+    serviceStates: ["GA", "FL", "SC", "NC", "TN", "AL"],
+  },
+  {
+    id: "18",
+    name: "Evoke Events Planning",
+    category: "Event Planner",
+    city: "Miami",
+    state: "FL",
+    rating: 4.8,
+    reviewCount: 198,
+    startingPrice: 500,
+    photo: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop",
+    coverPhoto: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=1200&h=400&fit=crop",
+    bio: "Evoke Events Planning brings your vision to life with flawless execution. Based in Miami, our certified event planners specialize in full-service wedding coordination, corporate galas, quinceañeras, and milestone celebrations. We handle every detail so you can be fully present on your special day.",
+    portfolio: [
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=400&h=300&fit=crop",
+    ],
+    packages: [
+      { id: "p10a", name: "Day-Of Coordination", description: "Full coordination on your event day", price: 500, includes: ["Event-day coordinator (10 hrs)", "Vendor communication day-of", "Timeline management", "Ceremony & reception direction", "Emergency kit"] },
+      { id: "p10b", name: "Partial Planning", description: "Support for the last 3 months", price: 1500, includes: ["3-month planning support", "Vendor recommendations & booking", "Budget tracking", "Timeline creation", "Rehearsal coordination", "Day-of coordination (10 hrs)"] },
+      { id: "p10c", name: "Full Service Planning", description: "Complete planning from start to finish", price: 3500, includes: ["12-month full planning", "Venue scouting & booking", "All vendor sourcing & management", "Budget management", "Design concept & mood board", "Unlimited consultations", "Day-of coordination team", "Post-event follow-up"] },
+    ],
+    reviews: [
+      { id: "r10a", author: "Sofia & Diego R.", rating: 5, text: "Evoke made our wedding absolutely perfect. Every vendor they recommended was top-notch. Our planner was calm, organized, and made the day run flawlessly.", date: "2025-12-07" },
+      { id: "r10b", author: "Angela T.", rating: 5, text: "Used them for my quinceañera and it was a dream come true. They coordinated every detail from the court choreography to the cake reveal. Flawless!", date: "2025-11-03" },
+      { id: "r10c", author: "Marcus J.", rating: 4, text: "Great team for our corporate gala. Very professional. A few minor communication delays early on, but the event itself was executed perfectly.", date: "2025-09-20" },
+    ],
+    serviceStates: ["FL", "GA", "SC", "NC", "AL"],
+  },
+  {
+    id: "11",
+    name: "Lens & Light Photography",
+    category: "Photographer",
+    city: "Los Angeles",
+    state: "CA",
+    rating: 4.8,
+    reviewCount: 312,
+    startingPrice: 600,
+    photo: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=200&h=200&fit=crop",
+    coverPhoto: "https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&h=400&fit=crop",
+    bio: "Lens & Light Photography captures life's milestone moments with cinematic artistry. Based in Los Angeles, we serve couples, families, and brands with our signature blend of editorial and natural-light photography. Over 1,200 sessions photographed across California and beyond.",
+    portfolio: [
+      "https://images.unsplash.com/photo-1519741497674-611481863552?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1604017011826-d3b4c23f8914?w=400&h=300&fit=crop",
+    ],
+    packages: [
+      { id: "p11a", name: "Mini Session", description: "Quick portrait session for small events", price: 600, includes: ["2 hours of coverage", "100 edited photos", "Online gallery", "1 photographer"] },
+      { id: "p11b", name: "Standard Package", description: "Full-day photography for weddings", price: 2200, includes: ["8 hours coverage", "500 edited photos", "Two photographers", "Online gallery", "Engagement session"] },
+      { id: "p11c", name: "Luxury Package", description: "Ultimate premium photography experience", price: 4500, includes: ["Full weekend coverage", "800+ photos", "Two photographers + assistant", "Premium photo album", "Canvas prints", "Drone photos"] },
+    ],
+    reviews: [
+      { id: "r11a", author: "Jessica & Omar K.", rating: 5, text: "Absolutely loved working with Lens & Light! The photos from our wedding were beyond anything we imagined. Every moment captured perfectly.", date: "2025-12-02" },
+      { id: "r11b", author: "Priscilla N.", rating: 5, text: "They photographed my baby shower and the results were magical. So much care and creative direction in every shot.", date: "2025-10-15" },
+      { id: "r11c", author: "Kyle A.", rating: 4, text: "Very professional and talented team. Delivered our gallery earlier than expected. A few shots were overexposed but overall amazing work.", date: "2025-08-28" },
+    ],
+    serviceStates: ["CA", "NV", "AZ", "OR"],
+  },
+  {
+    id: "12",
+    name: "Metro DJ Collective",
+    category: "DJ",
+    city: "Chicago",
+    state: "IL",
+    rating: 4.7,
+    reviewCount: 178,
+    startingPrice: 350,
+    photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop",
+    coverPhoto: "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?w=1200&h=400&fit=crop",
+    bio: "Metro DJ Collective is Chicago's premier DJ and entertainment company, serving events of all sizes and cultures. From intimate birthday gatherings to large wedding receptions and corporate galas, we deliver premium sound, lighting, and an unforgettable atmosphere every time.",
+    portfolio: [
+      "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1571266028243-3716f02d2d5e?w=400&h=300&fit=crop",
+    ],
+    packages: [
+      { id: "p12a", name: "Basic Party", description: "Great for intimate events up to 80 guests", price: 350, includes: ["3 hours DJ", "Basic sound system", "Party lighting", "MC services"] },
+      { id: "p12b", name: "Premium Reception", description: "Full reception experience", price: 850, includes: ["6 hours DJ", "Premium sound system", "Full lighting package", "MC services", "Custom playlist", "Wireless mics (2)"] },
+      { id: "p12c", name: "Grand Celebration", description: "Top-tier experience for large events", price: 1600, includes: ["8 hours DJ", "Concert sound system", "LED lighting rig", "Up-lighting", "Photo booth integration", "MC services", "Custom monogram"] },
+    ],
+    reviews: [
+      { id: "r12a", author: "Tiffany W.", rating: 5, text: "Metro DJ had everyone on the dance floor all night at our quinceañera! Amazing music selection and the lighting made the venue look incredible.", date: "2025-11-25" },
+      { id: "r12b", author: "Daniel & Rosa P.", rating: 5, text: "Perfect for our wedding reception. They kept the energy up from first dance to last song. Guests are still talking about it!", date: "2025-10-11" },
+      { id: "r12c", author: "Brandon G.", rating: 4, text: "Great DJ for our corporate holiday party. Very professional. Would love a bit more variety in genre selection but overall fantastic.", date: "2025-09-05" },
+    ],
+  },
+  {
+    id: "13",
+    name: "Garden & Bloom Florals",
+    category: "Florist",
+    city: "Seattle",
+    state: "WA",
+    rating: 4.9,
+    reviewCount: 134,
+    startingPrice: 300,
+    photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop",
+    coverPhoto: "https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=1200&h=400&fit=crop",
+    bio: "Garden & Bloom Florals creates lush, garden-inspired floral arrangements for weddings, baby showers, and all life's celebrations in the Seattle area. We source from local Pacific Northwest farms and European importers to craft fresh, seasonal designs that feel both romantic and timeless.",
+    portfolio: [
+      "https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1455659817273-f96807779a8a?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=400&h=300&fit=crop",
+    ],
+    packages: [
+      { id: "p13a", name: "Simple Garden", description: "Fresh florals for small celebrations", price: 300, includes: ["Bridal bouquet", "4 table centerpieces", "Boutonniere", "Free local delivery"] },
+      { id: "p13b", name: "Lush Ceremony", description: "Full floral package for ceremonies", price: 900, includes: ["Bridal + bridesmaid bouquets (3)", "Ceremony arch florals", "10 centerpieces", "Aisle arrangements", "Setup & breakdown"] },
+      { id: "p13c", name: "Garden Paradise", description: "Luxury full-event floral experience", price: 2500, includes: ["Complete bridal party florals", "Ceremony arch installation", "20 centerpieces", "Hanging floral chandeliers", "Lounge florals", "Flower wall backdrop", "Dedicated on-site florist"] },
+    ],
+    reviews: [
+      { id: "r13a", author: "Emma & Liam H.", rating: 5, text: "Garden & Bloom turned our wedding into a literal garden. The arch was jaw-dropping and the bridal bouquet was even more beautiful in person than in the mock-up.", date: "2025-11-30" },
+      { id: "r13b", author: "Claire F.", rating: 5, text: "Used them for my baby shower and the arrangements were dreamy — blush peonies and eucalyptus exactly as I envisioned. Will definitely book again.", date: "2025-10-08" },
+      { id: "r13c", author: "Yasmin N.", rating: 4, text: "Lovely florals for our Eid celebration. Very accommodating of our color palette request. Setup was smooth and professional.", date: "2025-09-28" },
+    ],
+  },
+  {
+    id: "14",
+    name: "Phoenix Grand Décor",
+    category: "Decorator",
+    city: "Phoenix",
+    state: "AZ",
+    rating: 4.7,
+    reviewCount: 155,
+    startingPrice: 500,
+    photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop",
+    coverPhoto: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=1200&h=400&fit=crop",
+    bio: "Phoenix Grand Décor specializes in turning venues into extraordinary visual experiences. From desert-chic wedding backdrops to vibrant quinceañera setups and elegant corporate installations, our team brings professional-grade décor to every celebration across the Phoenix metro area.",
+    portfolio: [
+      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1478146059778-26028b07395a?w=400&h=300&fit=crop",
+    ],
+    packages: [
+      { id: "p14a", name: "Starter Setup", description: "Basic décor for 50–75 guests", price: 500, includes: ["Backdrop with draping", "5 table centerpieces", "Uplighting (4 fixtures)", "Setup & teardown"] },
+      { id: "p14b", name: "Premium Event", description: "Mid-range décor for 75–150 guests", price: 1600, includes: ["Custom backdrop", "10 centerpieces", "Full venue uplighting", "Balloon installations", "Stage décor", "Setup & teardown"] },
+      { id: "p14c", name: "Luxury Transformation", description: "Full venue takeover for 150+ guests", price: 3800, includes: ["Complete venue design", "Custom stage & mandap/arch", "Premium floral wall", "LED wall or projection", "Lounge furniture", "Balloon ceiling art", "Décor coordinator on site"] },
+    ],
+    reviews: [
+      { id: "r14a", author: "Maria & Carlos V.", rating: 5, text: "Phoenix Grand Décor transformed our venue into a magical space for our quinceañera. The balloon installation was absolutely stunning!", date: "2025-11-14" },
+      { id: "r14b", author: "Sunita R.", rating: 5, text: "Hired them for our Diwali celebration and the diyas and lights they created were breathtaking. Very creative team!", date: "2025-10-24" },
+      { id: "r14c", author: "Brad T.", rating: 4, text: "Good quality décor for our anniversary dinner. Setup was quick and the team was professional. Would use again.", date: "2025-08-18" },
+    ],
+  },
+  {
+    id: "15",
+    name: "Harvest Table Catering",
+    category: "Caterer",
+    city: "Seattle",
+    state: "WA",
+    rating: 4.8,
+    reviewCount: 221,
+    startingPrice: 220,
+    photo: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=200&h=200&fit=crop",
+    coverPhoto: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&h=400&fit=crop",
+    bio: "Harvest Table Catering brings farm-to-table excellence to Seattle's event scene. We specialize in seasonal American and fusion menus for weddings, corporate events, graduation parties, and intimate gatherings. Our chefs partner with local farms to ensure the freshest ingredients in every dish.",
+    portfolio: [
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=300&fit=crop",
+    ],
+    packages: [
+      { id: "p15a", name: "Simple Spread", description: "Buffet for up to 80 guests (per plate)", price: 220, includes: ["3 appetizers", "2 entrées", "Seasonal sides", "Dessert bar", "Service staff"] },
+      { id: "p15b", name: "Harvest Feast", description: "Elevated farm-to-table experience (per plate)", price: 480, includes: ["5 passed appetizers", "Salad station", "4 entrées (carving station)", "3 desserts", "Full service", "China & linens"] },
+      { id: "p15c", name: "Chef's Table", description: "Premium plated dinner (per plate)", price: 780, includes: ["Custom 5-course menu", "Sommelier-curated wine pairings", "Live cooking stations", "Premium dessert table", "Full wait staff", "Menu tasting included"] },
+    ],
+    reviews: [
+      { id: "r15a", author: "Sarah & John D.", rating: 5, text: "Harvest Table catered our wedding and it was hands-down the best food I've ever had at a wedding. Every guest raved about the salmon and the dessert table!", date: "2025-12-03" },
+      { id: "r15b", author: "Linda C.", rating: 5, text: "Used them for our daughter's graduation party. The buffet was fresh, delicious, and beautifully presented. Staff was attentive and friendly.", date: "2025-06-20" },
+      { id: "r15c", author: "Ryan P.", rating: 4, text: "Great food for our corporate retreat. Very accommodating of dietary restrictions. Slight delay on setup but the quality made up for it.", date: "2025-10-01" },
+    ],
+  },
+  {
+    id: "16",
+    name: "Cinematic Dreams Films",
+    category: "Videographer",
+    city: "Los Angeles",
+    state: "CA",
+    rating: 4.9,
+    reviewCount: 187,
+    startingPrice: 700,
+    photo: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop",
+    coverPhoto: "https://images.unsplash.com/photo-1505236858219-8359eb29e329?w=1200&h=400&fit=crop",
+    bio: "Cinematic Dreams Films crafts breathtaking event films with a Hollywood touch. Our LA-based team uses RED cinema cameras, aerial drone cinematography, and world-class editing to create films that feel like feature movies — not home videos. From an intimate Baptism to a grand 1,000-person wedding, we capture every frame with intention.",
+    portfolio: [
+      "https://images.unsplash.com/photo-1505236858219-8359eb29e329?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400&h=300&fit=crop",
+    ],
+    packages: [
+      { id: "p16a", name: "Story Reel", description: "Cinematic 3-minute highlight film", price: 700, includes: ["6 hours coverage", "3-min cinematic film", "Licensed music", "2 videographers", "Online delivery"] },
+      { id: "p16b", name: "Feature Film", description: "Full ceremony and reception edit", price: 2200, includes: ["10 hours coverage", "Cinematic highlight reel", "Full ceremony + reception edit", "Drone footage", "3 videographers", "Online + USB"] },
+      { id: "p16c", name: "Cinema Package", description: "Multi-day documentary-style film", price: 4800, includes: ["Multi-day coverage", "10+ min highlight film", "All-day raw footage", "Same-day preview edit", "Aerial drone", "4 videographers", "Color-graded master copy"] },
+    ],
+    reviews: [
+      { id: "r16a", author: "Ava & Noah T.", rating: 5, text: "Cinematic Dreams made a film that brought our entire family to tears — in the best way. It felt like a movie trailer for our love story. Absolutely worth every penny.", date: "2025-12-09" },
+      { id: "r16b", author: "Pastor Emmanuel K.", rating: 5, text: "They filmed our church's Baptism ceremony with such reverence and beauty. The edit was spiritual and heartfelt. Thank you!", date: "2025-11-05" },
+      { id: "r16c", author: "Nadia S.", rating: 5, text: "Hired them for our Bar Mitzvah and the video was incredible — they captured all the key moments and the drone shot of the venue was spectacular.", date: "2025-10-19" },
     ],
   },
   {
@@ -281,6 +531,65 @@ export const mockVendors: Vendor[] = [
       { id: "r8a", author: "Shreya M.", rating: 5, text: "Nisha did my bridal makeup and I have never felt more beautiful in my life! The airbrush foundation lasted through 14 hours of celebrations without a single touch-up.", date: "2025-12-08" },
       { id: "r8b", author: "Aisha R.", rating: 5, text: "Booked the bridal party package for my wedding. Nisha and her assistant were amazing — everyone looked gorgeous and we had so much fun getting ready together.", date: "2025-11-12" },
       { id: "r8c", author: "Maria G.", rating: 5, text: "Used Glamour by Nisha for my quinceañera and I loved my look! She listened to exactly what I wanted and made it even better. So talented!", date: "2025-09-25" },
+    ],
+    verified: true,
+  },
+  {
+    id: "9",
+    name: "Sweet Layers Cake Studio",
+    category: "Cake Designer",
+    city: "Los Angeles",
+    state: "CA",
+    rating: 4.9,
+    reviewCount: 143,
+    startingPrice: 180,
+    verified: true,
+    photo: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200&h=200&fit=crop",
+    coverPhoto: "https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=1200&h=400&fit=crop",
+    bio: "Sweet Layers Cake Studio crafts artisan custom cakes for weddings, quinceañeras, birthdays, baby showers, and every celebration in between. Based in Los Angeles, we specialize in multi-tiered fondant designs, floral cakes, and culturally-inspired creations that taste as spectacular as they look. Each cake is made to order with premium ingredients.",
+    portfolio: [
+      "https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1464349095431-e9a21285b19c?w=400&h=300&fit=crop",
+    ],
+    packages: [
+      { id: "p9a", name: "Celebration Cake", description: "Single-tier custom cake for smaller gatherings", price: 180, includes: ["Up to 30 servings", "Custom flavor & filling", "Fondant or buttercream finish", "Free local delivery"] },
+      { id: "p9b", name: "Signature Tiered", description: "2–3 tier showstopper for mid-size events", price: 450, includes: ["Up to 100 servings", "Custom design consultation", "Fresh floral or fondant décor", "Cake stand rental", "Delivery & setup"] },
+      { id: "p9c", name: "Grand Wedding Cake", description: "Luxury multi-tier masterpiece", price: 1200, includes: ["4–6 tiers, 200+ servings", "Detailed design session", "Tasting consultation", "Premium flavor combinations", "Floral & gold leaf décor", "Delivery, setup & cutting guide"] },
+    ],
+    reviews: [
+      { id: "r9a", author: "Pooja & Rahul N.", rating: 5, text: "Our wedding cake was a 5-tier masterpiece with rose gold detailing. Every guest wanted to know who made it. Absolutely stunning and delicious!", date: "2025-12-15" },
+      { id: "r9b", author: "Carmen L.", rating: 5, text: "Ordered a quinceañera cake with a floral cascade — it was the centerpiece of the whole event. Tasted as incredible as it looked.", date: "2025-11-08" },
+      { id: "r9c", author: "Tanya B.", rating: 4, text: "Beautiful baby shower cake and great flavor. Lead time was 3 weeks but well worth the wait.", date: "2025-09-20" },
+    ],
+  },
+  {
+    id: "10",
+    name: "Milestone Events Co.",
+    category: "Event Planner",
+    city: "Atlanta",
+    state: "GA",
+    rating: 4.8,
+    reviewCount: 97,
+    startingPrice: 500,
+    verified: true,
+    photo: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop",
+    coverPhoto: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=1200&h=400&fit=crop",
+    bio: "Milestone Events Co. is Atlanta's go-to full-service event planning firm. From intimate 20-person dinner parties to grand 500-guest weddings and cultural celebrations, our team handles every detail — venue sourcing, vendor coordination, decor design, budget management, and day-of logistics. We specialize in South Asian, African-American, Latino, and multicultural events.",
+    portfolio: [
+      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1478146059778-26028b07395a?w=400&h=300&fit=crop",
+    ],
+    packages: [
+      { id: "p10a", name: "Day-Of Coordination", description: "We manage your event day so you enjoy it", price: 500, includes: ["8-hour coordination", "Vendor liaison on the day", "Timeline management", "Setup & breakdown oversight", "Emergency kit provided"] },
+      { id: "p10b", name: "Partial Planning", description: "Design & coordination from 3 months out", price: 1500, includes: ["3-month planning support", "Vendor recommendations & booking", "Budget tracker", "Design mood board", "Day-of full coordination", "2 planning meetings"] },
+      { id: "p10c", name: "Full-Service Planning", description: "End-to-end management from day one", price: 4000, includes: ["Unlimited planning calls", "Full vendor sourcing & negotiation", "Venue selection assistance", "Custom design & decor plan", "Guest management", "Day-of coordination team", "Post-event wrap-up"] },
+    ],
+    reviews: [
+      { id: "r10a", author: "Priya & James A.", rating: 5, text: "Milestone handled our multicultural wedding flawlessly. They understood both our traditions and executed every detail perfectly. Worth every penny!", date: "2025-12-20" },
+      { id: "r10b", author: "Yolanda T.", rating: 5, text: "From my first call to the last dance, they were on top of everything. My daughter's quinceañera was magazine-worthy thanks to this team.", date: "2025-10-30" },
+      { id: "r10c", author: "Sameer V.", rating: 4, text: "Great planning, good communication. The day-of coordination package alone saved us so much stress. Would book again for any future event.", date: "2025-09-05" },
     ],
   },
 ];
