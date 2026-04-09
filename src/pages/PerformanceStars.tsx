@@ -1,8 +1,12 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Star, Trophy, TrendingUp, Heart, Users, Zap, Award, Target } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 interface Achievement {
   icon: React.ReactNode;
@@ -143,7 +147,9 @@ const PerformanceStars = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white py-16">
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
+      <div className="flex-1 bg-gradient-to-b from-slate-50 to-white py-16">
       <div className="container">
         {/* Header */}
         <div className="text-center mb-12">
@@ -298,11 +304,28 @@ const PerformanceStars = () => {
                         </div>
                       </div>
                     )}
+
+                    {/* View Profile CTA */}
+                    <div className="mt-4 flex gap-3" onClick={e => e.stopPropagation()}>
+                      <Button variant="accent" size="sm" asChild>
+                        <Link to={`/browse?search=${encodeURIComponent(vendor.name)}`}>View Profile</Link>
+                      </Button>
+                      <Button variant="outline" size="sm" asChild>
+                        <Link to="/browse">Browse All</Link>
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </CardContent>
             </Card>
           ))}
+        </div>
+
+        {/* Browse CTA */}
+        <div className="text-center mb-8">
+          <Button variant="accent" size="lg" asChild>
+            <Link to="/browse">Browse All Vendors</Link>
+          </Button>
         </div>
 
         {/* Leaderboard Stats */}
@@ -331,6 +354,8 @@ const PerformanceStars = () => {
           </CardContent>
         </Card>
       </div>
+      </div>
+      <Footer />
     </div>
   );
 };

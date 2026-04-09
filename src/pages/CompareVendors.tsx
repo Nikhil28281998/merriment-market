@@ -82,7 +82,10 @@ const CompareVendors = () => {
                   <img src={vendor.photo} alt={vendor.name} className="h-32 w-full object-cover rounded-md mb-3" />
                   <h3 className="font-semibold mb-1">{vendor.name}</h3>
                   <p className="text-xs text-muted-foreground flex items-center gap-1 mb-1"><MapPin className="h-3 w-3" /> {vendor.city}, {vendor.state}</p>
-                  <p className="text-xs text-muted-foreground flex items-center gap-1"><Star className="h-3 w-3 fill-yellow-400 text-yellow-400" /> {vendor.rating}</p>
+                  <p className="text-xs text-muted-foreground flex items-center gap-1 mb-3"><Star className="h-3 w-3 fill-yellow-400 text-yellow-400" /> {vendor.rating}</p>
+                  <Button size="sm" variant="accent" className="w-full" asChild>
+                    <Link to={`/vendor/${vendor.id}`}>Book Now</Link>
+                  </Button>
                 </CardContent>
               </Card>
             ))}

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -223,8 +223,9 @@ const ScrollRow = ({ row }: { row: EventRow }) => {
                 <Button
                   size="sm"
                   className="h-8 text-xs px-3 bg-[var(--hero-accent)] hover:opacity-90 text-white"
+                  asChild
                 >
-                  Book Now
+                  <Link to={`/browse?event=${encodeURIComponent(card.title)}`}>Book Now</Link>
                 </Button>
               </CardContent>
             </Card>
