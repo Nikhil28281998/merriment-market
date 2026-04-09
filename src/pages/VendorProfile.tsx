@@ -11,6 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ChatWindow from "@/components/ChatWindow";
+import VendorActionButtons from "@/components/VendorActionButtons";
 import { allVendors } from "@/data/vendorDiscovery";
 import type { VendorMediaVideo } from "@/data/mockData";
 import { getVendorEventInsight } from "@/data/vendorEventInsights";
@@ -93,6 +94,9 @@ const VendorProfile = () => {
               <div className="mt-3 flex items-center gap-1.5 text-xs text-muted-foreground">
                 <ShieldCheck className="h-4 w-4 text-green-600 shrink-0" />
                 All communication through EventzHub is monitored and recorded for your safety.
+              </div>
+              <div className="mt-4 pt-3 border-t">
+                <VendorActionButtons vendorId={vendor.id} vendor={vendor} showLabels size="default" />
               </div>
             </div>
           </div>

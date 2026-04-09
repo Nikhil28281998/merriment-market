@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, ShoppingCart, ChevronDown } from "lucide-react";
+import { Menu, X, ShoppingCart, ChevronDown, Heart } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import { useAuth } from "@/contexts/AuthContext";
+import { useFavorites } from "@/contexts/FavoritesContext";
 import { toast } from "@/components/ui/use-toast";
 
 const vendorCategories = [
@@ -24,8 +25,11 @@ const Navbar = () => {
   const [vendorDropdown, setVendorDropdown] = useState(false);
   const [eventDropdown, setEventDropdown] = useState(false);
   const { itemCount } = useCart();
+  const { liked, favorited, savedForLater } = useFavorites();
   const navigate = useNavigate();
   const { isAuthenticated, role, signOut } = useAuth();
+
+  const favoritesTotalCount = liked.length + favorited.length + savedForLater.length;
 
   const closeDropdowns = () => {
     setVendorDropdown(false);
@@ -172,6 +176,16 @@ const Navbar = () => {
               </span>
             )}
           </Link>
+          {isAuthenticated && role === "customer" && (
+            <Link to="/my-favorites" className="relative p-2 hover:bg-muted rounded-lg transition-colors">
+              <Heart className="h-5 w-5" />
+              {favoritesTotalCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                  {favoritesTotalCount}
+                </span>
+              )}
+            </Link>
+          )}
           {isAuthenticated ? (
             <>
               <Button variant="ghost" asChild>
@@ -227,6 +241,11 @@ const Navbar = () => {
             <Link to="/venue-spaces" className="block px-3 py-2 text-sm" onClick={() => setMobileOpen(false)}>Venue & Spaces</Link>
             <Link to="/budget-planner" className="block px-3 py-2 text-sm" onClick={() => setMobileOpen(false)}>Budget Planner</Link>
             <Link to="/trending" className="block px-3 py-2 text-sm" onClick={() => setMobileOpen(false)}>Trending</Link>
+            {isAuthenticated && role === "customer" && (
+              <Link to="/my-favorites" className="block px-3 py-2 text-sm flex items-center gap-2" onClick={() => setMobileOpen(false)}>
+                <Heart className="h-4 w-4" /> My Collections {favoritesTotalCount > 0 && <span className="text-xs bg-red-500 text-white font-bold rounded-full px-2">{favoritesTotalCount}</span>}
+              </Link>
+            )}
           </div>
           <div className="flex gap-3 pt-2">
             {isAuthenticated ? (

@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import LocationAutocomplete from "@/components/LocationAutocomplete";
+import VendorActionButtons from "@/components/VendorActionButtons";
 import { categories, eventTypes } from "@/data/mockData";
 import { eventBundles } from "@/data/eventBundles";
 import { vendorSupportsEvent } from "@/data/vendorEventInsights";
@@ -610,6 +611,9 @@ const Browse = () => {
                               <Link to={`/vendor/${vendor.id}`}>Open</Link>
                             </Button>
                           </div>
+                          <div className="mt-2 pt-2 border-t">
+                            <VendorActionButtons vendorId={vendor.id} size="sm" />
+                          </div>
                         </div>
                       </div>
                     </Card>
@@ -685,6 +689,9 @@ const Browse = () => {
                               </Link>
                             </Button>
                           </div>
+                        </div>
+                        <div className="mt-3 pt-3 border-t">
+                          <VendorActionButtons vendorId={vendor.id} vendor={vendor} showLabels size="sm" />
                         </div>
                       </CardContent>
                     </Card>

@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { CartProvider } from "@/contexts/CartContext";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { FavoritesProvider } from "@/contexts/FavoritesContext";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 
 const Index = lazy(() => import("./pages/Index.tsx"));
@@ -29,6 +30,7 @@ const PerformanceStars = lazy(() => import("./pages/PerformanceStars.tsx"));
 const VenueSpaceHub = lazy(() => import("./pages/VenueSpaceHub.tsx"));
 const SmartBudgetPlanner = lazy(() => import("./pages/SmartBudgetPlanner.tsx"));
 const TrendingDashboard = lazy(() => import("./pages/TrendingDashboard.tsx"));
+const MyFavoritesPage = lazy(() => import("./pages/MyFavoritesPage.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
 
 const queryClient = new QueryClient();
@@ -36,8 +38,9 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
-      <CartProvider>
-        <TooltipProvider>
+      <FavoritesProvider>
+        <CartProvider>
+          <TooltipProvider>
           <Toaster />
           <Sonner />
           <BrowserRouter>
@@ -92,6 +95,14 @@ const App = () => (
                 <Route path="/venue-spaces" element={<VenueSpaceHub />} />
                 <Route path="/budget-planner" element={<SmartBudgetPlanner />} />
                 <Route path="/trending" element={<TrendingDashboard />} />
+                <Route
+                  path="/my-favorites"
+                  element={
+                    <ProtectedRoute allowedRoles={["customer"]}>
+                      <MyFavoritesPage />
+                    </ProtectedRoute>
+                  }
+                />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
@@ -99,6 +110,7 @@ const App = () => (
           </BrowserRouter>
         </TooltipProvider>
       </CartProvider>
+    </FavoritesProvider>
     </AuthProvider>
   </QueryClientProvider>
 );
