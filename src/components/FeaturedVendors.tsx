@@ -12,7 +12,7 @@ const categoryBadge: Record<string, string> = {
   Florist:        "bg-[hsl(158,45%,16%)] text-[hsl(43,82%,68%)]",
   "Cake Designer":"bg-[hsl(35,50%,16%)] text-[hsl(43,82%,70%)]",
   "Makeup Artist":"bg-[hsl(320,40%,18%)] text-[hsl(43,82%,68%)]",
-  "Priest/Pandit":"bg-[hsl(43,60%,16%)] text-[hsl(43,82%,68%)]",
+  Officiant:      "bg-[hsl(43,60%,16%)] text-[hsl(43,82%,68%)]",
   "Event Planner":"bg-[hsl(190,45%,16%)] text-[hsl(43,82%,68%)]",
   Venue:          "bg-[hsl(270,40%,18%)] text-[hsl(43,82%,68%)]",
 };

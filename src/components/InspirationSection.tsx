@@ -21,8 +21,8 @@ const ideas = [
     color: "bg-fuchsia-100 text-fuchsia-700",
   },
   {
-    title: "Magical Diwali Lights",
-    tag: "Diwali Event",
+    title: "Magical Holiday Lights",
+    tag: "Holiday Lights Event",
     image: "https://images.unsplash.com/photo-1599982890962-4d8ebb5e7d72?w=600&h=400&fit=crop",
     color: "bg-orange-100 text-orange-700",
   },
@@ -45,8 +45,8 @@ const ideas = [
     color: "bg-violet-100 text-violet-700",
   },
   {
-    title: "Festive Eid Celebration",
-    tag: "Eid Celebration",
+    title: "Festive Community Banquet",
+    tag: "Community Celebration",
     image: "https://images.unsplash.com/photo-1584547853994-07e41a57574e?w=600&h=400&fit=crop",
     color: "bg-teal-100 text-teal-700",
   },

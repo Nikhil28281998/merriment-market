@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { CalendarDays, DollarSign, Star, Users, CheckCircle, XCircle, MessageCircle } from "lucide-react";
+import { CalendarDays, DollarSign, Star, Users, CheckCircle, XCircle, MessageCircle, ArrowLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -11,6 +12,7 @@ import { getVendorEarnings } from "@/lib/payment-api";
 import type { Booking } from "@/lib/payment-types";
 
 const VendorDashboard = () => {
+  const navigate = useNavigate();
   const [chatOpen, setChatOpen] = useState<string | null>(null);
   const [stats, setStats] = useState([
     { label: "Total Bookings", value: "0", icon: Users, color: "text-blue-600" },
@@ -67,6 +69,11 @@ const VendorDashboard = () => {
     <div className="min-h-screen flex flex-col">
       <Navbar />
       <main className="flex-1 container py-10">
+        <div className="mb-4">
+          <Button variant="ghost" size="sm" className="gap-1" onClick={() => navigate(-1)}>
+            <ArrowLeft className="h-4 w-4" /> Back
+          </Button>
+        </div>
         <h1 className="font-heading text-3xl font-bold mb-8">Vendor Dashboard</h1>
 
         {error && (

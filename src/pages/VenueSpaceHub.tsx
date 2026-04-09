@@ -25,7 +25,7 @@ const venues: Venue[] = [
   {
     id: "1",
     name: "Grand Elegance Ballroom",
-    city: "Mumbai",
+    city: "New York",
     type: "Banquet Hall",
     image: "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=500&h=300&fit=crop",
     capacity: { min: 100, max: 500 },
@@ -34,12 +34,12 @@ const venues: Venue[] = [
     rating: 4.8,
     reviews: 142,
     available: true,
-    phone: "+91-98765-43210",
+    phone: "+1-212-555-0101",
   },
   {
     id: "2",
     name: "Lakeside Paradise Resort",
-    city: "Pune",
+    city: "Austin",
     type: "Resort",
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=300&fit=crop",
     capacity: { min: 50, max: 300 },
@@ -48,12 +48,12 @@ const venues: Venue[] = [
     rating: 4.9,
     reviews: 267,
     available: true,
-    phone: "+91-98765-43211",
+    phone: "+1-512-555-0102",
   },
   {
     id: "3",
     name: "Urban Loft Studio",
-    city: "Bangalore",
+    city: "Seattle",
     type: "Modern Venue",
     image: "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=500&h=300&fit=crop",
     capacity: { min: 30, max: 150 },
@@ -62,12 +62,12 @@ const venues: Venue[] = [
     rating: 4.6,
     reviews: 98,
     available: true,
-    phone: "+91-98765-43212",
+    phone: "+1-206-555-0103",
   },
   {
     id: "4",
     name: "Heritage Fort Venue",
-    city: "Jaipur",
+    city: "Nashville",
     type: "Destination Wedding",
     image: "https://images.unsplash.com/photo-1519167758993-403d7b6d9dd9?w=500&h=300&fit=crop",
     capacity: { min: 200, max: 800 },
@@ -76,7 +76,7 @@ const venues: Venue[] = [
     rating: 4.7,
     reviews: 189,
     available: true,
-    phone: "+91-98765-43213",
+    phone: "+1-615-555-0104",
   },
 ];
 
@@ -173,7 +173,7 @@ const VenueSpaceHub = () => {
               {/* Budget */}
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-2">
-                  Budget: <span className="text-accent font-bold">₹{budget.toLocaleString()}</span>
+                  Budget: <span className="text-accent font-bold">${budget.toLocaleString()}</span>
                 </label>
                 <input 
                   type="range"
@@ -240,7 +240,7 @@ const VenueSpaceHub = () => {
                   </div>
                   <div className="bg-slate-50 p-3 rounded-lg">
                     <p className="text-xs text-muted-foreground mb-1">Price (per day)</p>
-                    <p className="font-semibold text-sm">₹{venue.pricing.min/1000}L - {venue.pricing.max/1000}L</p>
+                    <p className="font-semibold text-sm">${venue.pricing.min.toLocaleString()} - ${venue.pricing.max.toLocaleString()}</p>
                   </div>
                 </div>
 
@@ -303,7 +303,7 @@ const VenueSpaceHub = () => {
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground mb-1">Price Range (per day)</p>
-                    <p className="text-2xl font-bold text-accent">₹{(selectedVenue.pricing.min/100000).toFixed(1)}L - {(selectedVenue.pricing.max/100000).toFixed(1)}L</p>
+                    <p className="text-2xl font-bold text-accent">${selectedVenue.pricing.min.toLocaleString()} - ${selectedVenue.pricing.max.toLocaleString()}</p>
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground mb-1">Rating & Reviews</p>

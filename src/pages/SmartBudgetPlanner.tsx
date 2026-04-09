@@ -227,7 +227,7 @@ const SmartBudgetPlanner = () => {
                   Total Budget
                 </label>
                 <div className="relative mb-3">
-                  <span className="absolute left-3 top-3 text-slate-500">₹</span>
+                  <span className="absolute left-3 top-3 text-slate-500">$</span>
                   <Input
                     type="number"
                     value={totalBudget}
@@ -290,7 +290,7 @@ const SmartBudgetPlanner = () => {
             <div className="grid md:grid-cols-3 gap-4 mt-6 p-4 bg-white rounded-lg border border-accent/20">
               <div>
                 <p className="text-xs text-muted-foreground mb-1">Cost Per Guest</p>
-                <p className="text-2xl font-bold text-accent">₹{costPerGuest}</p>
+                <p className="text-2xl font-bold text-accent">${costPerGuest}</p>
               </div>
               <div>
                 <p className="text-xs text-muted-foreground mb-1">Recommended</p>
@@ -298,7 +298,7 @@ const SmartBudgetPlanner = () => {
               </div>
               <div>
                 <p className="text-xs text-muted-foreground mb-1">Contingency</p>
-                <p className="text-2xl font-bold text-accent">₹{Math.round(totalBudget * 0.05).toLocaleString()}</p>
+                <p className="text-2xl font-bold text-accent">${Math.round(totalBudget * 0.05).toLocaleString()}</p>
               </div>
             </div>
           </CardContent>
@@ -323,10 +323,10 @@ const SmartBudgetPlanner = () => {
                     </div>
                     <div className="text-right">
                       <p className="text-2xl font-bold text-accent">
-                        ₹{item.allocatedAmount.toLocaleString()}
+                        ${item.allocatedAmount.toLocaleString()}
                       </p>
                       <p className="text-xs text-muted-foreground">
-                        Range: ₹{(totalBudget * item.min).toLocaleString()} - ₹{(totalBudget * item.max).toLocaleString()}
+                        Range: ${(totalBudget * item.min).toLocaleString()} - ${(totalBudget * item.max).toLocaleString()}
                       </p>
                     </div>
                   </div>

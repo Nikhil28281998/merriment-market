@@ -37,12 +37,12 @@ const celebrations = [
     image: "https://images.unsplash.com/photo-1604912153786-cfc7c9b69210?w=400&h=280&fit=crop&q=80",
   },
   {
-    type: "Diwali Event",
+    type: "Holiday Lights Event",
     color: "from-orange-50 to-amber-50",
     image: "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=400&h=280&fit=crop&q=80",
   },
   {
-    type: "Eid Celebration",
+    type: "Community Celebration",
     color: "from-teal-50 to-emerald-50",
     image: "https://images.unsplash.com/photo-1614107151491-6876eecbff89?w=400&h=280&fit=crop&q=80",
   },
@@ -67,12 +67,12 @@ const celebrations = [
     image: "https://images.unsplash.com/photo-1478147427282-58a87a433980?w=400&h=280&fit=crop&q=80",
   },
   {
-    type: "Housewarming / Griha Pravesh",
+    type: "Housewarming",
     color: "from-lime-50 to-green-50",
     image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=280&fit=crop&q=80",
   },
   {
-    type: "Naming Ceremony / Namkaran",
+    type: "Naming Ceremony",
     color: "from-cyan-50 to-sky-50",
     image: "https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=400&h=280&fit=crop&q=80",
   },
@@ -87,7 +87,7 @@ const celebrations = [
     image: "https://images.unsplash.com/photo-1519689373023-dd07c7988603?w=400&h=280&fit=crop&q=80",
   },
   {
-    type: "Car Pooja",
+    type: "Car Blessing",
     color: "from-violet-50 to-indigo-50",
     image: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=400&h=280&fit=crop&q=80",
   },

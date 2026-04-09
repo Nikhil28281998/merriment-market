@@ -12,7 +12,7 @@ const homeServiceCategories = new Set([
   "Makeup Artist",
   "Cake Designer",
   "Event Planner",
-  "Priest/Pandit",
+  "Officiant",
 ]);
 
 const temporaryVendors: Vendor[] = [
@@ -69,8 +69,8 @@ const temporaryVendors: Vendor[] = [
       { id: "p202c", name: "Festival Package", description: "Large-scale venue package", price: 7800, includes: ["All-day access", "Grand stage", "Vendor loading support", "Guest management desk"] },
     ],
     reviews: [
-      { id: "r202a", author: "Neha V.", rating: 5, text: "Perfect for our Diwali event. Spacious and beautifully maintained.", date: "2025-11-29" },
-      { id: "r202b", author: "Fatima K.", rating: 4, text: "Hosted an Eid family gathering. Staff was friendly and setup was smooth.", date: "2025-10-02" },
+      { id: "r202a", author: "Neha V.", rating: 5, text: "Perfect for our holiday lights celebration. Spacious and beautifully maintained.", date: "2025-11-29" },
+      { id: "r202b", author: "Fatima K.", rating: 4, text: "Hosted a large family community gathering. Staff was friendly and setup was smooth.", date: "2025-10-02" },
       { id: "r202c", author: "Oscar D.", rating: 5, text: "Great venue for a large graduation party, very flexible with layout.", date: "2025-08-23" },
     ],
   },

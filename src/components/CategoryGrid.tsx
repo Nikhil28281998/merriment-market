@@ -8,7 +8,7 @@ const CATEGORIES = [
   { name: "DJ",             icon: Music,           bg: "from-[hsl(200,55%,14%)] to-[hsl(200,50%,24%)]" },
   { name: "Florist",        icon: Flower2,         bg: "from-[hsl(158,50%,14%)] to-[hsl(158,45%,22%)]" },
   { name: "Videographer",   icon: Video,           bg: "from-[hsl(215,55%,14%)] to-[hsl(215,50%,24%)]" },
-  { name: "Priest/Pandit",  icon: Church,          bg: "from-[hsl(43,60%,14%)] to-[hsl(43,55%,22%)]" },
+  { name: "Officiant",      icon: Church,          bg: "from-[hsl(43,60%,14%)] to-[hsl(43,55%,22%)]" },
   { name: "Makeup Artist",  icon: Sparkles,        bg: "from-[hsl(320,45%,16%)] to-[hsl(320,40%,26%)]" },
   { name: "Cake Designer",  icon: Cake,            bg: "from-[hsl(35,55%,16%)] to-[hsl(35,50%,24%)]" },
   { name: "Event Planner",  icon: ClipboardList,   bg: "from-[hsl(190,50%,14%)] to-[hsl(190,45%,22%)]" },

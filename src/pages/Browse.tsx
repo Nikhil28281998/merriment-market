@@ -691,7 +691,7 @@ const Browse = () => {
                           </div>
                         </div>
                         <div className="mt-3 pt-3 border-t">
-                          <VendorActionButtons vendorId={vendor.id} vendor={vendor} showLabels size="sm" />
+                          <VendorActionButtons vendorId={vendor.id} vendor={vendor} size="sm" />
                         </div>
                       </CardContent>
                     </Card>

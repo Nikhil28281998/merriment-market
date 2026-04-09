@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
-import { useParams, Link, useSearchParams } from "react-router-dom";
-import { Star, MapPin, CheckCircle, MessageCircle, ShieldCheck, Phone, ShoppingCart, Check, X, ChevronLeft, ChevronRight, PlayCircle, Globe } from "lucide-react";
+import { useParams, Link, useSearchParams, useNavigate } from "react-router-dom";
+import { Star, MapPin, CheckCircle, MessageCircle, ShieldCheck, Phone, ShoppingCart, Check, X, ChevronLeft, ChevronRight, PlayCircle, Globe, ArrowLeft } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -23,6 +23,7 @@ const VendorProfile = () => {
   const [callConfirmed, setCallConfirmed] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [videoErrorIds, setVideoErrorIds] = useState<string[]>([]);
+  const navigate = useNavigate();
   const { addItem, items } = useCart();
   const { id } = useParams();
   const [searchParams] = useSearchParams();
@@ -68,6 +69,11 @@ const VendorProfile = () => {
         </div>
 
         <div className="container -mt-16 relative z-10 pb-24 lg:pb-12">
+          <div className="mb-4">
+            <Button variant="ghost" size="sm" className="gap-1 bg-background/90 backdrop-blur" onClick={() => navigate(-1)}>
+              <ArrowLeft className="h-4 w-4" /> Back
+            </Button>
+          </div>
           <div className="flex flex-col md:flex-row gap-6 items-start">
             <img src={vendor.photo} alt={vendor.name} className="w-32 h-32 rounded-2xl border-4 border-background object-cover shadow-lg" />
             <div className="flex-1">
@@ -96,7 +102,7 @@ const VendorProfile = () => {
                 All communication through EventzHub is monitored and recorded for your safety.
               </div>
               <div className="mt-4 pt-3 border-t">
-                <VendorActionButtons vendorId={vendor.id} vendor={vendor} showLabels size="default" />
+                <VendorActionButtons vendorId={vendor.id} vendor={vendor} size="sm" />
               </div>
             </div>
           </div>

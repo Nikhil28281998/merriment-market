@@ -12,7 +12,7 @@ export const eventBundles: EventBundle[] = [
   },
   {
     eventType: "Baby Shower",
-    mustHave: ["Photographer", "Decorator", "Caterer", "Priest/Pandit"],
+    mustHave: ["Photographer", "Decorator", "Caterer", "Officiant"],
     recommended: ["Videographer", "Florist", "Cake Designer"],
   },
   {
@@ -27,12 +27,12 @@ export const eventBundles: EventBundle[] = [
   },
   {
     eventType: "Wedding",
-    mustHave: ["Photographer", "Videographer", "Decorator", "Caterer", "Makeup Artist", "Priest/Pandit"],
+    mustHave: ["Photographer", "Videographer", "Decorator", "Caterer", "Makeup Artist", "Officiant"],
     recommended: ["DJ", "Florist", "Cake Designer"],
   },
   {
-    eventType: "Housewarming / Griha Pravesh",
-    mustHave: ["Priest/Pandit", "Florist", "Caterer"],
+    eventType: "Housewarming",
+    mustHave: ["Officiant", "Florist", "Caterer"],
     recommended: ["Photographer", "Decorator"],
   },
   {
@@ -66,18 +66,18 @@ export const eventBundles: EventBundle[] = [
     recommended: ["Decorator", "Florist", "Cake Designer", "Event Planner"],
   },
   {
-    eventType: "Diwali Event",
+    eventType: "Holiday Lights Event",
     mustHave: ["Decorator", "Caterer"],
     recommended: ["Photographer", "Florist", "DJ", "Makeup Artist"],
   },
   {
-    eventType: "Eid Celebration",
+    eventType: "Community Celebration",
     mustHave: ["Caterer", "Decorator"],
     recommended: ["Photographer", "Videographer", "Florist", "Makeup Artist"],
   },
   {
-    eventType: "Naming Ceremony / Namkaran",
-    mustHave: ["Priest/Pandit", "Photographer", "Caterer"],
+    eventType: "Naming Ceremony",
+    mustHave: ["Officiant", "Photographer", "Caterer"],
     recommended: ["Decorator", "Florist", "Videographer", "Cake Designer"],
   },
   {
@@ -91,8 +91,8 @@ export const eventBundles: EventBundle[] = [
     recommended: ["Makeup Artist", "Decorator"],
   },
   {
-    eventType: "Car Pooja",
-    mustHave: ["Priest/Pandit"],
+    eventType: "Car Blessing",
+    mustHave: ["Officiant"],
     recommended: ["Photographer", "Florist"],
   },
   {

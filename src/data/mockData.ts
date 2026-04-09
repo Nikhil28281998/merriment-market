@@ -1,14 +1,14 @@
 export const categories = [
   "Photographer", "Decorator", "Caterer", "DJ", "Florist",
-  "Videographer", "Priest/Pandit", "Makeup Artist", "Cake Designer", "Event Planner", "Venue",
+  "Videographer", "Officiant", "Makeup Artist", "Cake Designer", "Event Planner", "Venue",
 ] as const;
 
 export const eventTypes = [
   "Wedding", "Baby Shower", "Birthday Party", "Gender Reveal",
-  "Naming Ceremony / Namkaran", "Housewarming / Griha Pravesh", "Car Pooja",
+  "Naming Ceremony", "Housewarming", "Car Blessing",
   "Halloween Party", "Christmas Party", "Graduation", "Anniversary",
   "Quinceañera", "Baptism", "Bar / Bat Mitzvah", "Maternity Photoshoot",
-  "Baby Photoshoot", "Eid Celebration", "Diwali Event", "Other",
+  "Baby Photoshoot", "Community Celebration", "Holiday Lights Event", "Other",
 ] as const;
 
 export interface Vendor {
@@ -106,7 +106,7 @@ export const mockVendors: Vendor[] = [
   },
   {
     id: "2",
-    name: "Royal Mandap Decorators",
+    name: "Royal Venue Decorators",
     category: "Decorator",
     city: "Houston",
     state: "TX",
@@ -115,7 +115,7 @@ export const mockVendors: Vendor[] = [
     startingPrice: 600,
     photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop",
     coverPhoto: "https://images.unsplash.com/photo-1478146059778-26028b07395a?w=1200&h=400&fit=crop",
-    bio: "Royal Mandap Decorators transforms ordinary venues into extraordinary celebrations. With 9 years of experience in Houston's vibrant event scene, we specialize in traditional Indian mandaps, modern reception décor, baby shower themes, and milestone birthday setups. We source premium florals, custom drapery, and bespoke lighting to match your vision and color palette.",
+    bio: "Royal Venue Decorators transforms ordinary venues into extraordinary celebrations. With 9 years of experience in Houston's vibrant event scene, we specialize in traditional Indian ceremony archs, modern reception décor, baby shower themes, and milestone birthday setups. We source premium florals, custom drapery, and bespoke lighting to match your vision and color palette.",
     portfolio: [
       "https://images.unsplash.com/photo-1478146059778-26028b07395a?w=400&h=300&fit=crop",
       "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=400&h=300&fit=crop",
@@ -125,10 +125,10 @@ export const mockVendors: Vendor[] = [
     packages: [
       { id: "p2a", name: "Classic Setup", description: "Essential decoration for smaller events", price: 600, includes: ["Backdrop with draping", "6 table centerpieces", "Basic uplighting", "Setup & teardown"] },
       { id: "p2b", name: "Elegant Package", description: "Elevated décor for mid-size celebrations", price: 1800, includes: ["Custom backdrop", "12 table centerpieces", "Full venue uplighting", "Stage décor", "Aisle runner & petals", "Setup & teardown"] },
-      { id: "p2c", name: "Royal Experience", description: "Full-scale luxury venue transformation", price: 4500, includes: ["Custom mandap or stage", "Complete venue décor", "Premium floral arrangements", "Crystal & candle accents", "LED wall or projection", "Lounge furniture", "Dedicated décor coordinator"] },
+      { id: "p2c", name: "Royal Experience", description: "Full-scale luxury venue transformation", price: 4500, includes: ["Custom ceremony arch or stage", "Complete venue décor", "Premium floral arrangements", "Crystal & candle accents", "LED wall or projection", "Lounge furniture", "Dedicated décor coordinator"] },
     ],
     reviews: [
-      { id: "r2a", author: "Priya & Arjun M.", rating: 5, text: "The mandap they built for our wedding was absolutely jaw-dropping. Every guest was complimenting the décor all night. Worth every penny!", date: "2025-12-01" },
+      { id: "r2a", author: "Priya & Arjun M.", rating: 5, text: "The ceremony arch they built for our wedding was absolutely jaw-dropping. Every guest was complimenting the décor all night. Worth every penny!", date: "2025-12-01" },
       { id: "r2b", author: "Fatima H.", rating: 5, text: "Used them for my daughter's sweet sixteen. The pink and gold theme was executed flawlessly. The team was courteous and cleaned up everything after.", date: "2025-11-10" },
       { id: "r2c", author: "David R.", rating: 4, text: "Beautiful work on our anniversary party. The lighting really set the mood. Slight delay on setup but the end result was fantastic.", date: "2025-08-22" },
     ],
@@ -145,7 +145,7 @@ export const mockVendors: Vendor[] = [
     startingPrice: 200,
     photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop",
     coverPhoto: "https://images.unsplash.com/photo-1555244162-803834f70033?w=1200&h=400&fit=crop",
-    bio: "Saffron Bites brings authentic multi-cuisine flavors to your celebrations. Based in Dallas, we cater everything from intimate baby showers of 25 guests to grand weddings of 800+. Our chefs specialize in North Indian, South Indian, Indo-Chinese, and continental menus. We pride ourselves on fresh ingredients, beautiful presentation, and impeccable service.",
+    bio: "Saffron Bites brings authentic multi-cuisine flavors to your celebrations. Based in Dallas, we cater everything from intimate baby showers of 25 guests to grand weddings of 800+. Our chefs specialize in Southern barbecue, Californian fusion, Tex-Mex, and continental menus. We pride ourselves on fresh ingredients, beautiful presentation, and impeccable service.",
     portfolio: [
       "https://images.unsplash.com/photo-1555244162-803834f70033?w=400&h=300&fit=crop",
       "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=400&h=300&fit=crop",
@@ -154,19 +154,19 @@ export const mockVendors: Vendor[] = [
     ],
     packages: [
       { id: "p3a", name: "Simple Spread", description: "Buffet-style for casual events (per plate)", price: 200, includes: ["3 appetizers", "2 entrées", "Rice & naan", "1 dessert", "Soft drinks", "Disposable servingware"] },
-      { id: "p3b", name: "Grand Feast", description: "Premium buffet for weddings & receptions (per plate)", price: 450, includes: ["Live chaat station", "5 appetizers", "4 entrées", "Biryani station", "Dessert bar (3 items)", "Full bar package", "China plates & linens", "Service staff"] },
+      { id: "p3b", name: "Grand Feast", description: "Premium buffet for weddings & receptions (per plate)", price: 450, includes: ["Live taco station", "5 appetizers", "4 entrées", "Biryani station", "Dessert bar (3 items)", "Full bar package", "China plates & linens", "Service staff"] },
       { id: "p3c", name: "Maharaja Experience", description: "Ultra-premium plated dinner (per plate)", price: 750, includes: ["Passed hors d'oeuvres", "5-course plated dinner", "Chef's table station", "Premium dessert display", "Custom cocktail menu", "Full service staff", "Tasting session included"] },
     ],
     reviews: [
-      { id: "r3a", author: "Anitha K.", rating: 5, text: "The food was the highlight of our wedding! Guests are still talking about the biryani and the live chaat counter. Saffron Bites exceeded every expectation.", date: "2025-11-28" },
+      { id: "r3a", author: "Anitha K.", rating: 5, text: "The food was the highlight of our wedding! Guests are still talking about the smoked brisket and the live taco counter. Saffron Bites exceeded every expectation.", date: "2025-11-28" },
       { id: "r3b", author: "James & Tara W.", rating: 5, text: "We hired them for a 200-person reception and the service was seamless. Every dish was fresh, flavorful, and beautifully presented.", date: "2025-10-14" },
-      { id: "r3c", author: "Neha S.", rating: 4, text: "Delicious food and great variety. The paneer tikka was outstanding. Only feedback is the dessert could have had more options, but overall fantastic.", date: "2025-09-03" },
+      { id: "r3c", author: "Neha S.", rating: 4, text: "Delicious food and great variety. The grilled veggie skewers was outstanding. Only feedback is the dessert could have had more options, but overall fantastic.", date: "2025-09-03" },
     ],
     serviceStates: ["Nationwide"],
   },
   {
     id: "4",
-    name: "DJ Vikram Entertainment",
+    name: "DJ Vibe Entertainment",
     category: "DJ",
     city: "San Jose",
     state: "CA",
@@ -175,7 +175,7 @@ export const mockVendors: Vendor[] = [
     startingPrice: 400,
     photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop",
     coverPhoto: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1200&h=400&fit=crop",
-    bio: "DJ Vikram has been the Bay Area's go-to event DJ for over 7 years, bringing high-energy soundtracks to weddings, sangeets, birthday parties, and corporate events. From Bollywood and Bhangra to Top 40, Latin, and EDM, we read the crowd and keep the dance floor packed all night. Full sound, lighting, and MC services included.",
+    bio: "DJ Vibe has been the Bay Area's go-to event DJ for over 7 years, bringing high-energy soundtracks to weddings, dance partys, birthday parties, and corporate events. From Top 40 and Latin Pop to Top 40, Latin, and EDM, we read the crowd and keep the dance floor packed all night. Full sound, lighting, and MC services included.",
     portfolio: [
       "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=300&fit=crop",
       "https://images.unsplash.com/photo-1571266028243-3716f02d2d5e?w=400&h=300&fit=crop",
@@ -183,11 +183,11 @@ export const mockVendors: Vendor[] = [
     ],
     packages: [
       { id: "p4a", name: "Party Starter", description: "Perfect for birthdays & small gatherings", price: 400, includes: ["3 hours of DJ", "Professional sound system", "Basic LED lights", "Wireless mic for speeches"] },
-      { id: "p4b", name: "Sangeet Special", description: "Designed for sangeet nights & receptions", price: 900, includes: ["5 hours of DJ", "Premium sound system", "Dance floor lighting package", "MC/hosting services", "Wireless mics (2)", "Custom playlist consultation"] },
+      { id: "p4b", name: "Dance Party Special", description: "Designed for dance party nights & receptions", price: 900, includes: ["5 hours of DJ", "Premium sound system", "Dance floor lighting package", "MC/hosting services", "Wireless mics (2)", "Custom playlist consultation"] },
       { id: "p4c", name: "All Night Affair", description: "The ultimate full-event DJ experience", price: 1800, includes: ["8 hours of DJ", "Concert-grade sound", "Intelligent lighting rig", "Fog & haze machines", "MC services all night", "Dhol player (1 hr)", "LED dance floor", "Custom song edits"] },
     ],
     reviews: [
-      { id: "r4a", author: "Simran & Amit J.", rating: 5, text: "DJ Vikram absolutely killed it at our sangeet! The Bollywood-Bhangra mix had everyone on the dance floor. Even our grandparents were dancing!", date: "2025-12-05" },
+      { id: "r4a", author: "Simran & Amit J.", rating: 5, text: "DJ Vibe absolutely killed it at our dance party! The Top 40-Latin Pop mix had everyone on the dance floor. Even our grandparents were dancing!", date: "2025-12-05" },
       { id: "r4b", author: "Carlos M.", rating: 5, text: "Hired him for my 30th birthday and the energy was incredible. Great mix of genres, read the room perfectly, and the lighting was amazing.", date: "2025-10-20" },
       { id: "r4c", author: "Lisa T.", rating: 4, text: "Very professional and talented. Music selection was on point. Just wish the sound check had started a bit earlier, but once we got going it was non-stop fun.", date: "2025-09-10" },
     ],
@@ -195,7 +195,7 @@ export const mockVendors: Vendor[] = [
   },
   {
     id: "5",
-    name: "Pushpa's Floral Creations",
+    name: "Petal House Floral Creations",
     category: "Florist",
     city: "Edison",
     state: "NJ",
@@ -204,7 +204,7 @@ export const mockVendors: Vendor[] = [
     startingPrice: 250,
     photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop",
     coverPhoto: "https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=1200&h=400&fit=crop",
-    bio: "Pushpa's Floral Creations designs breathtaking floral arrangements for every occasion. Located in Edison, NJ, we serve the entire tri-state area with fresh, seasonal flowers sourced from local farms and premium importers. Whether it's an intimate baby shower or a grand 500-guest wedding, we bring your floral vision to life with meticulous attention to detail.",
+    bio: "Petal House Floral Creations designs breathtaking floral arrangements for every occasion. Located in Edison, NJ, we serve the entire tri-state area with fresh, seasonal flowers sourced from local farms and premium importers. Whether it's an intimate baby shower or a grand 500-guest wedding, we bring your floral vision to life with meticulous attention to detail.",
     portfolio: [
       "https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=400&h=300&fit=crop",
       "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=400&h=300&fit=crop",
@@ -214,10 +214,10 @@ export const mockVendors: Vendor[] = [
     packages: [
       { id: "p5a", name: "Bloom Basics", description: "Simple yet elegant floral accents", price: 250, includes: ["Bridal bouquet", "Groom's boutonniere", "4 table centerpieces", "Free delivery within 20 miles"] },
       { id: "p5b", name: "Garden Romance", description: "Lush florals for a full event", price: 800, includes: ["Bridal bouquet + toss bouquet", "Bridesmaid bouquets (4)", "Boutonnieres (6)", "10 table centerpieces", "Welcome sign arrangement", "Cake flowers", "Free delivery & setup"] },
-      { id: "p5c", name: "Floral Fantasy", description: "Over-the-top luxury floral experience", price: 2200, includes: ["All Garden Romance inclusions", "Mandap or arch floral installation", "Aisle arrangements (20)", "Hanging floral chandeliers", "Lounge area florals", "Petal toss baskets", "On-site florist coordinator"] },
+      { id: "p5c", name: "Floral Fantasy", description: "Over-the-top luxury floral experience", price: 2200, includes: ["All Garden Romance inclusions", "Ceremony Arch or arch floral installation", "Aisle arrangements (20)", "Hanging floral chandeliers", "Lounge area florals", "Petal toss baskets", "On-site florist coordinator"] },
     ],
     reviews: [
-      { id: "r5a", author: "Deepa & Vikash R.", rating: 5, text: "Pushpa's team created the most stunning mandap flowers we've ever seen. Fresh roses and marigolds everywhere — the photos came out gorgeous!", date: "2025-11-15" },
+      { id: "r5a", author: "Deepa & Vikash R.", rating: 5, text: "Pushpa's team created the most stunning ceremony arch flowers we've ever seen. Fresh roses and seasonal blooms everywhere — the photos came out gorgeous!", date: "2025-11-15" },
       { id: "r5b", author: "Amanda C.", rating: 5, text: "I used them for my baby shower and the centerpieces were absolutely beautiful. Soft pastels with peonies and eucalyptus — exactly what I wanted.", date: "2025-10-02" },
       { id: "r5c", author: "Rachel S.", rating: 5, text: "Incredible attention to detail. They matched the flowers perfectly to our wedding color palette. The arch installation took my breath away.", date: "2025-08-30" },
     ],
@@ -225,8 +225,8 @@ export const mockVendors: Vendor[] = [
   },
   {
     id: "6",
-    name: "Pandit Raghunath Ji",
-    category: "Priest/Pandit",
+    name: "Officiant Ray Collins",
+    category: "Officiant",
     city: "New York",
     state: "NY",
     rating: 5.0,
@@ -234,20 +234,20 @@ export const mockVendors: Vendor[] = [
     startingPrice: 300,
     photo: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop",
     coverPhoto: "https://images.unsplash.com/photo-1507692049790-de58290a4334?w=1200&h=400&fit=crop",
-    bio: "Pandit Raghunath Ji has been conducting Hindu religious ceremonies across the New York tri-state area for over 20 years. Fluent in Sanskrit, Hindi, and English, he ensures that every ritual is performed authentically while explaining each step to families in a way everyone can understand. From weddings and naming ceremonies to housewarmings and car poojas, every ceremony is conducted with warmth, devotion, and precision.",
+    bio: "Officiant Ray Collins has been leading meaningful ceremonies across the New York tri-state area for over 20 years. Fluent in English and Spanish, he helps families understand each part of the ceremony and keeps the experience warm, inclusive, and personal. From weddings and naming ceremonies to housewarmings and vehicle blessings, every ceremony is conducted with care and professionalism.",
     portfolio: [
       "https://images.unsplash.com/photo-1507692049790-de58290a4334?w=400&h=300&fit=crop",
       "https://images.unsplash.com/photo-1529634597503-139d3726fed5?w=400&h=300&fit=crop",
     ],
     packages: [
-      { id: "p6a", name: "Simple Ceremony", description: "For small poojas and prayers", price: 300, includes: ["1-hour ceremony", "All prayer materials (samagri)", "English explanation of rituals", "Travel within NYC metro"] },
-      { id: "p6b", name: "Traditional Wedding", description: "Complete Hindu wedding ceremony", price: 700, includes: ["3-hour ceremony", "All samagri & sacred items", "Ganesh pooja + main ceremony", "Step-by-step English narration", "Pre-ceremony consultation", "Travel within tri-state area"] },
-      { id: "p6c", name: "Multi-Event Package", description: "For families with multiple ceremonies", price: 1500, includes: ["Mehendi pooja", "Haldi ceremony", "Full wedding ceremony", "All samagri for all events", "Personalized mantras", "Unlimited consultation calls", "Travel included"] },
+      { id: "p6a", name: "Simple Ceremony", description: "For small blessings and family gatherings", price: 300, includes: ["1-hour ceremony", "Ceremony materials", "Clear step-by-step guidance", "Travel within NYC metro"] },
+      { id: "p6b", name: "Traditional Wedding", description: "Complete wedding officiation package", price: 700, includes: ["3-hour ceremony", "Ceremony materials", "Unity ritual + main ceremony", "Step-by-step narration", "Pre-ceremony consultation", "Travel within tri-state area"] },
+      { id: "p6c", name: "Multi-Event Package", description: "For families planning multiple ceremonies", price: 1500, includes: ["Engagement blessing", "Rehearsal support", "Full wedding ceremony", "Materials for all events", "Personalized readings", "Unlimited consultation calls", "Travel included"] },
     ],
     reviews: [
-      { id: "r6a", author: "Sunita & Ramesh G.", rating: 5, text: "Pandit Ji conducted our son's wedding beautifully. He explained every ritual in English so all our American-born guests could follow along. Truly a special experience.", date: "2025-12-10" },
-      { id: "r6b", author: "Pooja D.", rating: 5, text: "He performed our baby's naming ceremony with so much warmth and care. Very patient, very knowledgeable, and arrived right on time. Highly recommended!", date: "2025-11-01" },
-      { id: "r6c", author: "Anil & Kavita S.", rating: 5, text: "We've used Pandit Raghunath Ji for our housewarming and car pooja. Both times he was wonderful — thorough, respectful, and genuinely kind.", date: "2025-09-18" },
+      { id: "r6a", author: "Sunita & Ramesh G.", rating: 5, text: "Officiant conducted our son's wedding beautifully. He explained every ritual in English so all our American-born guests could follow along. Truly a special experience.", date: "2025-12-10" },
+      { id: "r6b", author: "Paula D.", rating: 5, text: "He performed our baby's naming ceremony with so much warmth and care. Very patient, very knowledgeable, and arrived right on time. Highly recommended!", date: "2025-11-01" },
+      { id: "r6c", author: "Anil & Kavita S.", rating: 5, text: "We've used Officiant Ray Collins for our housewarming and vehicle blessing. Both times he was wonderful — thorough, respectful, and genuinely kind.", date: "2025-09-18" },
     ],
     serviceStates: ["NY", "NJ", "CT", "PA", "MA"],
   },
@@ -419,7 +419,7 @@ export const mockVendors: Vendor[] = [
     reviews: [
       { id: "r13a", author: "Emma & Liam H.", rating: 5, text: "Garden & Bloom turned our wedding into a literal garden. The arch was jaw-dropping and the bridal bouquet was even more beautiful in person than in the mock-up.", date: "2025-11-30" },
       { id: "r13b", author: "Claire F.", rating: 5, text: "Used them for my baby shower and the arrangements were dreamy — blush peonies and eucalyptus exactly as I envisioned. Will definitely book again.", date: "2025-10-08" },
-      { id: "r13c", author: "Yasmin N.", rating: 4, text: "Lovely florals for our Eid celebration. Very accommodating of our color palette request. Setup was smooth and professional.", date: "2025-09-28" },
+      { id: "r13c", author: "Yasmin N.", rating: 4, text: "Lovely florals for our community celebration. Very accommodating of our color palette request. Setup was smooth and professional.", date: "2025-09-28" },
     ],
   },
   {
@@ -442,11 +442,11 @@ export const mockVendors: Vendor[] = [
     packages: [
       { id: "p14a", name: "Starter Setup", description: "Basic décor for 50–75 guests", price: 500, includes: ["Backdrop with draping", "5 table centerpieces", "Uplighting (4 fixtures)", "Setup & teardown"] },
       { id: "p14b", name: "Premium Event", description: "Mid-range décor for 75–150 guests", price: 1600, includes: ["Custom backdrop", "10 centerpieces", "Full venue uplighting", "Balloon installations", "Stage décor", "Setup & teardown"] },
-      { id: "p14c", name: "Luxury Transformation", description: "Full venue takeover for 150+ guests", price: 3800, includes: ["Complete venue design", "Custom stage & mandap/arch", "Premium floral wall", "LED wall or projection", "Lounge furniture", "Balloon ceiling art", "Décor coordinator on site"] },
+      { id: "p14c", name: "Luxury Transformation", description: "Full venue takeover for 150+ guests", price: 3800, includes: ["Complete venue design", "Custom stage & ceremony arch", "Premium floral wall", "LED wall or projection", "Lounge furniture", "Balloon ceiling art", "Décor coordinator on site"] },
     ],
     reviews: [
       { id: "r14a", author: "Maria & Carlos V.", rating: 5, text: "Phoenix Grand Décor transformed our venue into a magical space for our quinceañera. The balloon installation was absolutely stunning!", date: "2025-11-14" },
-      { id: "r14b", author: "Sunita R.", rating: 5, text: "Hired them for our Diwali celebration and the diyas and lights they created were breathtaking. Very creative team!", date: "2025-10-24" },
+      { id: "r14b", author: "Sunita R.", rating: 5, text: "Hired them for our holiday lights celebration and the lanterns and lighting design they created were breathtaking. Very creative team!", date: "2025-10-24" },
       { id: "r14c", author: "Brad T.", rating: 4, text: "Good quality décor for our anniversary dinner. Setup was quick and the team was professional. Would use again.", date: "2025-08-18" },
     ],
   },
@@ -558,7 +558,7 @@ export const mockVendors: Vendor[] = [
       { id: "p9c", name: "Grand Wedding Cake", description: "Luxury multi-tier masterpiece", price: 1200, includes: ["4–6 tiers, 200+ servings", "Detailed design session", "Tasting consultation", "Premium flavor combinations", "Floral & gold leaf décor", "Delivery, setup & cutting guide"] },
     ],
     reviews: [
-      { id: "r9a", author: "Pooja & Rahul N.", rating: 5, text: "Our wedding cake was a 5-tier masterpiece with rose gold detailing. Every guest wanted to know who made it. Absolutely stunning and delicious!", date: "2025-12-15" },
+      { id: "r9a", author: "Paula & Ryan N.", rating: 5, text: "Our wedding cake was a 5-tier masterpiece with rose gold detailing. Every guest wanted to know who made it. Absolutely stunning and delicious!", date: "2025-12-15" },
       { id: "r9b", author: "Carmen L.", rating: 5, text: "Ordered a quinceañera cake with a floral cascade — it was the centerpiece of the whole event. Tasted as incredible as it looked.", date: "2025-11-08" },
       { id: "r9c", author: "Tanya B.", rating: 4, text: "Beautiful baby shower cake and great flavor. Lead time was 3 weeks but well worth the wait.", date: "2025-09-20" },
     ],
@@ -597,7 +597,7 @@ export const mockVendors: Vendor[] = [
 export const mockBookings: Booking[] = [
   { id: "b1", vendorName: "Anand Studio Photography", eventType: "Wedding", eventDate: "2026-05-15", status: "upcoming", price: 1380, packageName: "Premium" },
   { id: "b2", vendorName: "Saffron Bites Catering", eventType: "Birthday Party", eventDate: "2026-04-20", status: "upcoming", price: 517, packageName: "Grand Feast" },
-  { id: "b3", vendorName: "DJ Vikram Entertainment", eventType: "Wedding", eventDate: "2025-12-10", status: "completed", price: 1035, packageName: "Sangeet Special" },
-  { id: "b4", vendorName: "Pushpa's Floral Creations", eventType: "Baby Shower", eventDate: "2025-11-05", status: "completed", price: 920, packageName: "Garden Romance" },
-  { id: "b5", vendorName: "Royal Mandap Decorators", eventType: "Anniversary", eventDate: "2025-10-01", status: "cancelled", price: 690, packageName: "Classic Setup" },
+  { id: "b3", vendorName: "DJ Vibe Entertainment", eventType: "Wedding", eventDate: "2025-12-10", status: "completed", price: 1035, packageName: "Dance Party Special" },
+  { id: "b4", vendorName: "Petal House Floral Creations", eventType: "Baby Shower", eventDate: "2025-11-05", status: "completed", price: 920, packageName: "Garden Romance" },
+  { id: "b5", vendorName: "Royal Venue Decorators", eventType: "Anniversary", eventDate: "2025-10-01", status: "cancelled", price: 690, packageName: "Classic Setup" },
 ];

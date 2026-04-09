@@ -10,14 +10,14 @@ import { toast } from "@/components/ui/use-toast";
 const vendorCategories = [
   "Photographer", "Videographer", "Decorator", "Caterer",
   "DJ", "Florist", "Cake Designer", "Makeup Artist",
-  "Priest/Pandit", "Event Planner", "Venue",
+  "Officiant", "Event Planner", "Venue",
 ];
 
 const eventTypes = [
   "Wedding", "Birthday Party", "Baby Shower", "Quinceañera",
-  "Graduation", "Anniversary", "Diwali Event", "Eid Celebration",
+  "Graduation", "Anniversary", "Holiday Lights Event", "Community Celebration",
   "Christmas Party", "Halloween Party", "Baptism", "Bar / Bat Mitzvah",
-  "Housewarming / Griha Pravesh", "Gender Reveal", "Naming Ceremony / Namkaran",
+  "Housewarming", "Gender Reveal", "Naming Ceremony",
 ];
 
 const Navbar = () => {

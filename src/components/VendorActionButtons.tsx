@@ -17,7 +17,7 @@ export const VendorActionButtons: React.FC<VendorActionButtonsProps> = ({
   vendorId,
   vendor,
   showLabels = false,
-  size = "default",
+  size = "sm",
   showShare = true,
 }) => {
   const [shareOpen, setShareOpen] = useState(false);
@@ -29,14 +29,14 @@ export const VendorActionButtons: React.FC<VendorActionButtonsProps> = ({
   const isSavedState = isSavedForLater(vendorId);
 
   const buttonClasses = cn(
-    "transition-all duration-300",
+    "transition-all duration-300 shrink-0 text-xs h-8 px-2",
     size === "sm" && "gap-1",
-    size === "default" && "gap-2",
+    size === "default" && "gap-1.5",
     size === "lg" && "gap-2"
   );
 
   return (
-    <div className="flex gap-2 flex-wrap">
+    <div className="flex items-center gap-1.5 flex-nowrap overflow-x-auto pb-1">
       {/* Like Button */}
       <Button
         variant={isLikedState ? "accent" : "outline"}

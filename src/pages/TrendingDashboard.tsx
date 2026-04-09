@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { TrendingUp, Users, MapPin, Eye, Star, Calendar, BarChart3, Flame } from "lucide-react";
+import { TrendingUp, Users, MapPin, Eye, Star, Calendar, BarChart3, Flame, ArrowLeft } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface TrendingVendor {
   id: number;
@@ -35,74 +35,75 @@ interface InsightData {
 }
 
 const TrendingDashboard = () => {
+  const navigate = useNavigate();
   const [timeRange, setTimeRange] = useState<"week" | "month" | "year">("week");
 
   const trendingVendors: TrendingVendor[] = [
     {
       id: 1,
-      name: "Sakshi Photography Studio",
+      name: "Hudson Lens Collective",
       category: "Photography",
-      bookings: 23,
+      bookings: 27,
       rating: 4.8,
-      growth: 45,
-      location: "Bangalore",
+      growth: 39,
+      location: "New York, NY",
       trend: "up",
     },
     {
       id: 2,
-      name: "Royal Feast Catering",
+      name: "Golden Gate Catering Co.",
       category: "Catering",
-      bookings: 18,
+      bookings: 22,
       rating: 4.9,
-      growth: 32,
-      location: "Bangalore",
+      growth: 31,
+      location: "San Francisco, CA",
       trend: "up",
     },
     {
       id: 3,
-      name: "Dream Decorators",
-      category: "Decorations",
-      bookings: 15,
+      name: "Lakeshore Luxe Decor",
+      category: "Decorator",
+      bookings: 19,
       rating: 4.7,
-      growth: 28,
-      location: "Hyderabad",
+      growth: 26,
+      location: "Chicago, IL",
       trend: "up",
     },
     {
       id: 4,
-      name: "Sound & Light Pro",
+      name: "Austin Soundcraft DJs",
       category: "Entertainment",
-      bookings: 12,
+      bookings: 14,
       rating: 4.6,
-      growth: -5,
-      location: "Delhi",
+      growth: -3,
+      location: "Austin, TX",
       trend: "down",
     },
     {
       id: 5,
-      name: "Elite Venues Co.",
+      name: "Pacific Crest Venue Group",
       category: "Venues",
-      bookings: 28,
+      bookings: 32,
       rating: 4.9,
-      growth: 52,
-      location: "Mumbai",
+      growth: 47,
+      location: "Los Angeles, CA",
       trend: "up",
     },
   ];
 
   const eventTrends: EventTrend[] = [
-    { type: "Weddings", bookings: 340, percentage: 40, avgBudget: 450000, trend: 15 },
-    { type: "Corporate Events", bookings: 280, percentage: 33, avgBudget: 200000, trend: 12 },
-    { type: "Gender Reveals", bookings: 150, percentage: 18, avgBudget: 150000, trend: 25 },
-    { type: "Housewarmings", bookings: 80, percentage: 9, avgBudget: 80000, trend: 8 },
+    { type: "Weddings", bookings: 410, percentage: 41, avgBudget: 14800, trend: 17 },
+    { type: "Corporate Events", bookings: 295, percentage: 29, avgBudget: 9200, trend: 11 },
+    { type: "Baby Showers", bookings: 182, percentage: 18, avgBudget: 3600, trend: 22 },
+    { type: "Graduation Parties", bookings: 113, percentage: 12, avgBudget: 2800, trend: 9 },
   ];
 
   const locationTrends = [
-    { location: "Bangalore", bookings: 450, vendors: 350, avgRating: 4.7 },
-    { location: "Mumbai", bookings: 380, vendors: 290, avgRating: 4.6 },
-    { location: "Delhi", bookings: 320, vendors: 280, avgRating: 4.5 },
-    { location: "Hyderabad", bookings: 280, vendors: 210, avgRating: 4.8 },
-    { location: "Pune", bookings: 200, vendors: 180, avgRating: 4.6 },
+    { location: "Los Angeles, CA", bookings: 510, vendors: 390, avgRating: 4.7 },
+    { location: "New York, NY", bookings: 470, vendors: 365, avgRating: 4.8 },
+    { location: "Chicago, IL", bookings: 335, vendors: 250, avgRating: 4.6 },
+    { location: "Houston, TX", bookings: 315, vendors: 238, avgRating: 4.7 },
+    { location: "Miami, FL", bookings: 240, vendors: 194, avgRating: 4.6 },
   ];
 
   const peakBookingTimes = [
@@ -114,35 +115,35 @@ const TrendingDashboard = () => {
   ];
 
   const seasonalInsights = [
-    { month: "January", eventTypeTop: "New Year Parties", avgSpend: "₹120K" },
-    { month: "March", eventTypeTop: "Holi Celebrations", avgSpend: "₹95K" },
-    { month: "November", eventTypeTop: "Engagement & Weddings", avgSpend: "₹350K" },
-    { month: "December", eventTypeTop: "Weddings & Year-End Parties", avgSpend: "₹400K" },
+    { month: "January", eventTypeTop: "New Year Parties", avgSpend: "$4.2K" },
+    { month: "May", eventTypeTop: "Graduation Parties", avgSpend: "$3.1K" },
+    { month: "October", eventTypeTop: "Corporate & Fall Events", avgSpend: "$7.8K" },
+    { month: "December", eventTypeTop: "Holiday Weddings & Galas", avgSpend: "$15.4K" },
   ];
 
   const insights: InsightData[] = [
     {
       title: "Total Bookings",
-      value: "1,850+",
-      change: "+18% vs last month",
+      value: "2,240+",
+      change: "+16% vs last month",
       icon: <Calendar className="h-5 w-5" />,
     },
     {
       title: "Avg Budget",
-      value: "₹185K",
-      change: "+5% increase",
+      value: "$8.6K",
+      change: "+6% increase",
       icon: <BarChart3 className="h-5 w-5" />,
     },
     {
       title: "Top Vendors",
-      value: "156",
+      value: "214",
       change: "Available & Trending",
       icon: <Star className="h-5 w-5" />,
     },
     {
       title: "Satisfaction",
       value: "4.7/5",
-      change: "1,200+ reviews this week",
+      change: "1,480+ reviews this week",
       icon: <Users className="h-5 w-5" />,
     },
   ];
@@ -153,6 +154,11 @@ const TrendingDashboard = () => {
       <main className="flex-1">
         <div className="bg-gradient-to-b from-slate-50 to-white py-16">
           <div className="container">
+        <div className="mb-6">
+          <Button variant="ghost" size="sm" className="gap-1" onClick={() => navigate(-1)}>
+            <ArrowLeft className="h-4 w-4" /> Back
+          </Button>
+        </div>
         {/* Header */}
         <div className="text-center mb-12">
           <div className="flex items-center justify-center gap-2 mb-3">
@@ -261,7 +267,7 @@ const TrendingDashboard = () => {
                     <div>
                       <p className="font-semibold">{event.type}</p>
                       <p className="text-sm text-muted-foreground">
-                        {event.bookings} bookings • Avg: ₹{(event.avgBudget / 1000).toFixed(0)}K
+                        {event.bookings} bookings • Avg: ${event.avgBudget.toLocaleString()}
                       </p>
                     </div>
                     <Badge variant="secondary">
@@ -304,7 +310,7 @@ const TrendingDashboard = () => {
                         <p className="font-bold text-yellow-500">★ {loc.avgRating}</p>
                       </div>
                     </div>
-                    <Progress value={(loc.bookings / 450) * 100} className="h-2" />
+                    <Progress value={(loc.bookings / 510) * 100} className="h-2" />
                   </div>
                 ))}
               </div>
@@ -389,7 +395,7 @@ const TrendingDashboard = () => {
                   </li>
                   <li className="flex gap-2">
                     <span className="text-accent font-bold">→</span>
-                    <span>Bangalore & Mumbai offer most variety and availability</span>
+                    <span>Los Angeles and New York offer the widest vendor variety</span>
                   </li>
                   <li className="flex gap-2">
                     <span className="text-accent font-bold">→</span>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Star } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { Star, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -18,6 +18,7 @@ const statusColors: Record<string, string> = {
 };
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const [tab, setTab] = useState("upcoming");
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
@@ -56,6 +57,11 @@ const Dashboard = () => {
     <div className="min-h-screen flex flex-col">
       <Navbar />
       <main className="flex-1 container py-10">
+        <div className="mb-4">
+          <Button variant="ghost" size="sm" className="gap-1" onClick={() => navigate(-1)}>
+            <ArrowLeft className="h-4 w-4" /> Back
+          </Button>
+        </div>
         <h1 className="font-heading text-3xl font-bold mb-8">My Bookings</h1>
         
         {error && (
