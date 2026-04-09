@@ -1,6 +1,8 @@
-import { Heart, Bookmark } from "lucide-react";
+import { useState } from "react";
+import { Heart, Bookmark, Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useFavorites } from "@/contexts/FavoritesContext";
+import ShareModal from "@/components/ShareModal";
 import { cn } from "@/lib/utils";
 
 interface VendorActionButtonsProps {
@@ -8,6 +10,7 @@ interface VendorActionButtonsProps {
   vendor?: { name: string; category: string };
   showLabels?: boolean;
   size?: "sm" | "default" | "lg";
+  showShare?: boolean;
 }
 
 export const VendorActionButtons: React.FC<VendorActionButtonsProps> = ({
@@ -15,7 +18,9 @@ export const VendorActionButtons: React.FC<VendorActionButtonsProps> = ({
   vendor,
   showLabels = false,
   size = "default",
+  showShare = true,
 }) => {
+  const [shareOpen, setShareOpen] = useState(false);
   const { isLiked, isFavorited, isSavedForLater, toggleLike, toggleFavorite, toggleSaveForLater } =
     useFavorites();
 
@@ -74,6 +79,28 @@ export const VendorActionButtons: React.FC<VendorActionButtonsProps> = ({
         />
         {showLabels && <span>{isSavedState ? "Saved" : "Save"}</span>}
       </Button>
+
+      {/* Share Button */}
+      {showShare && (
+        <>
+          <Button
+            variant="outline"
+            size={size}
+            className={buttonClasses}
+            onClick={() => setShareOpen(true)}
+            title="Share this vendor"
+          >
+            <Share2 className="h-4 w-4" />
+            {showLabels && <span>Share</span>}
+          </Button>
+          <ShareModal
+            open={shareOpen}
+            onOpenChange={setShareOpen}
+            vendorId={vendorId}
+            vendorName={vendor?.name || "Vendor"}
+          />
+        </>
+      )}
     </div>
   );
 };

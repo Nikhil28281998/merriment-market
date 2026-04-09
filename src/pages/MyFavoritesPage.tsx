@@ -1,7 +1,9 @@
-import { Heart, Bookmark, Trash2 } from "lucide-react";
+import { useState } from "react";
+import { Heart, Bookmark, Trash2, Share2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ShareModal from "@/components/ShareModal";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -10,6 +12,7 @@ import { useFavorites } from "@/contexts/FavoritesContext";
 import { allVendors } from "@/data/vendorDiscovery";
 
 const MyFavoritesPage = () => {
+  const [shareOpen, setShareOpen] = useState(false);
   const { liked, favorited, savedForLater, toggleLike, toggleFavorite, toggleSaveForLater } = useFavorites();
 
   const likedVendors = allVendors.filter((v) => liked.includes(v.id));
@@ -107,11 +110,30 @@ const MyFavoritesPage = () => {
       <Navbar />
       <main className="flex-1 container py-10">
         <div className="mb-8">
-          <h1 className="font-heading text-3xl md:text-4xl font-bold mb-2">My Collections</h1>
+          <div className="flex items-center justify-between mb-2">
+            <h1 className="font-heading text-3xl md:text-4xl font-bold">My Collections</h1>
+            <Button
+              variant="outline"
+              size="sm"
+              className="gap-2"
+              onClick={() => setShareOpen(true)}
+            >
+              <Share2 className="h-4 w-4" />
+              Share Collections
+            </Button>
+          </div>
           <p className="text-muted-foreground">
             Manage your liked vendors, favorites, and saved-for-later items in one place.
           </p>
         </div>
+
+        <ShareModal
+          open={shareOpen}
+          onOpenChange={setShareOpen}
+          title="Share My Collections"
+          description="Share your favorite vendors with friends and family"
+          isCollection={true}
+        />
 
         <Tabs defaultValue="liked" className="w-full">
           <TabsList className="grid w-full grid-cols-3 mb-8">
