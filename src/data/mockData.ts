@@ -175,7 +175,7 @@ export const mockVendors: Vendor[] = [
     startingPrice: 400,
     photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop",
     coverPhoto: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1200&h=400&fit=crop",
-    bio: "DJ Vibe has been the Bay Area's go-to event DJ for over 7 years, bringing high-energy soundtracks to weddings, dance partys, birthday parties, and corporate events. From Top 40 and Latin Pop to Top 40, Latin, and EDM, we read the crowd and keep the dance floor packed all night. Full sound, lighting, and MC services included.",
+    bio: "DJ Vibe has been the Bay Area's go-to event DJ for over 7 years, bringing high-energy soundtracks to weddings, dance parties, birthday parties, and corporate events. From Top 40 and Latin Pop to EDM, we read the crowd and keep the dance floor packed all night. Full sound, lighting, and MC services included.",
     portfolio: [
       "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=300&fit=crop",
       "https://images.unsplash.com/photo-1571266028243-3716f02d2d5e?w=400&h=300&fit=crop",

@@ -33,7 +33,7 @@ const SLIDES: HeroSlide[] = [
   {
     badge: "BABY SHOWER",
     headline: "Celebrate Every Precious Moment",
-    subtitle: "Find photographers, decorators and priests for your baby shower",
+    subtitle: "Find photographers, decorators and officiants for your baby shower",
     image: "https://images.unsplash.com/photo-1519340241574-2cec6aef0c01?w=1920&q=80",
     accent: "#f26d7d",
   },
@@ -82,7 +82,7 @@ const SLIDES: HeroSlide[] = [
   {
     badge: "HOUSEWARMING",
     headline: "Welcome Home in Style",
-    subtitle: "Find priests, decorators and caterers for your housewarming puja",
+    subtitle: "Find officiants, decorators and caterers for your housewarming celebration",
     image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1920&q=80",
     accent: "#14b8a6",
   },
@@ -112,11 +112,11 @@ const ROWS: EventRow[] = [
     ],
   },
   {
-    title: "Cultural & Religious Events",
+    title: "Cultural & Faith Celebrations",
     cards: [
-      { title: "Housewarming Puja", image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&q=80" },
+      { title: "Housewarming Party", image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&q=80" },
       { title: "Engagement Ceremony", image: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=500&q=80" },
-      { title: "Temple Celebration", image: "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?w=500&q=80" },
+      { title: "Church Celebration", image: "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?w=500&q=80" },
       { title: "Festival Gathering", image: "https://images.unsplash.com/photo-1607082349566-187342175e2f?w=500&q=80" },
       { title: "Traditional Wedding", image: "https://images.unsplash.com/photo-1519741497674-611481863552?w=500&q=80" },
       { title: "Community Event", image: "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=500&q=80" },

@@ -562,7 +562,18 @@ const Browse = () => {
                 ))}
               </div>
             ) : filtered.length === 0 ? (
-              <p className="text-center text-muted-foreground py-16">No vendors found matching your criteria.</p>
+              <div className="flex flex-col items-center justify-center py-20 text-center">
+                <div className="rounded-full bg-muted p-5 mb-5">
+                  <SlidersHorizontal className="h-8 w-8 text-muted-foreground" />
+                </div>
+                <h3 className="font-heading text-xl font-bold mb-2">No vendors found</h3>
+                <p className="text-sm text-muted-foreground max-w-xs mb-6">
+                  Try widening your budget range, removing a category filter, or exploring a different city.
+                </p>
+                <Button variant="outline" onClick={clearAllFilters} className="gap-2">
+                  <X className="h-4 w-4" /> Reset all filters
+                </Button>
+              </div>
             ) : viewMode === "map" ? (
               <div className="grid lg:grid-cols-[1fr_320px] gap-6">
                 <Card className="relative min-h-[520px] overflow-hidden border">
@@ -701,6 +712,29 @@ const Browse = () => {
             )}
           </div>
         </div>
+
+        {/* Desktop sticky compare bar */}
+        {compareIds.length > 0 && (
+          <div className="hidden md:flex fixed bottom-0 left-0 right-0 z-40 border-t bg-background/95 backdrop-blur shadow-lg">
+            <div className="container py-3 flex items-center gap-4">
+              <Scale className="h-5 w-5 text-accent shrink-0" />
+              <p className="text-sm font-semibold flex-1">
+                {compareIds.length} vendor{compareIds.length > 1 ? "s" : ""} selected for comparison
+                <span className="text-muted-foreground font-normal ml-1">(max 4)</span>
+              </p>
+              <div className="flex gap-2">
+                <Button size="sm" variant="ghost" onClick={() => setCompareIds([])} className="text-destructive hover:text-destructive">
+                  <X className="h-4 w-4 mr-1" /> Clear
+                </Button>
+                <Button size="sm" variant="accent" asChild>
+                  <Link to={`/compare?ids=${compareIds.join(",")}`}>
+                    <Scale className="h-4 w-4 mr-1" /> Compare Now
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
 
         <div className="md:hidden fixed bottom-4 left-4 right-4 z-40">
           <div className="rounded-full border bg-background/95 backdrop-blur px-4 py-3 shadow-lg flex items-center justify-between">

@@ -54,6 +54,11 @@ const VendorProfile = () => {
     [vendor.packages],
   );
 
+  const similarVendors = useMemo(
+    () => allVendors.filter(v => v.category === vendor.category && v.id !== vendor.id).slice(0, 3),
+    [vendor.category, vendor.id],
+  );
+
   const closeLightbox = () => setLightboxIndex(null);
   const previousLightboxImage = () => setLightboxIndex((prev) => (prev === null ? prev : (prev - 1 + vendor.portfolio.length) % vendor.portfolio.length));
   const nextLightboxImage = () => setLightboxIndex((prev) => (prev === null ? prev : (prev + 1) % vendor.portfolio.length));
@@ -329,6 +334,36 @@ const VendorProfile = () => {
                   ))}
                 </div>
               </section>
+
+              {/* Similar Vendors */}
+              {similarVendors.length > 0 && (
+                <section className="mt-10">
+                  <h2 className="font-heading text-xl font-bold mb-4">You Might Also Like</h2>
+                  <div className="grid sm:grid-cols-3 gap-4">
+                    {similarVendors.map(sv => (
+                      <Link key={sv.id} to={`/vendor/${sv.id}`} className="group block">
+                        <Card className="overflow-hidden hover:shadow-md transition-shadow">
+                          <img
+                            src={sv.photo}
+                            alt={sv.name}
+                            className="w-full h-36 object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                          <CardContent className="p-3">
+                            <p className="text-xs font-medium text-accent mb-0.5">{sv.category}</p>
+                            <p className="font-semibold text-sm leading-tight line-clamp-1">{sv.name}</p>
+                            <div className="flex items-center gap-1 mt-1">
+                              <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                              <span className="text-xs font-semibold">{sv.rating}</span>
+                              <span className="text-xs text-muted-foreground">({sv.reviewCount})</span>
+                            </div>
+                            <p className="text-xs text-muted-foreground mt-1">From ${sv.startingPrice}</p>
+                          </CardContent>
+                        </Card>
+                      </Link>
+                    ))}
+                  </div>
+                </section>
+              )}
 
               {/* Availability */}
               <section className="mt-10">

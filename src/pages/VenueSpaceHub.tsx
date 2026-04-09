@@ -29,7 +29,7 @@ const venues: Venue[] = [
     type: "Banquet Hall",
     image: "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=500&h=300&fit=crop",
     capacity: { min: 100, max: 500 },
-    pricing: { min: 75000, max: 200000 },
+    pricing: { min: 3500, max: 8500 },
     amenities: ["Parking", "Wifi", "Catering", "DJ Setup", "Stage"],
     rating: 4.8,
     reviews: 142,
@@ -43,7 +43,7 @@ const venues: Venue[] = [
     type: "Resort",
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=300&fit=crop",
     capacity: { min: 50, max: 300 },
-    pricing: { min: 100000, max: 350000 },
+    pricing: { min: 5000, max: 12000 },
     amenities: ["Pool", "Parking", "Rooms", "Restaurant", "Garden"],
     rating: 4.9,
     reviews: 267,
@@ -57,7 +57,7 @@ const venues: Venue[] = [
     type: "Modern Venue",
     image: "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=500&h=300&fit=crop",
     capacity: { min: 30, max: 150 },
-    pricing: { min: 40000, max: 100000 },
+    pricing: { min: 1500, max: 4500 },
     amenities: ["Wifi", "Flexible Layout", "Natural Light", "Parking"],
     rating: 4.6,
     reviews: 98,
@@ -71,7 +71,7 @@ const venues: Venue[] = [
     type: "Destination Wedding",
     image: "https://images.unsplash.com/photo-1519167758993-403d7b6d9dd9?w=500&h=300&fit=crop",
     capacity: { min: 200, max: 800 },
-    pricing: { min: 150000, max: 500000 },
+    pricing: { min: 6500, max: 15000 },
     amenities: ["Garden", "Parking", "Accommodation", "Catering", "Multi-level"],
     rating: 4.7,
     reviews: 189,
@@ -99,7 +99,7 @@ const amenityIcons: Record<string, React.ReactNode> = {
 const VenueSpaceHub = () => {
   const [selectedVenue, setSelectedVenue] = useState<Venue | null>(null);
   const [guestCount, setGuestCount] = useState<number>(100);
-  const [budget, setBudget] = useState<number>(200000);
+  const [budget, setBudget] = useState<number>(8000);
   const [selectedCity, setSelectedCity] = useState<string>("All");
 
   const cities = ["All", ...new Set(venues.map(v => v.city))];
@@ -177,9 +177,9 @@ const VenueSpaceHub = () => {
                 </label>
                 <input 
                   type="range"
-                  min="30000"
-                  max="500000"
-                  step="10000"
+                  min="1000"
+                  max="20000"
+                  step="500"
                   value={budget}
                   onChange={(e) => setBudget(parseInt(e.target.value))}
                   className="w-full accent-accent"
@@ -360,7 +360,7 @@ const VenueSpaceHub = () => {
                 className="bg-accent hover:bg-accent/90"
                 onClick={() => {
                   setGuestCount(100);
-                  setBudget(200000);
+                  setBudget(8000);
                 }}
               >
                 Reset Filters

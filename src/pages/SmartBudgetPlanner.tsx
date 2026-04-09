@@ -26,7 +26,7 @@ interface BudgetCategory {
 }
 
 const SmartBudgetPlanner = () => {
-  const [totalBudget, setTotalBudget] = useState<number>(200000);
+  const [totalBudget, setTotalBudget] = useState<number>(15000);
   const [guestCount, setGuestCount] = useState<number>(100);
   const [eventType, setEventType] = useState<string>("Wedding");
   const [allocated, setAllocated] = useState<Record<string, number>>({});
@@ -237,9 +237,9 @@ const SmartBudgetPlanner = () => {
                 </div>
                 <input 
                   type="range"
-                  min="50000"
-                  max="1000000"
-                  step="10000"
+                  min="2000"
+                  max="50000"
+                  step="500"
                   value={totalBudget}
                   onChange={(e) => setTotalBudget(parseInt(e.target.value))}
                   className="w-full accent-accent"

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useFavorites } from "@/contexts/FavoritesContext";
 import ShareModal from "@/components/ShareModal";
 import { cn } from "@/lib/utils";
+import { toast } from "sonner";
 
 interface VendorActionButtonsProps {
   vendorId: string;
@@ -42,7 +43,10 @@ export const VendorActionButtons: React.FC<VendorActionButtonsProps> = ({
         variant={isLikedState ? "accent" : "outline"}
         size={size}
         className={buttonClasses}
-        onClick={() => toggleLike(vendorId)}
+        onClick={() => {
+          toggleLike(vendorId);
+          toast(isLikedState ? "Removed like" : "Liked!");
+        }}
         title={isLikedState ? "Unlike this vendor" : "Like this vendor"}
       >
         <Heart
@@ -56,7 +60,10 @@ export const VendorActionButtons: React.FC<VendorActionButtonsProps> = ({
         variant={isFavoritedState ? "accent" : "outline"}
         size={size}
         className={buttonClasses}
-        onClick={() => toggleFavorite(vendorId)}
+        onClick={() => {
+          toggleFavorite(vendorId);
+          toast(isFavoritedState ? "Removed from favorites" : "Added to favorites ❤️");
+        }}
         title={isFavoritedState ? "Remove from favorites" : "Add to favorites"}
       >
         <Heart
@@ -71,7 +78,10 @@ export const VendorActionButtons: React.FC<VendorActionButtonsProps> = ({
         variant={isSavedState ? "accent" : "outline"}
         size={size}
         className={buttonClasses}
-        onClick={() => toggleSaveForLater(vendorId)}
+        onClick={() => {
+          toggleSaveForLater(vendorId);
+          toast(isSavedState ? "Removed from saved" : "Saved for later 🔖");
+        }}
         title={isSavedState ? "Remove from saved" : "Save for later"}
       >
         <Bookmark
