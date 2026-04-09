@@ -243,14 +243,13 @@ const HeroSection = () => {
   const [date, setDate] = useState<Date>();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
-  const [resumeAt, setResumeAt] = useState<number>(0);
-  const [elapsed, setElapsed] = useState(0);
+  const [progress, setProgress] = useState(0);
   const [firstLoaded, setFirstLoaded] = useState(false);
-  const frameRef = useRef<number | null>(null);
-  const lastTickRef = useRef<number | null>(null);
+  const pauseUntilRef = useRef<number>(0);
+  const touchStartXRef = useRef<number | null>(null);
+  const touchDeltaXRef = useRef(0);
 
   const activeSlide = SLIDES[currentSlide];
-  const progress = Math.min((elapsed / AUTOPLAY_MS) * 100, 100);
 
   useEffect(() => {
     SLIDES.forEach((slide) => {
@@ -266,35 +265,29 @@ const HeroSection = () => {
   }, []);
 
   useEffect(() => {
-    const tick = (now: number) => {
-      const locked = isHovering || now < resumeAt;
-      if (lastTickRef.current == null) lastTickRef.current = now;
-      const delta = now - lastTickRef.current;
-      lastTickRef.current = now;
+    const tickMs = 100;
+    const step = (tickMs / AUTOPLAY_MS) * 100;
+    const interval = setInterval(() => {
+      const locked = isHovering || Date.now() < pauseUntilRef.current;
+      if (locked) return;
 
-      if (!locked) {
-        setElapsed((prev) => {
-          const next = prev + delta;
-          if (next >= AUTOPLAY_MS) {
-            setCurrentSlide((s) => (s + 1) % SLIDES.length);
-            return 0;
-          }
-          return next;
-        });
-      }
-      frameRef.current = requestAnimationFrame(tick);
-    };
+      setProgress((prev) => {
+        const next = prev + step;
+        if (next >= 100) {
+          setCurrentSlide((s) => (s + 1) % SLIDES.length);
+          return 0;
+        }
+        return next;
+      });
+    }, tickMs);
 
-    frameRef.current = requestAnimationFrame(tick);
-    return () => {
-      if (frameRef.current != null) cancelAnimationFrame(frameRef.current);
-    };
-  }, [isHovering, resumeAt]);
+    return () => clearInterval(interval);
+  }, [isHovering]);
 
   const jumpTo = (index: number, resumeDelayMs = 3000) => {
     setCurrentSlide(index);
-    setElapsed(0);
-    setResumeAt(performance.now() + resumeDelayMs);
+    setProgress(0);
+    pauseUntilRef.current = Date.now() + resumeDelayMs;
   };
 
   const nextSlide = () => jumpTo((currentSlide + 1) % SLIDES.length);
@@ -321,7 +314,24 @@ const HeroSection = () => {
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => {
           setIsHovering(false);
-          setResumeAt((prev) => Math.max(performance.now() + 2000, prev));
+          pauseUntilRef.current = Date.now() + 2000;
+        }}
+        onTouchStart={(e) => {
+          touchStartXRef.current = e.touches[0].clientX;
+          touchDeltaXRef.current = 0;
+        }}
+        onTouchMove={(e) => {
+          if (touchStartXRef.current == null) return;
+          touchDeltaXRef.current = e.touches[0].clientX - touchStartXRef.current;
+        }}
+        onTouchEnd={() => {
+          const delta = touchDeltaXRef.current;
+          if (Math.abs(delta) > 40) {
+            if (delta < 0) nextSlide();
+            else prevSlide();
+          }
+          touchStartXRef.current = null;
+          touchDeltaXRef.current = 0;
         }}
       >
         {!firstLoaded && (
