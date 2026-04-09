@@ -248,6 +248,7 @@ const HeroSection = () => {
   const pauseUntilRef = useRef<number>(0);
   const touchStartXRef = useRef<number | null>(null);
   const touchDeltaXRef = useRef(0);
+  const pointerMovedRef = useRef(false);
 
   const activeSlide = SLIDES[currentSlide];
 
@@ -311,7 +312,12 @@ const HeroSection = () => {
           // Smoothly transition accent tone with each slide switch.
           ["--hero-accent" as string]: activeSlide.accent,
         }}
-        onMouseEnter={() => setIsHovering(true)}
+        onMouseMove={() => {
+          pointerMovedRef.current = true;
+        }}
+        onMouseEnter={() => {
+          if (pointerMovedRef.current) setIsHovering(true);
+        }}
         onMouseLeave={() => {
           setIsHovering(false);
           pauseUntilRef.current = Date.now() + 2000;
