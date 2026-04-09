@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Link } from "react-router-dom";
 
 interface TrendingVendor {
   id: number;
@@ -238,8 +239,8 @@ const TrendingDashboard = () => {
                     </div>
                   </div>
 
-                  <Button className="w-full bg-accent hover:bg-accent/90" size="sm">
-                    View Profile
+                  <Button className="w-full bg-accent hover:bg-accent/90" size="sm" asChild>
+                    <Link to={`/browse?search=${encodeURIComponent(vendor.name)}`}>View Profile</Link>
                   </Button>
                 </CardContent>
               </Card>

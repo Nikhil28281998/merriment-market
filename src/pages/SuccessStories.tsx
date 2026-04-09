@@ -1,8 +1,11 @@
 import { useState } from "react";
-import { Heart, MessageCircle, Share2, Star, Calendar, MapPin } from "lucide-react";
+import { Heart, MessageCircle, Share2, Star, Calendar, MapPin, X } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Link } from "react-router-dom";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 interface SuccessStory {
   id: string;
@@ -67,14 +70,16 @@ const successStories: SuccessStory[] = [
 const VendorSuccessStories = () => {
   const [liked, setLiked] = useState<Record<string, boolean>>({});
   const [selectedStory, setSelectedStory] = useState<SuccessStory | null>(null);
+  const [shareOpen, setShareOpen] = useState(false);
 
   const toggleLike = (storyId: string) => {
     setLiked(prev => ({ ...prev, [storyId]: !prev[storyId] }));
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
-      <section className="py-16">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-slate-50 to-white">
+      <Navbar />
+      <section className="flex-1 py-16">
         <div className="container">
           {/* Header */}
           <div className="text-center mb-12">
@@ -114,8 +119,8 @@ const VendorSuccessStories = () => {
                     <span>{successStories[0].date}</span>
                   </div>
 
-                  <Button className="bg-accent hover:bg-accent/90 w-fit">
-                    View {successStories[0].vendorName}
+                  <Button className="bg-accent hover:bg-accent/90 w-fit" asChild>
+                    <Link to="/browse">View {successStories[0].vendorName}</Link>
                   </Button>
                 </CardContent>
               </div>
@@ -189,8 +194,10 @@ const VendorSuccessStories = () => {
                 Book your next event with EventzHub and share your unforgettable moment with our community.
               </p>
               <div className="flex gap-4 justify-center flex-wrap">
-                <Button className="bg-accent hover:bg-accent/90">Browse Vendors</Button>
-                <Button variant="outline">Share Your Story</Button>
+                <Button className="bg-accent hover:bg-accent/90" asChild>
+                  <Link to="/browse">Browse Vendors</Link>
+                </Button>
+                <Button variant="outline" onClick={() => setShareOpen(true)}>Share Your Story</Button>
               </div>
             </CardContent>
           </Card>
@@ -233,8 +240,8 @@ const VendorSuccessStories = () => {
                 </div>
               </div>
 
-              <Button className="bg-accent hover:bg-accent/90 w-full mb-3">
-                Book {selectedStory.vendorName}
+              <Button className="bg-accent hover:bg-accent/90 w-full mb-3" asChild>
+                <Link to="/browse">Book {selectedStory.vendorName}</Link>
               </Button>
               <Button variant="outline" className="w-full" onClick={() => setSelectedStory(null)}>
                 Close
@@ -243,6 +250,38 @@ const VendorSuccessStories = () => {
           </Card>
         </div>
       )}
+
+      {/* Share Story Modal */}
+      {shareOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50"
+          onClick={() => setShareOpen(false)}
+        >
+          <Card className="max-w-md w-full rounded-lg" onClick={e => e.stopPropagation()}>
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="font-heading text-xl font-bold">Share Your Story</h2>
+                <button type="button" onClick={() => setShareOpen(false)} className="text-muted-foreground hover:text-foreground">
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+              <p className="text-muted-foreground mb-4 text-sm">We'd love to hear about your event! Email us your story and photos.</p>
+              <a
+                href="mailto:stories@eventzhub.com?subject=My Event Success Story"
+                className="block"
+              >
+                <Button className="bg-accent hover:bg-accent/90 w-full mb-3">
+                  Email Us Your Story
+                </Button>
+              </a>
+              <Button variant="outline" className="w-full" onClick={() => setShareOpen(false)}>
+                Cancel
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+      <Footer />
     </div>
   );
 };

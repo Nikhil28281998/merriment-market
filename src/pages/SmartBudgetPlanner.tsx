@@ -7,6 +7,7 @@ import { Progress } from "@/components/ui/progress";
 import { Input } from "@/components/ui/input";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Link } from "react-router-dom";
 
 interface BudgetBreakdown {
   category: string;
@@ -403,11 +404,11 @@ const SmartBudgetPlanner = () => {
               Use this budget breakdown to negotiate with vendors and find the best deals
             </p>
             <div className="flex gap-4 justify-center flex-wrap">
-              <Button className="bg-accent hover:bg-accent/90">
-                Browse Vendors
+              <Button className="bg-accent hover:bg-accent/90" asChild>
+                <Link to="/browse">Browse Vendors</Link>
               </Button>
-              <Button variant="outline">
-                Download Budget Sheet
+              <Button variant="outline" onClick={() => window.print()}>
+                Download / Print Budget Sheet
               </Button>
             </div>
           </CardContent>

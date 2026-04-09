@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Link } from "react-router-dom";
 
 interface Guide {
   id: string;
@@ -234,9 +235,9 @@ const EventAcademy = () => {
                           </li>
                         ))}
                       </ul>
-                      <Button variant="outline" size="sm" className="mt-3 w-full">
+                      <Button variant="outline" size="sm" className="mt-3 w-full" onClick={() => window.print()}>
                         <Download className="h-4 w-4 mr-2" />
-                        Download Checklist
+                        Download / Print Checklist
                       </Button>
                     </div>
 
@@ -304,8 +305,8 @@ const EventAcademy = () => {
             <p className="text-muted-foreground mb-6">
               Use our guides as you discover and book vendors on EventzHub.
             </p>
-            <Button className="bg-accent hover:bg-accent/90">
-              Start Planning Now
+            <Button className="bg-accent hover:bg-accent/90" asChild>
+              <Link to="/browse">Start Planning Now</Link>
             </Button>
           </CardContent>
         </Card>

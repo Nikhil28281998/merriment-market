@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+import { Link } from "react-router-dom";
 
 interface Venue {
   id: string;
@@ -258,8 +259,7 @@ const VenueSpaceHub = () => {
                     )}
                   </div>
                 </div>
-
-                <Button className="w-full bg-accent hover:bg-accent/90">
+                <Button className="w-full bg-accent hover:bg-accent/90" onClick={() => setSelectedVenue(venue)}>
                   View Details
                 </Button>
               </CardContent>
@@ -326,12 +326,14 @@ const VenueSpaceHub = () => {
 
                 {/* Contact & Actions */}
                 <div className="grid md:grid-cols-2 gap-4 mb-6">
-                  <Button className="bg-accent hover:bg-accent/90 py-6 text-base">
-                    <Phone className="h-5 w-5 mr-2" />
-                    Call: {selectedVenue.phone}
+                  <Button className="bg-accent hover:bg-accent/90 py-6 text-base" asChild>
+                    <a href={`tel:${selectedVenue.phone}`}>
+                      <Phone className="h-5 w-5 mr-2" />
+                      Call: {selectedVenue.phone}
+                    </a>
                   </Button>
-                  <Button variant="outline" className="py-6 text-base">
-                    Schedule Site Visit
+                  <Button variant="outline" className="py-6 text-base" asChild>
+                    <Link to="/browse">Browse Vendors for This Venue</Link>
                   </Button>
                 </div>
 
