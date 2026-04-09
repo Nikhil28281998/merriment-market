@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MapPin, Users, DollarSign, Wifi, Parking, ChefHat, Music, Maximize2, Phone } from "lucide-react";
+import { MapPin, Users, DollarSign, Wifi, SquareParking, ChefHat, Music, Maximize2, Phone } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -80,7 +80,7 @@ const venues: Venue[] = [
 ];
 
 const amenityIcons: Record<string, React.ReactNode> = {
-  "Parking": <Parking className="h-4 w-4" />,
+  "Parking": <SquareParking className="h-4 w-4" />,
   "Wifi": <Wifi className="h-4 w-4" />,
   "Catering": <ChefHat className="h-4 w-4" />,
   "DJ Setup": <Music className="h-4 w-4" />,

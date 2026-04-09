@@ -1,27 +1,304 @@
-import { useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
-import { CalendarIcon, Search } from "lucide-react";
+import { ArrowRight, CalendarIcon, ChevronLeft, ChevronRight, Search } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { eventTypes } from "@/data/mockData";
 import LocationAutocomplete from "@/components/LocationAutocomplete";
+import { Card, CardContent } from "@/components/ui/card";
 
-const STATS = [
-  { value: "500+", label: "Vendors" },
-  { value: "50", label: "Cities" },
-  { value: "19", label: "Event Types" },
-  { value: "4.9★", label: "Avg Rating" },
+type HeroSlide = {
+  badge: string;
+  headline: string;
+  subtitle: string;
+  image: string;
+  accent: string;
+};
+
+type EventCard = {
+  title: string;
+  image: string;
+};
+
+type EventRow = {
+  title: string;
+  cards: EventCard[];
+};
+
+const SLIDES: HeroSlide[] = [
+  {
+    badge: "BABY SHOWER",
+    headline: "Celebrate Every Precious Moment",
+    subtitle: "Find photographers, decorators and priests for your baby shower",
+    image: "https://images.unsplash.com/photo-1519340241574-2cec6aef0c01?w=1920&q=80",
+    accent: "#f26d7d",
+  },
+  {
+    badge: "WEDDINGS",
+    headline: "Your Perfect Day Deserves the Best",
+    subtitle: "Book top photographers, decorators, caterers and more",
+    image: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=1920&q=80",
+    accent: "#e8472a",
+  },
+  {
+    badge: "BIRTHDAYS",
+    headline: "Make Every Birthday Unforgettable",
+    subtitle: "From kids to 100th birthdays — we have the perfect vendors",
+    image: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=1920&q=80",
+    accent: "#ff8a00",
+  },
+  {
+    badge: "HALLOWEEN",
+    headline: "Hauntingly Good Celebrations",
+    subtitle: "Book decorators, DJs and photographers for your Halloween party",
+    image: "https://images.unsplash.com/photo-1508361001413-7a9dca21d08a?w=1920&q=80",
+    accent: "#f97316",
+  },
+  {
+    badge: "CHRISTMAS",
+    headline: "Spread the Holiday Magic",
+    subtitle: "Find decorators, caterers and photographers for Christmas events",
+    image: "https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=1920&q=80",
+    accent: "#22c55e",
+  },
+  {
+    badge: "GRADUATION",
+    headline: "Honor Every Achievement",
+    subtitle: "Celebrate their success with the perfect event vendors",
+    image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1920&q=80",
+    accent: "#3b82f6",
+  },
+  {
+    badge: "GENDER REVEAL",
+    headline: "The Big Moment Deserves Big Style",
+    subtitle: "Book photographers, decorators and cake designers for your reveal",
+    image: "https://images.unsplash.com/photo-1587545759985-a759d28abe4a?w=1920&q=80",
+    accent: "#a855f7",
+  },
+  {
+    badge: "HOUSEWARMING",
+    headline: "Welcome Home in Style",
+    subtitle: "Find priests, decorators and caterers for your housewarming puja",
+    image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1920&q=80",
+    accent: "#14b8a6",
+  },
 ];
+
+const ROWS: EventRow[] = [
+  {
+    title: "Popular Events Near You",
+    cards: [
+      { title: "Wedding Reception", image: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=500&q=80" },
+      { title: "Birthday Bash", image: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=500&q=80" },
+      { title: "Baby Shower", image: "https://images.unsplash.com/photo-1519340241574-2cec6aef0c01?w=500&q=80" },
+      { title: "Corporate Mixer", image: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=500&q=80" },
+      { title: "Housewarming", image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&q=80" },
+      { title: "Anniversary Dinner", image: "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=500&q=80" },
+    ],
+  },
+  {
+    title: "Baby & Family Celebrations",
+    cards: [
+      { title: "Naming Ceremony", image: "https://images.unsplash.com/photo-1519340241574-2cec6aef0c01?w=500&q=80" },
+      { title: "Gender Reveal", image: "https://images.unsplash.com/photo-1587545759985-a759d28abe4a?w=500&q=80" },
+      { title: "Kids Birthday", image: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=500&q=80" },
+      { title: "Family Reunion", image: "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=500&q=80" },
+      { title: "First Birthday", image: "https://images.unsplash.com/photo-1472162072942-cd5147eb3902?w=500&q=80" },
+      { title: "Milestone Party", image: "https://images.unsplash.com/photo-1527529482837-4698179dc6ce?w=500&q=80" },
+    ],
+  },
+  {
+    title: "Cultural & Religious Events",
+    cards: [
+      { title: "Housewarming Puja", image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&q=80" },
+      { title: "Engagement Ceremony", image: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=500&q=80" },
+      { title: "Temple Celebration", image: "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?w=500&q=80" },
+      { title: "Festival Gathering", image: "https://images.unsplash.com/photo-1607082349566-187342175e2f?w=500&q=80" },
+      { title: "Traditional Wedding", image: "https://images.unsplash.com/photo-1519741497674-611481863552?w=500&q=80" },
+      { title: "Community Event", image: "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=500&q=80" },
+    ],
+  },
+  {
+    title: "Holiday & Seasonal Events",
+    cards: [
+      { title: "Christmas Party", image: "https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=500&q=80" },
+      { title: "Halloween Night", image: "https://images.unsplash.com/photo-1508361001413-7a9dca21d08a?w=500&q=80" },
+      { title: "New Year Gala", image: "https://images.unsplash.com/photo-1485871981521-5b1fd3805eee?w=500&q=80" },
+      { title: "Graduation Party", image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=500&q=80" },
+      { title: "Spring Garden Event", image: "https://images.unsplash.com/photo-1472653431158-6364773b2a56?w=500&q=80" },
+      { title: "Summer Pool Party", image: "https://images.unsplash.com/photo-1527529482837-4698179dc6ce?w=500&q=80" },
+    ],
+  },
+];
+
+const AUTOPLAY_MS = 5000;
+
+const ScrollRow = ({ row }: { row: EventRow }) => {
+  const listRef = useRef<HTMLDivElement | null>(null);
+  const [canLeft, setCanLeft] = useState(false);
+  const [canRight, setCanRight] = useState(true);
+
+  const updateArrows = () => {
+    const el = listRef.current;
+    if (!el) return;
+    const maxScrollLeft = el.scrollWidth - el.clientWidth;
+    setCanLeft(el.scrollLeft > 4);
+    setCanRight(el.scrollLeft < maxScrollLeft - 4);
+  };
+
+  useEffect(() => {
+    updateArrows();
+    const el = listRef.current;
+    if (!el) return;
+    el.addEventListener("scroll", updateArrows, { passive: true });
+    window.addEventListener("resize", updateArrows);
+    return () => {
+      el.removeEventListener("scroll", updateArrows);
+      window.removeEventListener("resize", updateArrows);
+    };
+  }, []);
+
+  const scrollByCards = (direction: "left" | "right") => {
+    const el = listRef.current;
+    if (!el) return;
+    const cardWidth = 216;
+    el.scrollBy({
+      left: direction === "right" ? cardWidth * 3 : -cardWidth * 3,
+      behavior: "smooth",
+    });
+  };
+
+  return (
+    <section className="relative">
+      <div className="mb-4 flex items-center justify-between">
+        <h3 className="text-xl md:text-2xl font-bold text-white">{row.title}</h3>
+        <div className="hidden md:flex gap-2">
+          {canLeft && (
+            <button
+              type="button"
+              onClick={() => scrollByCards("left")}
+              className="rounded-full border border-white/30 bg-black/35 p-2 text-white hover:bg-black/60 transition-colors"
+              aria-label={`Scroll ${row.title} left`}
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+          )}
+          {canRight && (
+            <button
+              type="button"
+              onClick={() => scrollByCards("right")}
+              className="rounded-full border border-white/30 bg-black/35 p-2 text-white hover:bg-black/60 transition-colors"
+              aria-label={`Scroll ${row.title} right`}
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          )}
+        </div>
+      </div>
+
+      <div className="relative">
+        <div
+          ref={listRef}
+          className="netflix-row flex gap-4 overflow-x-auto pb-2"
+        >
+          {row.cards.map((card) => (
+            <Card
+              key={`${row.title}-${card.title}`}
+              className="netflix-card w-[200px] min-w-[200px] overflow-hidden border-white/10 bg-slate-900/60 text-white"
+            >
+              <div className="h-28 overflow-hidden">
+                <img
+                  src={card.image}
+                  alt={card.title}
+                  loading="lazy"
+                  className="h-full w-full object-cover"
+                />
+              </div>
+              <CardContent className="p-3">
+                <p className="font-semibold text-sm mb-3 line-clamp-2">{card.title}</p>
+                <Button
+                  size="sm"
+                  className="h-8 text-xs px-3 bg-[var(--hero-accent)] hover:opacity-90 text-white"
+                >
+                  Book Now
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+        {canRight && <div className="row-fade-right pointer-events-none absolute inset-y-0 right-0 w-20" />}
+      </div>
+    </section>
+  );
+};
 
 const HeroSection = () => {
   const navigate = useNavigate();
   const [eventType, setEventType] = useState("");
   const [location, setLocation] = useState("");
   const [date, setDate] = useState<Date>();
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isHovering, setIsHovering] = useState(false);
+  const [resumeAt, setResumeAt] = useState<number>(0);
+  const [elapsed, setElapsed] = useState(0);
+  const [firstLoaded, setFirstLoaded] = useState(false);
+  const frameRef = useRef<number | null>(null);
+  const lastTickRef = useRef<number | null>(null);
+
+  const activeSlide = SLIDES[currentSlide];
+  const progress = Math.min((elapsed / AUTOPLAY_MS) * 100, 100);
+
+  useEffect(() => {
+    SLIDES.forEach((slide) => {
+      const img = new Image();
+      img.src = slide.image;
+    });
+  }, []);
+
+  useEffect(() => {
+    const first = new Image();
+    first.src = SLIDES[0].image;
+    first.onload = () => setFirstLoaded(true);
+  }, []);
+
+  useEffect(() => {
+    const tick = (now: number) => {
+      const locked = isHovering || now < resumeAt;
+      if (lastTickRef.current == null) lastTickRef.current = now;
+      const delta = now - lastTickRef.current;
+      lastTickRef.current = now;
+
+      if (!locked) {
+        setElapsed((prev) => {
+          const next = prev + delta;
+          if (next >= AUTOPLAY_MS) {
+            setCurrentSlide((s) => (s + 1) % SLIDES.length);
+            return 0;
+          }
+          return next;
+        });
+      }
+      frameRef.current = requestAnimationFrame(tick);
+    };
+
+    frameRef.current = requestAnimationFrame(tick);
+    return () => {
+      if (frameRef.current != null) cancelAnimationFrame(frameRef.current);
+    };
+  }, [isHovering, resumeAt]);
+
+  const jumpTo = (index: number, resumeDelayMs = 3000) => {
+    setCurrentSlide(index);
+    setElapsed(0);
+    setResumeAt(performance.now() + resumeDelayMs);
+  };
+
+  const nextSlide = () => jumpTo((currentSlide + 1) % SLIDES.length);
+  const prevSlide = () => jumpTo((currentSlide - 1 + SLIDES.length) % SLIDES.length);
 
   const handleSearch = () => {
     const params = new URLSearchParams();
@@ -31,54 +308,143 @@ const HeroSection = () => {
     navigate(`/browse?${params.toString()}`);
   };
 
+  const allRowCards = useMemo(() => ROWS.flatMap((r) => r.cards), []);
+
   return (
-    <section className="hero-gradient relative overflow-hidden min-h-[700px] flex items-center">
-      {/* Fine grain texture overlay */}
-      <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E\")" }} />
+    <>
+      <section
+        className="relative h-screen overflow-hidden"
+        style={{
+          // Smoothly transition accent tone with each slide switch.
+          ["--hero-accent" as string]: activeSlide.accent,
+        }}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => {
+          setIsHovering(false);
+          setResumeAt((prev) => Math.max(performance.now() + 2000, prev));
+        }}
+      >
+        {!firstLoaded && (
+          <div className="absolute inset-0 shimmer-bg z-10" />
+        )}
 
-      {/* Subtle gold radial glow at top-center */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[380px] rounded-full bg-[hsl(43,75%,50%)] opacity-[0.07] blur-3xl pointer-events-none" />
+        {SLIDES.map((slide, idx) => {
+          const active = idx === currentSlide;
+          return (
+            <div
+              key={slide.badge}
+              className={cn(
+                "absolute inset-0 transition-opacity",
+                active ? "opacity-100" : "opacity-0",
+              )}
+              style={{
+                transitionDuration: "1500ms",
+                transitionTimingFunction: "cubic-bezier(0.4,0,0.2,1)",
+              }}
+            >
+              <div
+                className={cn(
+                  "absolute inset-0 bg-cover bg-center transition-transform ease-linear",
+                  active ? "scale-[1.08]" : "scale-100",
+                )}
+                style={{ backgroundImage: `url(${slide.image})`, transitionDuration: "5000ms" }}
+              />
 
-      {/* Floating orbs in deep jewel tones */}
-      <div className="absolute top-16 left-[7%] w-64 h-64 rounded-full bg-[hsl(158,50%,28%)] opacity-[0.12] blur-3xl animate-float pointer-events-none" />
-      <div className="absolute bottom-10 right-[8%] w-80 h-80 rounded-full bg-[hsl(348,50%,30%)] opacity-[0.13] blur-3xl pointer-events-none" style={{ animation: "float 5s ease-in-out 2s infinite" }} />
+              <div className="absolute inset-0 bg-black/45" />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/35 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent" />
+            </div>
+          );
+        })}
 
-      {/* Thin gold border lines (decorative) */}
-      <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-[hsl(43,80%,55%)] to-transparent opacity-40" />
-      <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[hsl(43,80%,55%)] to-transparent opacity-20" />
+        <div className="relative z-20 h-full container flex items-center">
+          <div className="max-w-2xl pt-24 md:pt-20">
+            <span className="inline-flex items-center rounded-full border px-4 py-1.5 text-xs tracking-[0.18em] font-semibold text-white"
+              style={{ borderColor: "var(--hero-accent)", color: "var(--hero-accent)", transition: "all 500ms ease" }}
+            >
+              {activeSlide.badge}
+            </span>
 
-      <div className="container relative py-24 md:py-40 text-center">
-        {/* Ornamental eyebrow */}
-        <div className="gold-divider justify-center mb-7 max-w-[320px] mx-auto">
-          <span className="section-eyebrow text-[hsl(43,82%,62%)]">Premium Event Marketplace</span>
+            <h1 className="mt-5 text-white font-heading font-extrabold leading-[1.04] text-[32px] md:text-[56px] max-w-xl">
+              {activeSlide.headline}
+            </h1>
+
+            <p className="mt-4 text-white/80 text-[15px] md:text-[18px] max-w-lg leading-relaxed">
+              {activeSlide.subtitle}
+            </p>
+
+            <div className="mt-8 flex flex-col sm:flex-row gap-3">
+              <Button
+                className="h-12 px-6 text-white"
+                style={{ backgroundColor: "var(--hero-accent)", transition: "background-color 500ms ease" }}
+                onClick={handleSearch}
+              >
+                <ArrowRight className="h-4 w-4 mr-2" />
+                Book Now
+              </Button>
+              <Button
+                variant="outline"
+                className="h-12 px-6 border-white/60 bg-white/10 text-white hover:bg-white/20"
+                onClick={() => navigate("/browse")}
+              >
+                Browse Vendors
+              </Button>
+            </div>
+          </div>
         </div>
 
-        {/* Main display headline */}
-        <h1 className="font-display italic text-6xl md:text-8xl font-bold text-white mb-4 leading-[1.04] tracking-tight">
-          Make Every
-        </h1>
-        <h1 className="font-heading text-5xl md:text-7xl font-extrabold mb-4 leading-[1.06] tracking-tight">
-          <span className="animate-gold-shimmer">Celebration</span>
-        </h1>
-        <h1 className="font-display italic text-6xl md:text-8xl font-bold text-white/90 mb-8 leading-[1.04] tracking-tight">
-          Unforgettable
-        </h1>
+        <button
+          type="button"
+          onClick={prevSlide}
+          className="hidden md:grid place-items-center absolute left-4 top-1/2 -translate-y-1/2 z-30 h-12 w-12 rounded-full bg-black/35 border border-white/40 text-white hover:bg-black/60 transition-colors"
+          aria-label="Previous slide"
+        >
+          <ChevronLeft className="h-6 w-6" />
+        </button>
 
-        <p className="text-white/55 text-base md:text-lg max-w-xl mx-auto mb-12 leading-relaxed font-light tracking-wide">
-          Discover and book the finest photographers, decorators, caterers, DJs and more — curated for every celebration.
-        </p>
+        <button
+          type="button"
+          onClick={nextSlide}
+          className="hidden md:grid place-items-center absolute right-4 top-1/2 -translate-y-1/2 z-30 h-12 w-12 rounded-full bg-black/35 border border-white/40 text-white hover:bg-black/60 transition-colors"
+          aria-label="Next slide"
+        >
+          <ChevronRight className="h-6 w-6" />
+        </button>
 
-        {/* Gold-trimmed search card */}
-        <div className="relative max-w-4xl mx-auto">
-          <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-r from-[hsl(43,70%,40%)] via-[hsl(43,85%,60%)] to-[hsl(43,70%,40%)] opacity-60 blur-sm" />
-          <div className="relative bg-[hsl(38,30%,98%)] rounded-2xl shadow-2xl p-5 ring-1 ring-[hsl(43,60%,55%)/0.3]">
-            <div className="flex flex-col gap-3 md:flex-row">
+        <div className="absolute z-30 bottom-28 md:bottom-32 left-1/2 -translate-x-1/2 flex items-center gap-2">
+          {SLIDES.map((slide, idx) => (
+            <button
+              key={slide.badge}
+              type="button"
+              onClick={() => jumpTo(idx)}
+              aria-label={`Go to ${slide.badge}`}
+              className={cn(
+                "h-2 rounded-full transition-all duration-300",
+                idx === currentSlide ? "w-8" : "w-3 bg-white/35",
+              )}
+              style={{
+                backgroundColor: idx === currentSlide ? "var(--hero-accent)" : undefined,
+              }}
+            />
+          ))}
+        </div>
+
+        <div className="absolute bottom-0 left-0 right-0 z-30 h-[2px] bg-white/20">
+          <div
+            className="h-full transition-[width,background-color] duration-150 ease-linear"
+            style={{ width: `${progress}%`, backgroundColor: "var(--hero-accent)" }}
+          />
+        </div>
+
+        <div className="absolute z-30 left-1/2 -translate-x-1/2 bottom-4 md:bottom-6 w-[94%] md:w-[min(1200px,95%)]">
+          <div className="rounded-2xl border border-white/30 bg-white/15 backdrop-blur-md shadow-2xl p-4 md:p-5">
+            <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_1fr_auto] gap-3">
               <Select value={eventType} onValueChange={setEventType}>
-                <SelectTrigger className="flex-1 h-12 border-border">
+                <SelectTrigger className="h-12 bg-white/90 border-white/40">
                   <SelectValue placeholder="Event Type" />
                 </SelectTrigger>
                 <SelectContent>
-                  {eventTypes.map(t => (
+                  {eventTypes.map((t) => (
                     <SelectItem key={t} value={t}>{t}</SelectItem>
                   ))}
                 </SelectContent>
@@ -88,12 +454,15 @@ const HeroSection = () => {
                 value={location}
                 onChange={setLocation}
                 placeholder="Location (city or state)"
-                className="h-12"
+                className="h-12 bg-white/90"
               />
 
               <Popover>
                 <PopoverTrigger asChild>
-                  <Button variant="outline" className={cn("flex-1 h-12 justify-start text-left font-normal", !date && "text-muted-foreground")}>
+                  <Button
+                    variant="outline"
+                    className={cn("h-12 justify-start text-left font-normal bg-white/90 border-white/40", !date && "text-muted-foreground")}
+                  >
                     <CalendarIcon className="mr-2 h-4 w-4" />
                     {date ? format(date, "PPP") : "Event Date"}
                   </Button>
@@ -103,30 +472,33 @@ const HeroSection = () => {
                 </PopoverContent>
               </Popover>
 
-              <Button variant="hero" size="lg" className="h-12 px-8 min-h-[44px] glow-gold" onClick={handleSearch}>
+              <Button
+                className="h-12 px-8 text-white"
+                style={{ backgroundColor: "var(--hero-accent)", transition: "background-color 500ms ease" }}
+                onClick={handleSearch}
+              >
                 <Search className="mr-2 h-4 w-4" />
-                Find Vendors
+                Search
               </Button>
             </div>
           </div>
         </div>
 
-        {/* Stats row with gold dividers */}
-        <div className="flex items-center justify-center gap-6 md:gap-12 mt-14">
-          {STATS.map(({ value, label }, i) => (
-            <div key={label} className="flex items-center gap-6 md:gap-12">
-              <div className="text-center">
-                <div className="text-2xl md:text-3xl font-extrabold text-gradient-gold leading-none">{value}</div>
-                <div className="text-[10px] text-white/45 mt-1.5 tracking-[0.15em] uppercase">{label}</div>
-              </div>
-              {i < STATS.length - 1 && (
-                <div className="hidden md:block w-px h-8 bg-gradient-to-b from-transparent via-[hsl(43,70%,55%,0.4)] to-transparent" />
-              )}
-            </div>
+        <div className="hidden">
+          {allRowCards.map((card, idx) => (
+            <img key={`${card.title}-${idx}`} src={card.image} alt="preload" loading={idx === 0 ? "eager" : "lazy"} />
           ))}
         </div>
-      </div>
-    </section>
+      </section>
+
+      <section className="bg-[#0b0f14] pt-10 pb-14">
+        <div className="container space-y-9" style={{ ["--hero-accent" as string]: activeSlide.accent }}>
+          {ROWS.map((row) => (
+            <ScrollRow key={row.title} row={row} />
+          ))}
+        </div>
+      </section>
+    </>
   );
 };
 
