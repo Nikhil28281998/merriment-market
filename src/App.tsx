@@ -23,6 +23,12 @@ const HowItWorksPage = lazy(() => import("./pages/HowItWorksPage.tsx"));
 const StyleStudio = lazy(() => import("./pages/StyleStudio.tsx"));
 const Cart = lazy(() => import("./pages/Cart.tsx"));
 const CompareVendors = lazy(() => import("./pages/CompareVendors.tsx"));
+const SuccessStories = lazy(() => import("./pages/SuccessStories.tsx"));
+const EventAcademy = lazy(() => import("./pages/EventAcademy.tsx"));
+const PerformanceStars = lazy(() => import("./pages/PerformanceStars.tsx"));
+const VenueSpaceHub = lazy(() => import("./pages/VenueSpaceHub.tsx"));
+const SmartBudgetPlanner = lazy(() => import("./pages/SmartBudgetPlanner.tsx"));
+const TrendingDashboard = lazy(() => import("./pages/TrendingDashboard.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
 
 const queryClient = new QueryClient();
@@ -80,6 +86,12 @@ const App = () => (
                 <Route path="/style-studio" element={<StyleStudio />} />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/compare" element={<CompareVendors />} />
+                <Route path="/success-stories" element={<SuccessStories />} />
+                <Route path="/event-academy" element={<EventAcademy />} />
+                <Route path="/performance-stars" element={<PerformanceStars />} />
+                <Route path="/venue-spaces" element={<VenueSpaceHub />} />
+                <Route path="/budget-planner" element={<SmartBudgetPlanner />} />
+                <Route path="/trending" element={<TrendingDashboard />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>

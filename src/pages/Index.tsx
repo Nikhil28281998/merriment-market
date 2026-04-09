@@ -7,6 +7,7 @@ import InspirationSection from "@/components/InspirationSection";
 import CityBrowse from "@/components/CityBrowse";
 import CategoryGrid from "@/components/CategoryGrid";
 import HowItWorks from "@/components/HowItWorks";
+import CelebrationShowcase from "@/components/CelebrationShowcase";
 import Footer from "@/components/Footer";
 
 const Index = () => (
@@ -14,6 +15,7 @@ const Index = () => (
     <Navbar />
     <main className="flex-1">
       <HeroSection />
+      <CelebrationShowcase />
       <BrowseByCelebration />
       <FeaturedVendors />
       <InspirationSection />

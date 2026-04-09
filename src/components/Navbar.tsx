@@ -136,6 +136,30 @@ const Navbar = () => {
           >
             List Services
           </Link>
+
+          <Link
+            to="/success-stories"
+            className="px-4 py-2 text-sm font-semibold uppercase tracking-wide text-foreground hover:text-accent transition-colors rounded-md hover:bg-muted"
+            onClick={closeDropdowns}
+          >
+            Success Stories
+          </Link>
+
+          <Link
+            to="/event-academy"
+            className="px-4 py-2 text-sm font-semibold uppercase tracking-wide text-foreground hover:text-accent transition-colors rounded-md hover:bg-muted"
+            onClick={closeDropdowns}
+          >
+            Event Academy
+          </Link>
+
+          <Link
+            to="/trending"
+            className="px-4 py-2 text-sm font-semibold uppercase tracking-wide text-foreground hover:text-accent transition-colors rounded-md hover:bg-muted"
+            onClick={closeDropdowns}
+          >
+            Trending
+          </Link>
         </div>
 
         {/* Auth + Cart */}
@@ -196,6 +220,13 @@ const Navbar = () => {
           <div className="border-t pt-3 mt-2 space-y-2">
             <Link to="/style-studio" className="block px-3 py-2 text-sm font-semibold" onClick={() => setMobileOpen(false)}>Style Studio</Link>
             <Link to="/vendor-onboarding" className="block px-3 py-2 text-sm font-semibold" onClick={() => setMobileOpen(false)}>List Your Services</Link>
+            <p className="px-3 pt-2 pb-1 text-xs font-bold uppercase tracking-widest text-muted-foreground">Resources</p>
+            <Link to="/success-stories" className="block px-3 py-2 text-sm" onClick={() => setMobileOpen(false)}>Success Stories</Link>
+            <Link to="/event-academy" className="block px-3 py-2 text-sm" onClick={() => setMobileOpen(false)}>Event Academy</Link>
+            <Link to="/performance-stars" className="block px-3 py-2 text-sm" onClick={() => setMobileOpen(false)}>Performance Stars</Link>
+            <Link to="/venue-spaces" className="block px-3 py-2 text-sm" onClick={() => setMobileOpen(false)}>Venue & Spaces</Link>
+            <Link to="/budget-planner" className="block px-3 py-2 text-sm" onClick={() => setMobileOpen(false)}>Budget Planner</Link>
+            <Link to="/trending" className="block px-3 py-2 text-sm" onClick={() => setMobileOpen(false)}>Trending</Link>
           </div>
           <div className="flex gap-3 pt-2">
             {isAuthenticated ? (
