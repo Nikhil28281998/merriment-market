@@ -41,7 +41,7 @@ const ChatWindow = ({ vendorName, onClose }: ChatWindowProps) => {
       <div className="flex items-center justify-between p-4 border-b bg-primary text-primary-foreground rounded-t-2xl">
         <div>
           <p className="font-semibold text-sm">{vendorName}</p>
-          <p className="text-xs opacity-80">Contact securely through EventzHub</p>
+          <p className="text-xs opacity-80">Contact securely through EventzHubz</p>
         </div>
         <button onClick={onClose} className="hover:opacity-70"><X className="h-5 w-5" /></button>
       </div>

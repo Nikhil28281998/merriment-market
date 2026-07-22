@@ -23,7 +23,7 @@ export const createPaymentIntent = async (req, res) => {
         eventDate: bookingData.eventDate,
         eventType: bookingData.eventType,
       },
-      description: `EventzHub Booking - ${bookingData.vendorName}`,
+      description: `EventzHubz Booking - ${bookingData.vendorName}`,
     });
 
     res.json({
@@ -259,7 +259,7 @@ export const requestRefund = async (req, res) => {
       // Full refund if > 7 days before
       refundAmount = booking.total_amount;
     } else {
-      // 50% refund if < 7 days before (EventzHub keeps platform fee)
+      // 50% refund if < 7 days before (EventzHubz keeps platform fee)
       refundAmount = booking.vendor_payout_amount;
     }
 

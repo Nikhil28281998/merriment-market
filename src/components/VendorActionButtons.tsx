@@ -22,10 +22,8 @@ export const VendorActionButtons: React.FC<VendorActionButtonsProps> = ({
   showShare = true,
 }) => {
   const [shareOpen, setShareOpen] = useState(false);
-  const { isLiked, isFavorited, isSavedForLater, toggleLike, toggleFavorite, toggleSaveForLater } =
-    useFavorites();
+  const { isFavorited, isSavedForLater, toggleFavorite, toggleSaveForLater } = useFavorites();
 
-  const isLikedState = isLiked(vendorId);
   const isFavoritedState = isFavorited(vendorId);
   const isSavedState = isSavedForLater(vendorId);
 
@@ -38,24 +36,7 @@ export const VendorActionButtons: React.FC<VendorActionButtonsProps> = ({
 
   return (
     <div className="flex items-center gap-1.5 flex-nowrap overflow-x-auto pb-1">
-      {/* Like Button */}
-      <Button
-        variant={isLikedState ? "accent" : "outline"}
-        size={size}
-        className={buttonClasses}
-        onClick={() => {
-          toggleLike(vendorId);
-          toast(isLikedState ? "Removed like" : "Liked!");
-        }}
-        title={isLikedState ? "Unlike this vendor" : "Like this vendor"}
-      >
-        <Heart
-          className={cn("h-4 w-4", isLikedState && "fill-current")}
-        />
-        {showLabels && <span>{isLikedState ? "Liked" : "Like"}</span>}
-      </Button>
-
-      {/* Love Button (Favorite) */}
+      {/* Favorite Button */}
       <Button
         variant={isFavoritedState ? "accent" : "outline"}
         size={size}

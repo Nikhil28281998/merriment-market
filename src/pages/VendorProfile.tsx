@@ -104,7 +104,7 @@ const VendorProfile = () => {
               </div>
               <div className="mt-3 flex items-center gap-1.5 text-xs text-muted-foreground">
                 <ShieldCheck className="h-4 w-4 text-green-600 shrink-0" />
-                All communication through EventzHub is monitored and recorded for your safety.
+                All communication through EventzHubz is monitored and recorded for your safety.
               </div>
               <div className="mt-4 pt-3 border-t">
                 <VendorActionButtons vendorId={vendor.id} vendor={vendor} size="sm" />
@@ -429,7 +429,7 @@ const VendorProfile = () => {
                   <h3 className="font-heading text-lg font-bold">Call Vendor</h3>
                 </div>
                 <p className="text-sm text-muted-foreground mb-6">
-                  Calls are connected securely through EventzHub. This call will be recorded for safety purposes. Click confirm to connect.
+                  Calls are connected securely through EventzHubz. This call will be recorded for safety purposes. Click confirm to connect.
                 </p>
                 <div className="flex gap-3">
                   <Button variant="outline" className="flex-1" onClick={() => setShowCallDialog(false)}>Cancel</Button>
@@ -441,9 +441,9 @@ const VendorProfile = () => {
                 <div className="text-center">
                   <Phone className="h-10 w-10 text-accent mx-auto mb-3" />
                   <h3 className="font-heading text-lg font-bold mb-2">Call Connected</h3>
-                  <p className="text-sm text-muted-foreground mb-4">Please dial the number below to connect with this vendor through EventzHub:</p>
+                  <p className="text-sm text-muted-foreground mb-4">Please dial the number below to connect with this vendor through EventzHubz:</p>
                   <p className="text-2xl font-bold text-accent mb-4">(888) 555-0199</p>
-                  <p className="text-xs text-muted-foreground mb-4">This is an EventzHub relay number. The vendor's personal number is never shared.</p>
+                  <p className="text-xs text-muted-foreground mb-4">This is an EventzHubz relay number. The vendor's personal number is never shared.</p>
                   <Button variant="outline" className="w-full" onClick={() => setShowCallDialog(false)}>Close</Button>
                 </div>
               </>

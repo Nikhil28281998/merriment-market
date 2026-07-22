@@ -662,8 +662,9 @@ const Browse = () => {
                               size="sm"
                               className="min-h-[44px]"
                               onClick={() => toggleShortlist(vendor.id)}
+                              title={shortlisted ? "Remove from shortlist" : "Add to shortlist"}
                             >
-                              <Heart className="h-4 w-4" />
+                              <List className="h-4 w-4" />
                             </Button>
                             <Button
                               variant={inCompare ? "accent" : "outline"}

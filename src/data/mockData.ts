@@ -1,10 +1,12 @@
+import { getEventImage } from "@/data/eventImageLibrary";
+
 export const categories = [
   "Photographer", "Decorator", "Caterer", "DJ", "Florist",
   "Videographer", "Officiant", "Makeup Artist", "Cake Designer", "Event Planner", "Venue",
 ] as const;
 
 export const eventTypes = [
-  "Wedding", "Baby Shower", "Birthday Party", "Gender Reveal",
+  "Wedding", "Baby Shower", "Birthday Party", "Bachelorette", "Gender Reveal",
   "Naming Ceremony", "Housewarming", "Car Blessing",
   "Halloween Party", "Christmas Party", "Graduation", "Anniversary",
   "Quinceañera", "Baptism", "Bar / Bat Mitzvah", "Maternity Photoshoot",
@@ -69,7 +71,58 @@ export interface Booking {
   packageName: string;
 }
 
-export const mockVendors: Vendor[] = [
+const vendorImagePool = [
+  "wedding reception",
+  "birthday bash",
+  "baby shower",
+  "corporate mixer",
+  "housewarming",
+  "anniversary dinner",
+  "gender reveal",
+  "naming ceremony",
+  "kids birthday",
+  "family reunion",
+  "first birthday",
+  "milestone party",
+  "engagement ceremony",
+  "church celebration",
+  "festival gathering",
+  "traditional wedding",
+  "community event",
+  "christmas party",
+  "halloween night",
+  "new year gala",
+  "graduation party",
+  "spring garden event",
+  "summer pool party",
+  "bachelorette",
+  "quinceañera",
+  "holiday lights event",
+  "community celebration",
+  "baptism",
+  "bar / bat mitzvah",
+  "maternity photoshoot",
+  "baby photoshoot",
+  "car blessing",
+  "other",
+] as const;
+
+const hashSeed = (value: string) => Array.from(value).reduce((sum, char) => sum + char.charCodeAt(0), 0);
+
+const getVendorImage = (seed: string, offset = 0, variant = 0) => {
+  const index = (hashSeed(seed) + offset + variant * 7) % vendorImagePool.length;
+  return getEventImage(vendorImagePool[index]);
+};
+
+export const decorateVendorImages = (vendors: Vendor[]) =>
+  vendors.map((vendor, vendorIndex) => ({
+    ...vendor,
+    photo: getVendorImage(vendor.name, vendorIndex, 0),
+    coverPhoto: getVendorImage(vendor.name, vendorIndex + 3, 1),
+    portfolio: vendor.portfolio.map((_, photoIndex) => getVendorImage(vendor.name, vendorIndex + photoIndex + 5, photoIndex + 2)),
+  }));
+
+const baseMockVendors: Vendor[] = [
   {
     id: "1",
     name: "Anand Studio Photography",
@@ -79,14 +132,14 @@ export const mockVendors: Vendor[] = [
     rating: 4.9,
     reviewCount: 243,
     startingPrice: 450,
-    photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop",
-    coverPhoto: "https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&h=400&fit=crop",
+    photo: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+    coverPhoto: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     bio: "Anand Studio has been capturing life's most cherished moments across New Jersey for over 12 years. Specializing in South Asian weddings, engagement sessions, and family milestones, we combine candid storytelling with stunning cinematic portraits. Every frame we deliver is color-graded and hand-edited to perfection.",
     portfolio: [
-      "https://images.unsplash.com/photo-1519741497674-611481863552?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1529634597503-139d3726fed5?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     ],
     packages: [
       { id: "p1a", name: "Essentials", description: "Ideal for intimate ceremonies and small gatherings", price: 450, includes: ["4 hours of coverage", "150 edited digital photos", "Private online gallery", "1 photographer"] },
@@ -95,7 +148,7 @@ export const mockVendors: Vendor[] = [
     ],
     mediaVideos: [
       { id: "mv1a", title: "Wedding Story Reel", sourceType: "embed", sourceUrl: "https://www.youtube.com/embed/EI3U0w7d7fI" },
-      { id: "mv1b", title: "Behind The Shoot", sourceType: "upload", sourceUrl: "https://cdn.coverr.co/videos/coverr-wedding-photographer-5767/1080p.mp4", thumbnailUrl: "https://images.unsplash.com/photo-1519741497674-611481863552?w=640&h=360&fit=crop" },
+      { id: "mv1b", title: "Behind The Shoot", sourceType: "upload", sourceUrl: "https://cdn.coverr.co/videos/coverr-wedding-photographer-5767/1080p.mp4", thumbnailUrl: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80" },
     ],
     reviews: [
       { id: "r1a", author: "Meera P.", rating: 5, text: "Anand Studio made our wedding day unforgettable. The candid shots were absolutely breathtaking and every single photo looked like it belonged in a magazine. Highly recommend!", date: "2025-11-20" },
@@ -113,14 +166,14 @@ export const mockVendors: Vendor[] = [
     rating: 4.8,
     reviewCount: 189,
     startingPrice: 600,
-    photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop",
-    coverPhoto: "https://images.unsplash.com/photo-1478146059778-26028b07395a?w=1200&h=400&fit=crop",
+    photo: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+    coverPhoto: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     bio: "Royal Venue Decorators transforms ordinary venues into extraordinary celebrations. With 9 years of experience in Houston's vibrant event scene, we specialize in traditional Indian ceremony archs, modern reception décor, baby shower themes, and milestone birthday setups. We source premium florals, custom drapery, and bespoke lighting to match your vision and color palette.",
     portfolio: [
-      "https://images.unsplash.com/photo-1478146059778-26028b07395a?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     ],
     packages: [
       { id: "p2a", name: "Classic Setup", description: "Essential decoration for smaller events", price: 600, includes: ["Backdrop with draping", "6 table centerpieces", "Basic uplighting", "Setup & teardown"] },
@@ -143,14 +196,14 @@ export const mockVendors: Vendor[] = [
     rating: 4.7,
     reviewCount: 276,
     startingPrice: 200,
-    photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop",
-    coverPhoto: "https://images.unsplash.com/photo-1555244162-803834f70033?w=1200&h=400&fit=crop",
+    photo: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+    coverPhoto: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     bio: "Saffron Bites brings authentic multi-cuisine flavors to your celebrations. Based in Dallas, we cater everything from intimate baby showers of 25 guests to grand weddings of 800+. Our chefs specialize in Southern barbecue, Californian fusion, Tex-Mex, and continental menus. We pride ourselves on fresh ingredients, beautiful presentation, and impeccable service.",
     portfolio: [
-      "https://images.unsplash.com/photo-1555244162-803834f70033?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     ],
     packages: [
       { id: "p3a", name: "Simple Spread", description: "Buffet-style for casual events (per plate)", price: 200, includes: ["3 appetizers", "2 entrées", "Rice & naan", "1 dessert", "Soft drinks", "Disposable servingware"] },
@@ -173,13 +226,13 @@ export const mockVendors: Vendor[] = [
     rating: 4.8,
     reviewCount: 134,
     startingPrice: 400,
-    photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop",
-    coverPhoto: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1200&h=400&fit=crop",
+    photo: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+    coverPhoto: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     bio: "DJ Vibe has been the Bay Area's go-to event DJ for over 7 years, bringing high-energy soundtracks to weddings, dance parties, birthday parties, and corporate events. From Top 40 and Latin Pop to EDM, we read the crowd and keep the dance floor packed all night. Full sound, lighting, and MC services included.",
     portfolio: [
-      "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1571266028243-3716f02d2d5e?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     ],
     packages: [
       { id: "p4a", name: "Party Starter", description: "Perfect for birthdays & small gatherings", price: 400, includes: ["3 hours of DJ", "Professional sound system", "Basic LED lights", "Wireless mic for speeches"] },
@@ -202,14 +255,14 @@ export const mockVendors: Vendor[] = [
     rating: 4.9,
     reviewCount: 167,
     startingPrice: 250,
-    photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop",
-    coverPhoto: "https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=1200&h=400&fit=crop",
+    photo: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+    coverPhoto: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     bio: "Petal House Floral Creations designs breathtaking floral arrangements for every occasion. Located in Edison, NJ, we serve the entire tri-state area with fresh, seasonal flowers sourced from local farms and premium importers. Whether it's an intimate baby shower or a grand 500-guest wedding, we bring your floral vision to life with meticulous attention to detail.",
     portfolio: [
-      "https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1455659817273-f96807779a8a?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     ],
     packages: [
       { id: "p5a", name: "Bloom Basics", description: "Simple yet elegant floral accents", price: 250, includes: ["Bridal bouquet", "Groom's boutonniere", "4 table centerpieces", "Free delivery within 20 miles"] },
@@ -232,12 +285,12 @@ export const mockVendors: Vendor[] = [
     rating: 5.0,
     reviewCount: 98,
     startingPrice: 300,
-    photo: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop",
-    coverPhoto: "https://images.unsplash.com/photo-1507692049790-de58290a4334?w=1200&h=400&fit=crop",
+    photo: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+    coverPhoto: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     bio: "Officiant Ray Collins has been leading meaningful ceremonies across the New York tri-state area for over 20 years. Fluent in English and Spanish, he helps families understand each part of the ceremony and keeps the experience warm, inclusive, and personal. From weddings and naming ceremonies to housewarmings and vehicle blessings, every ceremony is conducted with care and professionalism.",
     portfolio: [
-      "https://images.unsplash.com/photo-1507692049790-de58290a4334?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1529634597503-139d3726fed5?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     ],
     packages: [
       { id: "p6a", name: "Simple Ceremony", description: "For small blessings and family gatherings", price: 300, includes: ["1-hour ceremony", "Ceremony materials", "Clear step-by-step guidance", "Travel within NYC metro"] },
@@ -260,13 +313,13 @@ export const mockVendors: Vendor[] = [
     rating: 4.8,
     reviewCount: 112,
     startingPrice: 500,
-    photo: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop",
-    coverPhoto: "https://images.unsplash.com/photo-1505236858219-8359eb29e329?w=1200&h=400&fit=crop",
+    photo: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+    coverPhoto: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     bio: "CineStory Films creates cinematic wedding and event films that you'll watch over and over. Based in Chicago, our team uses professional cinema cameras, drone footage, and creative editing to tell your story in the most beautiful way. We believe every celebration has a unique narrative — let us capture yours.",
     portfolio: [
-      "https://images.unsplash.com/photo-1505236858219-8359eb29e329?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1529634597503-139d3726fed5?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     ],
     packages: [
       { id: "p7a", name: "Highlight Reel", description: "A beautiful 3-5 minute film of your event", price: 500, includes: ["5 hours of coverage", "3-5 min cinematic highlight", "Licensed music", "Online delivery", "1 videographer"] },
@@ -289,13 +342,13 @@ export const mockVendors: Vendor[] = [
     rating: 4.9,
     reviewCount: 142,
     startingPrice: 180,
-    photo: "https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?w=200&h=200&fit=crop",
-    coverPhoto: "https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=1200&h=400&fit=crop",
+    photo: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+    coverPhoto: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     bio: "Sweet Memories Cake Studio creates breathtaking custom cakes for every celebration. Based in Atlanta, we hand-craft multi-tiered wedding cakes, novelty birthday cakes, and elegant celebration desserts using fresh, premium ingredients tailored to any theme or color palette.",
     portfolio: [
-      "https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1562440499-64c9a111f713?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     ],
     packages: [
       { id: "p9a", name: "Classic Cake", description: "Elegant 2-tier cake for up to 50 guests", price: 180, includes: ["2-tier fondant cake", "Custom design consultation", "Delivery within 30 miles", "Cake cutting set"] },
@@ -318,13 +371,13 @@ export const mockVendors: Vendor[] = [
     rating: 4.8,
     reviewCount: 198,
     startingPrice: 500,
-    photo: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop",
-    coverPhoto: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=1200&h=400&fit=crop",
+    photo: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+    coverPhoto: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     bio: "Evoke Events Planning brings your vision to life with flawless execution. Based in Miami, our certified event planners specialize in full-service wedding coordination, corporate galas, quinceañeras, and milestone celebrations. We handle every detail so you can be fully present on your special day.",
     portfolio: [
-      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     ],
     packages: [
       { id: "p10a", name: "Day-Of Coordination", description: "Full coordination on your event day", price: 500, includes: ["Event-day coordinator (10 hrs)", "Vendor communication day-of", "Timeline management", "Ceremony & reception direction", "Emergency kit"] },
@@ -347,13 +400,13 @@ export const mockVendors: Vendor[] = [
     rating: 4.8,
     reviewCount: 312,
     startingPrice: 600,
-    photo: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=200&h=200&fit=crop",
-    coverPhoto: "https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&h=400&fit=crop",
+    photo: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+    coverPhoto: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     bio: "Lens & Light Photography captures life's milestone moments with cinematic artistry. Based in Los Angeles, we serve couples, families, and brands with our signature blend of editorial and natural-light photography. Over 1,200 sessions photographed across California and beyond.",
     portfolio: [
-      "https://images.unsplash.com/photo-1519741497674-611481863552?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1604017011826-d3b4c23f8914?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     ],
     packages: [
       { id: "p11a", name: "Mini Session", description: "Quick portrait session for small events", price: 600, includes: ["2 hours of coverage", "100 edited photos", "Online gallery", "1 photographer"] },
@@ -376,12 +429,12 @@ export const mockVendors: Vendor[] = [
     rating: 4.7,
     reviewCount: 178,
     startingPrice: 350,
-    photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop",
-    coverPhoto: "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?w=1200&h=400&fit=crop",
+    photo: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+    coverPhoto: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     bio: "Metro DJ Collective is Chicago's premier DJ and entertainment company, serving events of all sizes and cultures. From intimate birthday gatherings to large wedding receptions and corporate galas, we deliver premium sound, lighting, and an unforgettable atmosphere every time.",
     portfolio: [
-      "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1571266028243-3716f02d2d5e?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     ],
     packages: [
       { id: "p12a", name: "Basic Party", description: "Great for intimate events up to 80 guests", price: 350, includes: ["3 hours DJ", "Basic sound system", "Party lighting", "MC services"] },
@@ -403,13 +456,13 @@ export const mockVendors: Vendor[] = [
     rating: 4.9,
     reviewCount: 134,
     startingPrice: 300,
-    photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop",
-    coverPhoto: "https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=1200&h=400&fit=crop",
+    photo: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+    coverPhoto: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     bio: "Garden & Bloom Florals creates lush, garden-inspired floral arrangements for weddings, baby showers, and all life's celebrations in the Seattle area. We source from local Pacific Northwest farms and European importers to craft fresh, seasonal designs that feel both romantic and timeless.",
     portfolio: [
-      "https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1455659817273-f96807779a8a?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     ],
     packages: [
       { id: "p13a", name: "Simple Garden", description: "Fresh florals for small celebrations", price: 300, includes: ["Bridal bouquet", "4 table centerpieces", "Boutonniere", "Free local delivery"] },
@@ -431,13 +484,13 @@ export const mockVendors: Vendor[] = [
     rating: 4.7,
     reviewCount: 155,
     startingPrice: 500,
-    photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop",
-    coverPhoto: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=1200&h=400&fit=crop",
+    photo: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+    coverPhoto: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     bio: "Phoenix Grand Décor specializes in turning venues into extraordinary visual experiences. From desert-chic wedding backdrops to vibrant quinceañera setups and elegant corporate installations, our team brings professional-grade décor to every celebration across the Phoenix metro area.",
     portfolio: [
-      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1478146059778-26028b07395a?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     ],
     packages: [
       { id: "p14a", name: "Starter Setup", description: "Basic décor for 50–75 guests", price: 500, includes: ["Backdrop with draping", "5 table centerpieces", "Uplighting (4 fixtures)", "Setup & teardown"] },
@@ -459,12 +512,12 @@ export const mockVendors: Vendor[] = [
     rating: 4.8,
     reviewCount: 221,
     startingPrice: 220,
-    photo: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=200&h=200&fit=crop",
-    coverPhoto: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&h=400&fit=crop",
+    photo: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+    coverPhoto: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     bio: "Harvest Table Catering brings farm-to-table excellence to Seattle's event scene. We specialize in seasonal American and fusion menus for weddings, corporate events, graduation parties, and intimate gatherings. Our chefs partner with local farms to ensure the freshest ingredients in every dish.",
     portfolio: [
-      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     ],
     packages: [
       { id: "p15a", name: "Simple Spread", description: "Buffet for up to 80 guests (per plate)", price: 220, includes: ["3 appetizers", "2 entrées", "Seasonal sides", "Dessert bar", "Service staff"] },
@@ -486,12 +539,12 @@ export const mockVendors: Vendor[] = [
     rating: 4.9,
     reviewCount: 187,
     startingPrice: 700,
-    photo: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop",
-    coverPhoto: "https://images.unsplash.com/photo-1505236858219-8359eb29e329?w=1200&h=400&fit=crop",
+    photo: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+    coverPhoto: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     bio: "Cinematic Dreams Films crafts breathtaking event films with a Hollywood touch. Our LA-based team uses RED cinema cameras, aerial drone cinematography, and world-class editing to create films that feel like feature movies — not home videos. From an intimate Baptism to a grand 1,000-person wedding, we capture every frame with intention.",
     portfolio: [
-      "https://images.unsplash.com/photo-1505236858219-8359eb29e329?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     ],
     packages: [
       { id: "p16a", name: "Story Reel", description: "Cinematic 3-minute highlight film", price: 700, includes: ["6 hours coverage", "3-min cinematic film", "Licensed music", "2 videographers", "Online delivery"] },
@@ -513,14 +566,14 @@ export const mockVendors: Vendor[] = [
     rating: 4.9,
     reviewCount: 221,
     startingPrice: 150,
-    photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop",
-    coverPhoto: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=1200&h=400&fit=crop",
+    photo: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+    coverPhoto: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     bio: "Glamour by Nisha is Houston's premier bridal and event makeup studio. With expertise in South Asian bridal looks, HD airbrush makeup, and natural glam styles, Nisha and her team make every client feel like a star. We travel to your venue and bring everything needed to keep you flawless from ceremony to last dance. Over 500 brides served and counting!",
     portfolio: [
-      "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1457972729786-0411a3b2b626?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     ],
     packages: [
       { id: "p8a", name: "Party Ready", description: "Glam look for any occasion", price: 150, includes: ["Full face makeup", "Lashes included", "Setting spray", "Travel within Houston"] },
@@ -544,13 +597,13 @@ export const mockVendors: Vendor[] = [
     reviewCount: 143,
     startingPrice: 180,
     verified: true,
-    photo: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200&h=200&fit=crop",
-    coverPhoto: "https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=1200&h=400&fit=crop",
+    photo: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+    coverPhoto: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     bio: "Sweet Layers Cake Studio crafts artisan custom cakes for weddings, quinceañeras, birthdays, baby showers, and every celebration in between. Based in Los Angeles, we specialize in multi-tiered fondant designs, floral cakes, and culturally-inspired creations that taste as spectacular as they look. Each cake is made to order with premium ingredients.",
     portfolio: [
-      "https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1464349095431-e9a21285b19c?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     ],
     packages: [
       { id: "p9a", name: "Celebration Cake", description: "Single-tier custom cake for smaller gatherings", price: 180, includes: ["Up to 30 servings", "Custom flavor & filling", "Fondant or buttercream finish", "Free local delivery"] },
@@ -573,13 +626,13 @@ export const mockVendors: Vendor[] = [
     reviewCount: 97,
     startingPrice: 500,
     verified: true,
-    photo: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop",
-    coverPhoto: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=1200&h=400&fit=crop",
+    photo: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+    coverPhoto: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     bio: "Milestone Events Co. is Atlanta's go-to full-service event planning firm. From intimate 20-person dinner parties to grand 500-guest weddings and cultural celebrations, our team handles every detail — venue sourcing, vendor coordination, decor design, budget management, and day-of logistics. We specialize in South Asian, African-American, Latino, and multicultural events.",
     portfolio: [
-      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1478146059778-26028b07395a?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     ],
     packages: [
       { id: "p10a", name: "Day-Of Coordination", description: "We manage your event day so you enjoy it", price: 500, includes: ["8-hour coordination", "Vendor liaison on the day", "Timeline management", "Setup & breakdown oversight", "Emergency kit provided"] },
@@ -593,6 +646,8 @@ export const mockVendors: Vendor[] = [
     ],
   },
 ];
+
+export const mockVendors = decorateVendorImages(baseMockVendors);
 
 export const mockBookings: Booking[] = [
   { id: "b1", vendorName: "Anand Studio Photography", eventType: "Wedding", eventDate: "2026-05-15", status: "upcoming", price: 1380, packageName: "Premium" },

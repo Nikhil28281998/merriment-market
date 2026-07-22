@@ -1,4 +1,4 @@
-# EventzHub Payment System - Quick Start
+# EventzHubz Payment System - Quick Start
 
 Complete payment infrastructure is now ready! Here's how to get running in 5 minutes.
 
@@ -68,7 +68,7 @@ npm run dev
 
 Should see:
 ```
-🚀 EventzHub Server running on http://localhost:3001
+🚀 EventzHubz Server running on http://localhost:3001
 ```
 
 ### Step 5: Test Payment (2 min)

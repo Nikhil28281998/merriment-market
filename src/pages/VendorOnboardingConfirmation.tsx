@@ -16,7 +16,7 @@ const VendorOnboardingConfirmation = () => (
           </div>
           <h1 className="font-heading text-3xl font-bold">Application Submitted!</h1>
           <p className="text-muted-foreground leading-relaxed">
-            Thank you for applying to list your services on EventzHub. Our team will review your profile and get back to you shortly.
+            Thank you for applying to list your services on EventzHubz. Our team will review your profile and get back to you shortly.
           </p>
           <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground border rounded-xl p-4">
             <Clock className="h-5 w-5 text-accent" />

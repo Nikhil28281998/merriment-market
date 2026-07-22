@@ -1,4 +1,4 @@
-# EventzHub Payment System - Reference Card
+# EventzHubz Payment System - Reference Card
 
 ## 🚀 Quick Commands
 
@@ -241,5 +241,5 @@ booking_drafts
 
 ---
 
-**EventzHub Payment System v1.0**  
-*Everything you need to process payments in EventzHub*
+**EventzHubz Payment System v1.0**  
+*Everything you need to process payments in EventzHubz*

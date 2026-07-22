@@ -248,7 +248,7 @@ const Cart = () => {
                     </div>
                   )}
                   <div className="flex justify-between text-sm">
-                    <span>EventzHub Service Fee (15%)</span>
+                    <span>EventzHubz Service Fee (15%)</span>
                     <span>${serviceFee}</span>
                   </div>
                   <div className="border-t pt-3 flex justify-between font-bold text-lg">

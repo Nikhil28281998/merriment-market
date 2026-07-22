@@ -7,7 +7,7 @@ export const STRIPE_CONFIG = {
 
 export const PAYMENT_DEFAULTS = {
   currency: "usd",
-  platformFeePercentage: 15, // 15% EventzHub commission
+  platformFeePercentage: 15, // 15% EventzHubz commission
   minimumAmount: 100, // $1.00 in cents
 };
 

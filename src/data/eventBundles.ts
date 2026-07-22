@@ -21,6 +21,11 @@ export const eventBundles: EventBundle[] = [
     recommended: ["DJ", "Caterer", "Videographer"],
   },
   {
+    eventType: "Bachelorette",
+    mustHave: ["Photographer", "Decorator", "Caterer"],
+    recommended: ["Makeup Artist", "DJ", "Florist"],
+  },
+  {
     eventType: "Halloween Party",
     mustHave: ["Decorator", "DJ"],
     recommended: ["Photographer", "Caterer", "Makeup Artist"],

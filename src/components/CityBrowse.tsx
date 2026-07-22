@@ -1,65 +1,66 @@
 import { Link } from "react-router-dom";
 import { MapPin } from "lucide-react";
+import { getEventImage } from "@/data/eventImageLibrary";
 
 const cities = [
   {
     name: "New York",
     state: "NY",
-    image: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=600&h=400&fit=crop",
+    image: getEventImage("Wedding"),
     vendorCount: 3,
   },
   {
     name: "Los Angeles",
     state: "CA",
-    image: "https://images.unsplash.com/photo-1534190760961-74e8c1c5c3da?w=600&h=400&fit=crop",
+    image: getEventImage("Summer Pool Party"),
     vendorCount: 4,
   },
   {
     name: "Houston",
     state: "TX",
-    image: "https://images.unsplash.com/photo-1553095066-5014bc7b7f2d?w=600&h=400&fit=crop",
+    image: getEventImage("Birthday Bash"),
     vendorCount: 3,
   },
   {
     name: "Atlanta",
     state: "GA",
-    image: "https://images.unsplash.com/photo-1575917649705-5b59aaa12e6b?w=600&h=400&fit=crop",
+    image: getEventImage("Graduation Party"),
     vendorCount: 2,
   },
   {
     name: "Miami",
     state: "FL",
-    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop",
+    image: getEventImage("Housewarming"),
     vendorCount: 2,
   },
   {
     name: "Chicago",
     state: "IL",
-    image: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=600&h=400&fit=crop",
+    image: getEventImage("Holiday Lights Event"),
     vendorCount: 3,
   },
   {
     name: "Seattle",
     state: "WA",
-    image: "https://images.unsplash.com/photo-1438401171849-74ac270044ee?w=600&h=400&fit=crop",
+    image: getEventImage("Corporate Mixer"),
     vendorCount: 3,
   },
   {
     name: "Phoenix",
     state: "AZ",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop",
+    image: getEventImage("Baptism"),
     vendorCount: 2,
   },
   {
     name: "Dallas",
     state: "TX",
-    image: "https://images.unsplash.com/photo-1545087012-bc7b12c98723?w=600&h=400&fit=crop",
+    image: getEventImage("Naming Ceremony"),
     vendorCount: 2,
   },
   {
     name: "San Jose",
     state: "CA",
-    image: "https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=600&h=400&fit=crop",
+    image: getEventImage("Festival Gathering"),
     vendorCount: 2,
   },
 ];

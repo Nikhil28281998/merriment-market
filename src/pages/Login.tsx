@@ -82,7 +82,7 @@ const Login = () => {
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
             <h1 className="font-heading text-3xl font-bold mb-2">Welcome Back</h1>
-            <p className="text-muted-foreground">Log in to your EventzHub account</p>
+            <p className="text-muted-foreground">Log in to your EventzHubz account</p>
           </div>
 
           {/* Role selector */}

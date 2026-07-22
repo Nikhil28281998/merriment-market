@@ -1,7 +1,7 @@
 {
-  "name": "eventzHub-server",
+  "name": "eventzhubz-server",
   "version": "1.0.0",
-  "description": "EventzHub Backend API Server",
+  "description": "EventzHubz Backend API Server",
   "type": "module",
   "main": "src/index.js",
   "scripts": {

@@ -1,6 +1,6 @@
-# EventzHub Backend Server
+# EventzHubz Backend Server
 
-Node.js + Express backend for EventzHub marketplace. Handles payment processing, booking management, and vendor earnings.
+Node.js + Express backend for EventzHubz marketplace. Handles payment processing, booking management, and vendor earnings.
 
 ## Features
 
@@ -405,4 +405,4 @@ For issues or questions:
 1. Check logs: `NODE_DEBUG=* npm run dev`
 2. Review Stripe documentation: https://stripe.com/docs
 3. Review Supabase documentation: https://supabase.com/docs
-4. Check EventzHub documentation
+4. Check EventzHubz documentation

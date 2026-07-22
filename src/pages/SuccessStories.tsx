@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { getEventImage } from "@/data/eventImageLibrary";
 
 interface SuccessStory {
   id: string;
@@ -31,7 +32,7 @@ const successStories: SuccessStory[] = [
     eventType: "Wedding",
     customerName: "Emily & Jackson",
     rating: 5,
-    image: "https://images.unsplash.com/photo-1519741497674-611481863552?w=500&h=500&fit=crop",
+    image: getEventImage("Wedding"),
     testimonial: "Eternal Frames captured every precious moment of our wedding day. The photos are absolutely stunning and tell our love story beautifully!",
     date: "2 weeks ago",
     likes: 342,
@@ -45,7 +46,7 @@ const successStories: SuccessStory[] = [
     eventType: "Housewarming",
     customerName: "Olivia & Family",
     rating: 5,
-    image: "https://images.unsplash.com/photo-1519167758993-403d7b6d9dd9?w=500&h=500&fit=crop",
+    image: getEventImage("Housewarming"),
     testimonial: "The team transformed our boring space into a magical wonderland. Every guest was amazed!",
     date: "1 month ago",
     likes: 256,
@@ -59,7 +60,7 @@ const successStories: SuccessStory[] = [
     eventType: "Gender Reveal",
     customerName: "Madison",
     rating: 5,
-    image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=500&h=500&fit=crop",
+    image: getEventImage("Gender Reveal"),
     testimonial: "Our gender reveal was planned so thoughtfully. Everything was perfect from start to finish!",
     date: "3 weeks ago",
     likes: 189,
@@ -191,7 +192,7 @@ const VendorSuccessStories = () => {
             <CardContent className="p-8 text-center">
               <h3 className="font-heading text-2xl font-bold mb-3">Ready to Create Your Success Story?</h3>
               <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-                Book your next event with EventzHub and share your unforgettable moment with our community.
+                Book your next event with EventzHubz and share your unforgettable moment with our community.
               </p>
               <div className="flex gap-4 justify-center flex-wrap">
                 <Button className="bg-accent hover:bg-accent/90" asChild>
@@ -267,7 +268,7 @@ const VendorSuccessStories = () => {
               </div>
               <p className="text-muted-foreground mb-4 text-sm">We'd love to hear about your event! Email us your story and photos.</p>
               <a
-                href="mailto:stories@eventzhub.com?subject=My Event Success Story"
+                href="mailto:stories@eventzhubz.com?subject=My Event Success Story"
                 className="block"
               >
                 <Button className="bg-accent hover:bg-accent/90 w-full mb-3">

@@ -1,53 +1,54 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
+import { getEventImage } from "@/data/eventImageLibrary";
 
 const ideas = [
   {
     title: "Boho Garden Wedding",
     tag: "Wedding",
-    image: "https://images.unsplash.com/photo-1478146059778-26028b07395a?w=600&h=400&fit=crop",
+    image: getEventImage("Wedding"),
     color: "bg-rose-100 text-rose-700",
   },
   {
     title: "Pastel Baby Shower Setup",
     tag: "Baby Shower",
-    image: "https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=600&h=400&fit=crop",
+    image: getEventImage("Baby Shower"),
     color: "bg-sky-100 text-sky-700",
   },
   {
     title: "Vibrant Quinceañera Décor",
     tag: "Quinceañera",
-    image: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=600&h=400&fit=crop",
+    image: getEventImage("Quinceañera"),
     color: "bg-fuchsia-100 text-fuchsia-700",
   },
   {
     title: "Magical Holiday Lights",
     tag: "Holiday Lights Event",
-    image: "https://images.unsplash.com/photo-1599982890962-4d8ebb5e7d72?w=600&h=400&fit=crop",
+    image: getEventImage("Holiday Lights Event"),
     color: "bg-orange-100 text-orange-700",
   },
   {
     title: "Spooky Halloween Vibes",
     tag: "Halloween Party",
-    image: "https://images.unsplash.com/photo-1509557965875-b88c97052f0e?w=600&h=400&fit=crop",
+    image: getEventImage("Halloween Party"),
     color: "bg-amber-100 text-amber-700",
   },
   {
     title: "Elegant Anniversary Dinner",
     tag: "Anniversary",
-    image: "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=600&h=400&fit=crop",
+    image: getEventImage("Anniversary"),
     color: "bg-red-100 text-red-700",
   },
   {
     title: "Grand Graduation Party",
     tag: "Graduation",
-    image: "https://images.unsplash.com/photo-1658236417551-8f2e4ad77f4c?w=600&h=400&fit=crop",
+    image: getEventImage("Graduation"),
     color: "bg-violet-100 text-violet-700",
   },
   {
     title: "Festive Community Banquet",
     tag: "Community Celebration",
-    image: "https://images.unsplash.com/photo-1584547853994-07e41a57574e?w=600&h=400&fit=crop",
+    image: getEventImage("Community Celebration"),
     color: "bg-teal-100 text-teal-700",
   },
 ];

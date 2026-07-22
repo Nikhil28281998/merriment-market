@@ -117,7 +117,7 @@ const SignUp = () => {
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
             <h1 className="font-heading text-3xl font-bold mb-2">Create Your Account</h1>
-            <p className="text-muted-foreground">Join thousands of families and vendors on EventzHub</p>
+            <p className="text-muted-foreground">Join thousands of families and vendors on EventzHubz</p>
           </div>
 
           {/* Role selector */}
@@ -189,7 +189,7 @@ const SignUp = () => {
               <div className="flex items-start gap-2">
                 <Checkbox id="vendorTerms" required className="mt-1" />
                 <Label htmlFor="vendorTerms" className="text-sm text-muted-foreground leading-snug">
-                  I agree to process all bookings from EventzHub customers through the EventzHub platform. I understand that sharing personal contact information with customers before a confirmed booking, or accepting payment outside the platform, is a violation of EventzHub terms and may result in removal from the platform.
+                  I agree to process all bookings from EventzHubz customers through the EventzHubz platform. I understand that sharing personal contact information with customers before a confirmed booking, or accepting payment outside the platform, is a violation of EventzHubz terms and may result in removal from the platform.
                 </Label>
               </div>
             )}

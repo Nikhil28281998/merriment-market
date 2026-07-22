@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { getEventImage } from "@/data/eventImageLibrary";
 
 interface Achievement {
   icon: React.ReactNode;
@@ -96,7 +97,7 @@ const vendorPerformances: VendorPerformance[] = [
     id: "1",
     name: "Eternal Frames Photography",
     category: "Photography",
-    image: "https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=400&h=300&fit=crop",
+    image: getEventImage("Wedding"),
     rating: 4.9,
     reviewCount: 127,
     bookingCount: 256,
@@ -111,7 +112,7 @@ const vendorPerformances: VendorPerformance[] = [
     id: "2",
     name: "Dream Weave Decorations",
     category: "Decorations",
-    image: "https://images.unsplash.com/photo-1519167758993-403d7b6d9dd9?w=400&h=300&fit=crop",
+    image: getEventImage("Housewarming"),
     rating: 4.7,
     reviewCount: 89,
     bookingCount: 142,
@@ -126,7 +127,7 @@ const vendorPerformances: VendorPerformance[] = [
     id: "3",
     name: "Celebrate Together Events",
     category: "Event Planning",
-    image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400&h=300&fit=crop",
+    image: getEventImage("Gender Reveal"),
     rating: 4.8,
     reviewCount: 156,
     bookingCount: 189,

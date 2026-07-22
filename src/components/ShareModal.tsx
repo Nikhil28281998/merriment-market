@@ -37,8 +37,8 @@ export const ShareModal: React.FC<ShareModalProps> = ({
 
   const shareUrl = getShareUrl();
   const shareText = isCollection
-    ? `Check out my favorite vendors on EventzHub!`
-    : `Check out ${vendorName} on EventzHub - Find and book event vendors!`;
+    ? `Check out my favorite vendors on EventzHubz!`
+    : `Check out ${vendorName} on EventzHubz - Find and book event vendors!`;
 
   const handleCopyLink = async () => {
     try {
@@ -81,7 +81,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({
   };
 
   const handleEmailShare = () => {
-    const subject = isCollection ? "Check out my EventzHub collections" : `Check out ${vendorName} on EventzHub`;
+    const subject = isCollection ? "Check out my EventzHubz collections" : `Check out ${vendorName} on EventzHubz`;
     const body = `${shareText}\n\n${shareUrl}`;
     window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };

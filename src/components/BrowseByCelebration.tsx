@@ -1,100 +1,106 @@
 import { Link } from "react-router-dom";
+import { getEventImage } from "@/data/eventImageLibrary";
 
 const celebrations = [
   {
     type: "Wedding",
     color: "from-rose-50 to-pink-50",
-    image: "https://images.unsplash.com/photo-1519741497674-611481863552?w=400&h=280&fit=crop&q=80",
+    image: getEventImage("Wedding"),
   },
   {
     type: "Birthday Party",
     color: "from-violet-50 to-purple-50",
-    image: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=400&h=280&fit=crop&q=80",
+    image: getEventImage("Birthday Party"),
+  },
+  {
+    type: "Bachelorette",
+    color: "from-pink-50 to-rose-50",
+    image: getEventImage("Bachelorette"),
   },
   {
     type: "Baby Shower",
     color: "from-sky-50 to-blue-50",
-    image: "https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=400&h=280&fit=crop&q=80",
+    image: getEventImage("Baby Shower"),
   },
   {
     type: "Quinceañera",
     color: "from-fuchsia-50 to-pink-50",
-    image: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=400&h=280&fit=crop&q=80",
+    image: getEventImage("Quinceañera"),
   },
   {
     type: "Graduation",
     color: "from-amber-50 to-yellow-50",
-    image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400&h=280&fit=crop&q=80",
+    image: getEventImage("Graduation"),
   },
   {
     type: "Anniversary",
     color: "from-red-50 to-rose-50",
-    image: "https://images.unsplash.com/photo-1583939411023-14783179e581?w=400&h=280&fit=crop&q=80",
+    image: getEventImage("Anniversary"),
   },
   {
     type: "Gender Reveal",
     color: "from-pink-50 to-purple-50",
-    image: "https://images.unsplash.com/photo-1604912153786-cfc7c9b69210?w=400&h=280&fit=crop&q=80",
+    image: getEventImage("Gender Reveal"),
   },
   {
     type: "Holiday Lights Event",
     color: "from-orange-50 to-amber-50",
-    image: "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=400&h=280&fit=crop&q=80",
+    image: getEventImage("Holiday Lights Event"),
   },
   {
     type: "Community Celebration",
     color: "from-teal-50 to-emerald-50",
-    image: "https://images.unsplash.com/photo-1614107151491-6876eecbff89?w=400&h=280&fit=crop&q=80",
+    image: getEventImage("Community Celebration"),
   },
   {
     type: "Halloween Party",
     color: "from-orange-50 to-yellow-50",
-    image: "https://images.unsplash.com/photo-1509557965875-b88c97052f0e?w=400&h=280&fit=crop&q=80",
+    image: getEventImage("Halloween Party"),
   },
   {
     type: "Christmas Party",
     color: "from-green-50 to-emerald-50",
-    image: "https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=400&h=280&fit=crop&q=80",
+    image: getEventImage("Christmas Party"),
   },
   {
     type: "Baptism",
     color: "from-blue-50 to-indigo-50",
-    image: "https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=400&h=280&fit=crop&q=80",
+    image: getEventImage("Baptism"),
   },
   {
     type: "Bar / Bat Mitzvah",
     color: "from-indigo-50 to-blue-50",
-    image: "https://images.unsplash.com/photo-1478147427282-58a87a433980?w=400&h=280&fit=crop&q=80",
+    image: getEventImage("Bar / Bat Mitzvah"),
   },
   {
     type: "Housewarming",
     color: "from-lime-50 to-green-50",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=280&fit=crop&q=80",
+    image: getEventImage("Housewarming"),
   },
   {
     type: "Naming Ceremony",
     color: "from-cyan-50 to-sky-50",
-    image: "https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=400&h=280&fit=crop&q=80",
+    image: getEventImage("Naming Ceremony"),
   },
   {
     type: "Maternity Photoshoot",
     color: "from-rose-50 to-pink-50",
-    image: "https://images.unsplash.com/photo-1491013516836-7db643ee125a?w=400&h=280&fit=crop&q=80",
+    image: getEventImage("Maternity Photoshoot"),
   },
   {
     type: "Baby Photoshoot",
     color: "from-yellow-50 to-amber-50",
-    image: "https://images.unsplash.com/photo-1519689373023-dd07c7988603?w=400&h=280&fit=crop&q=80",
+    image: getEventImage("Baby Photoshoot"),
   },
   {
     type: "Car Blessing",
     color: "from-violet-50 to-indigo-50",
-    image: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=400&h=280&fit=crop&q=80",
+    image: getEventImage("Car Blessing"),
   },
   {
     type: "Other",
     color: "from-slate-50 to-gray-50",
-    image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400&h=280&fit=crop&q=80",
+    image: getEventImage("Other"),
   },
 ];
 

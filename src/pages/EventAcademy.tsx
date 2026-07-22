@@ -303,7 +303,7 @@ const EventAcademy = () => {
           <CardContent className="p-8">
             <h3 className="font-heading text-2xl font-bold mb-3">Ready to Plan Your Event?</h3>
             <p className="text-muted-foreground mb-6">
-              Use our guides as you discover and book vendors on EventzHub.
+              Use our guides as you discover and book vendors on EventzHubz.
             </p>
             <Button className="bg-accent hover:bg-accent/90" asChild>
               <Link to="/browse">Start Planning Now</Link>

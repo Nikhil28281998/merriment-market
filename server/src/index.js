@@ -369,7 +369,7 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(port, () => {
-  console.log(`🚀 EventzHub Server running on http://localhost:${port}`);
+  console.log(`🚀 EventzHubz Server running on http://localhost:${port}`);
   console.log(`📊 API endpoints ready`);
   console.log(`🔔 Webhook listener ready at /api/webhooks/stripe`);
 });

@@ -1,4 +1,4 @@
--- EventzHub Database Migrations
+-- EventzHubz Database Migrations
 -- Copy and paste these into Supabase SQL Editor to set up the database
 
 -- ============================================================================

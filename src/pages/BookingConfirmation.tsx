@@ -98,7 +98,7 @@ const BookingConfirmation = () => {
                   </div>
                   <div className="text-xs text-muted-foreground bg-blue-50 rounded p-2">
                     💰 Vendor receives: ${(booking.vendorPayoutAmount / 100).toFixed(2)} after event completion<br/>
-                    🏪 EventzHub fee: ${(booking.serviceFee / 100).toFixed(2)} (15% commission)
+                    🏪 EventzHubz fee: ${(booking.serviceFee / 100).toFixed(2)} (15% commission)
                   </div>
                 </div>
 

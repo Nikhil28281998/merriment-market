@@ -11,6 +11,7 @@ import { eventTypes } from "@/data/mockData";
 import { eventBundles } from "@/data/eventBundles";
 import { allVendors } from "@/data/vendorDiscovery";
 import { vendorSupportsEvent } from "@/data/vendorEventInsights";
+import { getEventImage } from "@/data/eventImageLibrary";
 
 interface ColorOption {
   name: string;
@@ -86,25 +87,26 @@ const themeOptions = [
 ];
 
 const ideaCards: IdeaCard[] = [
-  { title: "Rose Gold Wedding Night", eventType: "Wedding", color: "Rose", style: "Luxury", theme: "Floral Romance", image: "https://images.unsplash.com/photo-1519741497674-611481863552?w=700&h=500&fit=crop" },
-  { title: "Pastel Baby Shower Picnic", eventType: "Baby Shower", color: "Pink", style: "Minimal", theme: "Pastel Dream", image: "https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=700&h=500&fit=crop" },
-  { title: "Neon Birthday Bash", eventType: "Birthday Party", color: "Violet", style: "Playful", theme: "Disco Night", image: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=700&h=500&fit=crop" },
-  { title: "Elegant Quinceanera Hall", eventType: "Quinceañera", color: "Gold", style: "Elegant", theme: "Royal Celebration", image: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=700&h=500&fit=crop" },
-  { title: "Classic Graduation Dinner", eventType: "Graduation", color: "Blue", style: "Classic", theme: "Minimal Luxe", image: "https://images.unsplash.com/photo-1658236417551-8f2e4ad77f4c?w=700&h=500&fit=crop" },
-  { title: "Anniversary Candle Garden", eventType: "Anniversary", color: "Ivory", style: "Vintage", theme: "Garden Party", image: "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=700&h=500&fit=crop" },
-  { title: "Holiday Lantern Courtyard", eventType: "Holiday Lights Event", color: "Amber", style: "Traditional", theme: "Festival Glow", image: "https://images.unsplash.com/photo-1599982890962-4d8ebb5e7d72?w=700&h=500&fit=crop" },
-  { title: "Family Community Banquet", eventType: "Community Celebration", color: "Teal", style: "Contemporary", theme: "Cultural Heritage", image: "https://images.unsplash.com/photo-1584547853994-07e41a57574e?w=700&h=500&fit=crop" },
-  { title: "Christmas Home Glam", eventType: "Christmas Party", color: "Green", style: "Glam", theme: "Fairy Lights", image: "https://images.unsplash.com/photo-1514222134-b57cbb8ce073?w=700&h=500&fit=crop" },
-  { title: "Halloween Bold Setup", eventType: "Halloween Party", color: "Orange", style: "Modern", theme: "Bold & Vibrant", image: "https://images.unsplash.com/photo-1509557965875-b88c97052f0e?w=700&h=500&fit=crop" },
-  { title: "Baptism White & Gold", eventType: "Baptism", color: "White", style: "Classic", theme: "Minimal Luxe", image: "https://images.unsplash.com/photo-1504892262-8ea3ddbf35a5?w=700&h=500&fit=crop" },
-  { title: "Mitzvah Stage Lighting", eventType: "Bar / Bat Mitzvah", color: "Blue", style: "Modern", theme: "Disco Night", image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=700&h=500&fit=crop" },
-  { title: "Housewarming Floral Entry", eventType: "Housewarming", color: "Peach", style: "Traditional", theme: "Floral Romance", image: "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=700&h=500&fit=crop" },
-  { title: "Gender Reveal Balloon Wall", eventType: "Gender Reveal", color: "Sky", style: "Playful", theme: "Pastel Dream", image: "https://images.unsplash.com/photo-1604912153786-cfc7c9b69210?w=700&h=500&fit=crop" },
-  { title: "Naming Ceremony Decor", eventType: "Naming Ceremony", color: "Yellow", style: "Traditional", theme: "Cultural Heritage", image: "https://images.unsplash.com/photo-1519689680058-324335c77eba?w=700&h=500&fit=crop" },
-  { title: "Maternity Outdoor Glow", eventType: "Maternity Photoshoot", color: "Rose", style: "Boho", theme: "Garden Party", image: "https://images.unsplash.com/photo-1608564697071-ddf911d81370?w=700&h=500&fit=crop" },
-  { title: "Baby Photoshoot Studio", eventType: "Baby Photoshoot", color: "Beige", style: "Minimal", theme: "Pastel Dream", image: "https://images.unsplash.com/photo-1544126592-807ade215a0b?w=700&h=500&fit=crop" },
-  { title: "Car Blessing Flower Setup", eventType: "Car Blessing", color: "Red", style: "Traditional", theme: "Festival Glow", image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=700&h=500&fit=crop" },
-  { title: "Custom Celebration Mix", eventType: "Other", color: "Silver", style: "Contemporary", theme: "Monochrome Chic", image: "https://images.unsplash.com/photo-1523438885200-e635ba2c371e?w=700&h=500&fit=crop" },
+  { title: "Rose Gold Wedding Night", eventType: "Wedding", color: "Rose", style: "Luxury", theme: "Floral Romance", image: getEventImage("Wedding") },
+  { title: "Pastel Baby Shower Picnic", eventType: "Baby Shower", color: "Pink", style: "Minimal", theme: "Pastel Dream", image: getEventImage("Baby Shower") },
+  { title: "Neon Birthday Bash", eventType: "Birthday Party", color: "Violet", style: "Playful", theme: "Disco Night", image: getEventImage("Birthday Party") },
+  { title: "Pink Champagne Bachelorette", eventType: "Bachelorette", color: "Pink", style: "Glam", theme: "Chic Cocktail", image: getEventImage("Bachelorette") },
+  { title: "Elegant Quinceañera Hall", eventType: "Quinceañera", color: "Gold", style: "Elegant", theme: "Royal Celebration", image: getEventImage("Quinceañera") },
+  { title: "Classic Graduation Dinner", eventType: "Graduation", color: "Blue", style: "Classic", theme: "Minimal Luxe", image: getEventImage("Graduation") },
+  { title: "Anniversary Candle Garden", eventType: "Anniversary", color: "Ivory", style: "Vintage", theme: "Garden Party", image: getEventImage("Anniversary") },
+  { title: "Holiday Lantern Courtyard", eventType: "Holiday Lights Event", color: "Amber", style: "Traditional", theme: "Festival Glow", image: getEventImage("Holiday Lights Event") },
+  { title: "Family Community Banquet", eventType: "Community Celebration", color: "Teal", style: "Contemporary", theme: "Cultural Heritage", image: getEventImage("Community Celebration") },
+  { title: "Christmas Home Glam", eventType: "Christmas Party", color: "Green", style: "Glam", theme: "Fairy Lights", image: getEventImage("Christmas Party") },
+  { title: "Halloween Bold Setup", eventType: "Halloween Party", color: "Orange", style: "Modern", theme: "Bold & Vibrant", image: getEventImage("Halloween Party") },
+  { title: "Baptism White & Gold", eventType: "Baptism", color: "White", style: "Classic", theme: "Minimal Luxe", image: getEventImage("Baptism") },
+  { title: "Mitzvah Stage Lighting", eventType: "Bar / Bat Mitzvah", color: "Blue", style: "Modern", theme: "Disco Night", image: getEventImage("Bar / Bat Mitzvah") },
+  { title: "Housewarming Floral Entry", eventType: "Housewarming", color: "Peach", style: "Traditional", theme: "Floral Romance", image: getEventImage("Housewarming") },
+  { title: "Gender Reveal Balloon Wall", eventType: "Gender Reveal", color: "Sky", style: "Playful", theme: "Pastel Dream", image: getEventImage("Gender Reveal") },
+  { title: "Naming Ceremony Decor", eventType: "Naming Ceremony", color: "Yellow", style: "Traditional", theme: "Cultural Heritage", image: getEventImage("Naming Ceremony") },
+  { title: "Maternity Outdoor Glow", eventType: "Maternity Photoshoot", color: "Rose", style: "Boho", theme: "Garden Party", image: getEventImage("Maternity Photoshoot") },
+  { title: "Baby Photoshoot Studio", eventType: "Baby Photoshoot", color: "Beige", style: "Minimal", theme: "Pastel Dream", image: getEventImage("Baby Photoshoot") },
+  { title: "Car Blessing Flower Setup", eventType: "Car Blessing", color: "Red", style: "Traditional", theme: "Festival Glow", image: getEventImage("Car Blessing") },
+  { title: "Custom Celebration Mix", eventType: "Other", color: "Silver", style: "Contemporary", theme: "Monochrome Chic", image: getEventImage("Other") },
 ];
 
 const toggleValue = (list: string[], value: string) =>
@@ -325,7 +327,7 @@ const StyleStudio = () => {
                         src={concept.image}
                         alt={concept.title}
                         className="h-44 w-full object-cover bg-muted"
-                        onError={e => { e.currentTarget.src = "https://placehold.co/700x440/e2e8f0/64748b?text=Preview+unavailable"; e.currentTarget.onerror = null; }}
+                        onError={e => { e.currentTarget.src = getEventImage(concept.title); e.currentTarget.onerror = null; }}
                       />
                       <CardContent className="p-4">
                         <h3 className="font-heading font-bold text-lg mb-2">{concept.title}</h3>
@@ -409,7 +411,7 @@ const StyleStudio = () => {
                         src={image}
                         alt={`AI planner concept ${index + 1}`}
                         className="h-40 w-full rounded-lg object-cover bg-muted"
-                        onError={e => { e.currentTarget.src = "https://placehold.co/700x320/e2e8f0/64748b?text=Preview+unavailable"; e.currentTarget.onerror = null; }}
+                        onError={e => { e.currentTarget.src = getEventImage(`planner concept ${index + 1}`); e.currentTarget.onerror = null; }}
                       />
                     ))}
                   </div>

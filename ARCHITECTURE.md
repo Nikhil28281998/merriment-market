@@ -1,4 +1,4 @@
-# EventzHub Payment System Architecture
+# EventzHubz Payment System Architecture
 
 ## System Overview
 
@@ -360,4 +360,4 @@ Vendor Earnings                │        │
 
 ---
 
-**EventzHub Payment Architecture v1.0**
+**EventzHubz Payment Architecture v1.0**

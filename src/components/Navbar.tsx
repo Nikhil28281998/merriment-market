@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ShoppingCart, ChevronDown, Heart } from "lucide-react";
+import { eventTypes } from "@/data/mockData";
+
 import { useCart } from "@/contexts/CartContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { useFavorites } from "@/contexts/FavoritesContext";
@@ -11,13 +13,6 @@ const vendorCategories = [
   "Photographer", "Videographer", "Decorator", "Caterer",
   "DJ", "Florist", "Cake Designer", "Makeup Artist",
   "Officiant", "Event Planner", "Venue",
-];
-
-const eventTypes = [
-  "Wedding", "Birthday Party", "Baby Shower", "Quinceañera",
-  "Graduation", "Anniversary", "Holiday Lights Event", "Community Celebration",
-  "Christmas Party", "Halloween Party", "Baptism", "Bar / Bat Mitzvah",
-  "Housewarming", "Gender Reveal", "Naming Ceremony",
 ];
 
 const Navbar = () => {

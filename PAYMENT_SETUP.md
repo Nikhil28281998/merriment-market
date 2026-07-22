@@ -1,6 +1,6 @@
-# EventzHub Payment System Setup Guide
+# EventzHubz Payment System Setup Guide
 
-Complete guide to set up the payment system for EventzHub with Stripe and Supabase.
+Complete guide to set up the payment system for EventzHubz with Stripe and Supabase.
 
 ## Table of Contents
 
@@ -68,7 +68,7 @@ For paying vendors directly:
 2. Click **Start your project**
 3. Sign in with GitHub / Email
 4. Click **New project**
-5. **Project name**: `eventzHub`
+5. **Project name**: `eventzhubz`
 6. **Database password**: Create strong password (save it!)
 7. **Region**: Choose closest to your users
 8. Click **Create new project** and wait 2-3 minutes
@@ -156,7 +156,7 @@ npm run dev
 
 You should see:
 ```
-🚀 EventzHub Server running on http://localhost:3001
+🚀 EventzHubz Server running on http://localhost:3001
 📊 API endpoints ready
 🔔 Webhook listener ready at /api/webhooks/stripe
 ```

@@ -22,69 +22,69 @@ export interface VendorEventInsight {
 export const categoryEventDefaults: Record<string, string[]> = {
   Photographer: [
     "Wedding", "Baby Shower", "Baby Photoshoot", "Maternity Photoshoot", "Gender Reveal",
-    "Birthday Party", "Anniversary", "Housewarming", "Quinceañera",
+    "Birthday Party", "Bachelorette", "Anniversary", "Housewarming", "Quinceañera",
     "Bar / Bat Mitzvah", "Graduation", "Naming Ceremony",
     "Community Celebration", "Holiday Lights Event", "Christmas Party",
   ],
   Videographer: [
     "Wedding", "Baby Shower", "Baby Photoshoot", "Maternity Photoshoot", "Gender Reveal",
-    "Birthday Party", "Anniversary", "Housewarming", "Quinceañera",
+    "Birthday Party", "Bachelorette", "Anniversary", "Housewarming", "Quinceañera",
     "Bar / Bat Mitzvah", "Graduation", "Naming Ceremony",
     "Community Celebration", "Holiday Lights Event", "Christmas Party",
   ],
   Decorator: [
-    "Wedding", "Birthday Party", "Baby Shower", "Anniversary", "Housewarming",
+    "Wedding", "Birthday Party", "Baby Shower", "Bachelorette", "Anniversary", "Housewarming",
     "Quinceañera", "Graduation", "Bar / Bat Mitzvah", "Gender Reveal",
     "Christmas Party", "Halloween Party", "Holiday Lights Event", "Community Celebration", "Baptism",
   ],
   Caterer: [
-    "Wedding", "Birthday Party", "Baby Shower", "Anniversary", "Graduation",
+    "Wedding", "Birthday Party", "Baby Shower", "Bachelorette", "Anniversary", "Graduation",
     "Quinceañera", "Bar / Bat Mitzvah", "Christmas Party", "Community Celebration",
     "Holiday Lights Event", "Housewarming",
   ],
   DJ: [
-    "Wedding", "Birthday Party", "Quinceañera", "Bar / Bat Mitzvah",
+    "Wedding", "Birthday Party", "Quinceañera", "Bachelorette", "Bar / Bat Mitzvah",
     "Graduation", "Halloween Party", "Christmas Party", "Anniversary",
   ],
   Florist: [
-    "Wedding", "Baby Shower", "Anniversary", "Birthday Party", "Housewarming",
+    "Wedding", "Baby Shower", "Anniversary", "Birthday Party", "Bachelorette", "Housewarming",
     "Baptism", "Quinceañera", "Community Celebration", "Holiday Lights Event", "Naming Ceremony",
   ],
   "Makeup Artist": [
     "Wedding", "Quinceañera", "Bar / Bat Mitzvah", "Maternity Photoshoot",
-    "Baby Shower", "Anniversary", "Birthday Party", "Graduation", "Holiday Lights Event", "Community Celebration",
+    "Baby Shower", "Bachelorette", "Anniversary", "Birthday Party", "Graduation", "Holiday Lights Event", "Community Celebration",
   ],
   "Cake Designer": [
-    "Wedding", "Birthday Party", "Baby Shower", "Gender Reveal", "Graduation",
+    "Wedding", "Birthday Party", "Baby Shower", "Bachelorette", "Gender Reveal", "Graduation",
     "Quinceañera", "Bar / Bat Mitzvah", "Baptism", "Anniversary", "Christmas Party",
   ],
   "Event Planner": [...eventTypes],
   "Officiant": [
     "Wedding", "Baptism", "Housewarming", "Naming Ceremony",
-    "Car Blessing", "Holiday Lights Event", "Community Celebration",
+    "Car Blessing", "Bachelorette", "Holiday Lights Event", "Community Celebration",
   ],
   Venue: [...eventTypes],
 };
 
 const vendorEventSpecialties: Record<string, string[]> = {
-  "1": ["Wedding", "Anniversary", "Naming Ceremony", "Baby Shower"],
-  "2": ["Wedding", "Birthday Party", "Baby Shower", "Anniversary", "Holiday Lights Event", "Christmas Party", "Quinceanera", "Halloween Party"],
-  "3": ["Wedding", "Birthday Party", "Baby Shower", "Anniversary", "Graduation", "Community Celebration", "Christmas Party"],
-  "4": ["Wedding", "Birthday Party", "Halloween Party", "Christmas Party", "Quinceanera", "Bar / Bat Mitzvah", "Anniversary", "Graduation"],
-  "5": ["Wedding", "Baby Shower", "Anniversary", "Housewarming", "Community Celebration", "Holiday Lights Event", "Naming Ceremony"],
-  "6": ["Wedding", "Naming Ceremony", "Housewarming", "Car Blessing"],
-  "7": ["Wedding", "Quinceanera", "Bar / Bat Mitzvah", "Anniversary", "Birthday Party", "Graduation"],
-  "8": ["Wedding", "Quinceanera", "Maternity Photoshoot", "Baby Shower", "Community Celebration", "Holiday Lights Event", "Anniversary"],
-  "9": ["Wedding", "Birthday Party", "Baby Shower", "Anniversary", "Quinceanera", "Baptism", "Christmas Party", "Gender Reveal"],
+  "1": ["Wedding", "Anniversary", "Naming Ceremony", "Baby Shower", "Bachelorette"],
+  "2": ["Wedding", "Birthday Party", "Baby Shower", "Bachelorette", "Anniversary", "Holiday Lights Event", "Christmas Party", "Quinceañera", "Halloween Party"],
+  "3": ["Wedding", "Birthday Party", "Baby Shower", "Anniversary", "Bachelorette", "Graduation", "Community Celebration", "Christmas Party"],
+  "4": ["Wedding", "Birthday Party", "Bachelorette", "Halloween Party", "Christmas Party", "Quinceañera", "Bar / Bat Mitzvah", "Anniversary", "Graduation"],
+  "5": ["Wedding", "Baby Shower", "Bachelorette", "Anniversary", "Housewarming", "Community Celebration", "Holiday Lights Event", "Naming Ceremony"],
+  "6": ["Wedding", "Naming Ceremony", "Housewarming", "Car Blessing", "Bachelorette"],
+  "7": ["Wedding", "Quinceañera", "Bar / Bat Mitzvah", "Anniversary", "Birthday Party", "Bachelorette", "Graduation"],
+  "8": ["Wedding", "Quinceañera", "Maternity Photoshoot", "Baby Shower", "Bachelorette", "Community Celebration", "Holiday Lights Event", "Anniversary"],
+  "9": ["Wedding", "Birthday Party", "Baby Shower", "Anniversary", "Quinceanera", "Baptism", "Christmas Party", "Gender Reveal", "Bachelorette"],
   "10": ["Wedding", "Quinceanera", "Birthday Party", "Anniversary", "Graduation", "Bar / Bat Mitzvah", "Holiday Lights Event", "Community Celebration", "Christmas Party"],
-  "11": ["Wedding", "Baby Shower", "Baby Photoshoot", "Maternity Photoshoot", "Birthday Party", "Naming Ceremony", "Gender Reveal"],
-  "12": ["Wedding", "Birthday Party", "Quinceanera", "Bar / Bat Mitzvah", "Halloween Party", "Christmas Party", "Graduation"],
-  "13": ["Wedding", "Baby Shower", "Anniversary", "Community Celebration", "Naming Ceremony"],
-  "14": ["Wedding", "Quinceanera", "Anniversary", "Holiday Lights Event", "Halloween Party", "Christmas Party", "Birthday Party"],
-  "15": ["Wedding", "Graduation", "Birthday Party", "Anniversary", "Community Celebration", "Christmas Party", "Baby Shower"],
-  "16": ["Wedding", "Baptism", "Bar / Bat Mitzvah", "Quinceanera", "Anniversary"],
-  "17": ["Wedding", "Birthday Party", "Baby Shower", "Anniversary", "Quinceanera", "Baptism", "Christmas Party", "Gender Reveal"],
-  "18": ["Wedding", "Quinceanera", "Birthday Party", "Anniversary", "Graduation", "Bar / Bat Mitzvah", "Holiday Lights Event", "Community Celebration", "Christmas Party"],
+  "11": ["Wedding", "Baby Shower", "Baby Photoshoot", "Maternity Photoshoot", "Birthday Party", "Bachelorette", "Naming Ceremony", "Gender Reveal"],
+  "12": ["Wedding", "Birthday Party", "Quinceañera", "Bar / Bat Mitzvah", "Halloween Party", "Christmas Party", "Graduation", "Bachelorette"],
+  "13": ["Wedding", "Baby Shower", "Bachelorette", "Anniversary", "Community Celebration", "Naming Ceremony"],
+  "14": ["Wedding", "Quinceañera", "Anniversary", "Holiday Lights Event", "Halloween Party", "Christmas Party", "Birthday Party", "Bachelorette"],
+  "15": ["Wedding", "Graduation", "Birthday Party", "Anniversary", "Community Celebration", "Christmas Party", "Baby Shower", "Bachelorette"],
+  "16": ["Wedding", "Baptism", "Bar / Bat Mitzvah", "Quinceañera", "Anniversary", "Bachelorette"],
+  "17": ["Wedding", "Birthday Party", "Baby Shower", "Anniversary", "Quinceañera", "Baptism", "Christmas Party", "Gender Reveal", "Bachelorette"],
+  "18": ["Wedding", "Quinceañera", "Birthday Party", "Anniversary", "Graduation", "Bar / Bat Mitzvah", "Holiday Lights Event", "Community Celebration", "Christmas Party", "Bachelorette"],
 };
 
 const eventThemes: Record<string, string[]> = {
@@ -95,22 +95,23 @@ const eventThemes: Record<string, string[]> = {
   "Birthday Party": ["Balloon Burst", "Elegant Black & Gold", "Retro Pop", "Custom Character Theme"],
   Quinceanera: ["Princess Glam", "Rose Gold", "Enchanted Garden", "Royal Ballroom"],
   Anniversary: ["Intimate Candlelight", "Vintage Chic", "Modern Luxe", "Floral Romance"],
+  Bachelorette: ["Glitter Brunch", "Boho Night Out", "Chic Cocktail", "Garden Tea Party"],
   "Gender Reveal": ["Confetti Reveal", "Balloon Pop", "Pastel Picnic", "Neutral Chic"],
 };
 
 const eventPhotoOverrides: Record<string, Record<string, string[]>> = {
   "11": {
     "Baby Photoshoot": [
-      "https://images.unsplash.com/photo-1544126592-807ade215a0b?w=500&h=350&fit=crop",
-      "https://images.unsplash.com/photo-1519689680058-324335c77eba?w=500&h=350&fit=crop",
-      "https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=500&h=350&fit=crop",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     ],
   },
   "1": {
     Wedding: [
-      "https://images.unsplash.com/photo-1519741497674-611481863552?w=500&h=350&fit=crop",
-      "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=500&h=350&fit=crop",
-      "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=500&h=350&fit=crop",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     ],
   },
 };

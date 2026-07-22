@@ -389,7 +389,7 @@ const VendorOnboarding = () => {
           <Card>
             <CardHeader>
               <CardTitle>Bank Account Details for Payouts</CardTitle>
-              <p className="text-sm text-muted-foreground">Your payment information. EventzHub will securely hold funds from bookings and transfer your earnings after each event.</p>
+              <p className="text-sm text-muted-foreground">Your payment information. EventzHubz will securely hold funds from bookings and transfer your earnings after each event.</p>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
@@ -474,7 +474,7 @@ const VendorOnboarding = () => {
 
               <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
                 <p className="text-xs text-yellow-900">
-                  <strong>Note:</strong> You'll pass payout verification as part of account approval. EventzHub uses encrypted transfers and follows all banking regulations (ACH transfers, NACHA compliance, SOX Regulation).
+                  <strong>Note:</strong> You'll pass payout verification as part of account approval. EventzHubz uses encrypted transfers and follows all banking regulations (ACH transfers, NACHA compliance, SOX Regulation).
                 </p>
               </div>
             </CardContent>

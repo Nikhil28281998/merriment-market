@@ -1,4 +1,4 @@
-import { eventTypes, mockVendors, type Vendor } from "@/data/mockData";
+import { decorateVendorImages, eventTypes, mockVendors, type Vendor } from "@/data/mockData";
 
 export type BrowseTab = "vendors" | "venues" | "home-parties";
 
@@ -15,7 +15,7 @@ const homeServiceCategories = new Set([
   "Officiant",
 ]);
 
-const temporaryVendors: Vendor[] = [
+const baseTemporaryVendors: Vendor[] = [
   {
     id: "201",
     name: "Skyline Grand Venue",
@@ -26,13 +26,13 @@ const temporaryVendors: Vendor[] = [
     reviewCount: 126,
     startingPrice: 2500,
     verified: true,
-    photo: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=200&h=200&fit=crop",
-    coverPhoto: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=1200&h=400&fit=crop",
+    photo: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+    coverPhoto: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     bio: "Skyline Grand Venue offers indoor and rooftop event spaces with custom layouts for every celebration type.",
     portfolio: [
-      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1478146059778-26028b07395a?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     ],
     packages: [
       { id: "p201a", name: "Hall Rental", description: "Flexible venue rental for up to 150 guests", price: 2500, includes: ["8-hour rental", "Banquet furniture", "Basic lighting", "On-site manager"] },
@@ -55,13 +55,13 @@ const temporaryVendors: Vendor[] = [
     reviewCount: 94,
     startingPrice: 2200,
     verified: true,
-    photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop",
-    coverPhoto: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=1200&h=400&fit=crop",
+    photo: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+    coverPhoto: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     bio: "Willow Banquet Gardens specializes in culturally diverse celebrations with indoor and outdoor venue options.",
     portfolio: [
-      "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     ],
     packages: [
       { id: "p202a", name: "Classic Banquet", description: "Elegant banquet hall setup", price: 2200, includes: ["6-hour rental", "Standard seating", "Lighting", "Setup team"] },
@@ -84,13 +84,13 @@ const temporaryVendors: Vendor[] = [
     reviewCount: 138,
     startingPrice: 2800,
     verified: true,
-    photo: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop",
-    coverPhoto: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=1200&h=400&fit=crop",
+    photo: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+    coverPhoto: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     bio: "Seaside Celebration Hall delivers coastal elegance for weddings, birthdays, and all milestone events.",
     portfolio: [
-      "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     ],
     packages: [
       { id: "p203a", name: "Coastal Classic", description: "Venue package for up to 120 guests", price: 2800, includes: ["8-hour venue", "Ocean-view backdrop", "Tables and chairs", "Venue assistant"] },
@@ -113,13 +113,13 @@ const temporaryVendors: Vendor[] = [
     reviewCount: 117,
     startingPrice: 450,
     verified: true,
-    photo: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop",
-    coverPhoto: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=1200&h=400&fit=crop",
+    photo: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+    coverPhoto: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     bio: "AtHome Celebration Crew brings full event setup to your home, including decor, planning, and on-site coordination.",
     portfolio: [
-      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     ],
     packages: [
       { id: "p301a", name: "Home Party Starter", description: "Small home event setup", price: 450, includes: ["Theme planning", "Basic decor", "Setup and teardown", "2 staff members"] },
@@ -143,13 +143,13 @@ const temporaryVendors: Vendor[] = [
     reviewCount: 88,
     startingPrice: 380,
     verified: true,
-    photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop",
-    coverPhoto: "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=1200&h=400&fit=crop",
+    photo: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+    coverPhoto: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     bio: "Doorstep Decor & Events specializes in in-home event styling with fast setup for birthdays, naming ceremonies, and seasonal events.",
     portfolio: [
-      "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1478146059778-26028b07395a?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     ],
     packages: [
       { id: "p302a", name: "Home Decor Basic", description: "Balloon and backdrop setup", price: 380, includes: ["Theme colors", "Backdrop", "Balloon arrangement", "2-hour setup"] },
@@ -173,13 +173,13 @@ const temporaryVendors: Vendor[] = [
     reviewCount: 161,
     startingPrice: 300,
     verified: true,
-    photo: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=200&h=200&fit=crop",
-    coverPhoto: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&h=400&fit=crop",
+    photo: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+    coverPhoto: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     bio: "Home Feast Catering On Wheels provides in-home live counters and full catering support for private celebrations.",
     portfolio: [
-      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
     ],
     packages: [
       { id: "p303a", name: "Home Buffet", description: "Buffet-style catering for home events", price: 300, includes: ["Starter + mains", "Service staff", "Serving setup", "Basic cleanup"] },
@@ -195,8 +195,14 @@ const temporaryVendors: Vendor[] = [
   },
 ];
 
-const venueVendorIds = new Set(["201", "202", "203"]);
-const homePartyVendorIds = new Set(["301", "302", "303"]);
+const temporaryVendors = decorateVendorImages(baseTemporaryVendors);
+
+const venueVendorIds = new Set(
+  temporaryVendors.filter((vendor) => vendor.category === "Venue").map((vendor) => vendor.id),
+);
+const homePartyVendorIds = new Set(
+  temporaryVendors.filter((vendor) => homeServiceCategories.has(vendor.category)).map((vendor) => vendor.id),
+);
 
 export const allVendors: Vendor[] = [...mockVendors, ...temporaryVendors];
 
@@ -211,7 +217,7 @@ export const vendorMatchesBrowseTab = (vendor: Vendor, tab: BrowseTab): boolean 
   return !isVenueVendor(vendor);
 };
 
-export const temporaryVendorIds = new Set(["201", "202", "203", "301", "302", "303"]);
+export const temporaryVendorIds = new Set(temporaryVendors.map((vendor) => vendor.id));
 
 export const vendorSupportsAllCelebrations = (vendorId: string): boolean => temporaryVendorIds.has(vendorId);
 

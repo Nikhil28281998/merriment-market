@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
+import { getEventImage } from "@/data/eventImageLibrary";
 
 interface Venue {
   id: string;
@@ -27,7 +28,7 @@ const venues: Venue[] = [
     name: "Grand Elegance Ballroom",
     city: "New York",
     type: "Banquet Hall",
-    image: "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=500&h=300&fit=crop",
+    image: getEventImage("Wedding Reception"),
     capacity: { min: 100, max: 500 },
     pricing: { min: 3500, max: 8500 },
     amenities: ["Parking", "Wifi", "Catering", "DJ Setup", "Stage"],
@@ -41,7 +42,7 @@ const venues: Venue[] = [
     name: "Lakeside Paradise Resort",
     city: "Austin",
     type: "Resort",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=300&fit=crop",
+    image: getEventImage("Summer Pool Party"),
     capacity: { min: 50, max: 300 },
     pricing: { min: 5000, max: 12000 },
     amenities: ["Pool", "Parking", "Rooms", "Restaurant", "Garden"],
@@ -55,7 +56,7 @@ const venues: Venue[] = [
     name: "Urban Loft Studio",
     city: "Seattle",
     type: "Modern Venue",
-    image: "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=500&h=300&fit=crop",
+    image: getEventImage("Corporate Mixer"),
     capacity: { min: 30, max: 150 },
     pricing: { min: 1500, max: 4500 },
     amenities: ["Wifi", "Flexible Layout", "Natural Light", "Parking"],
@@ -69,7 +70,7 @@ const venues: Venue[] = [
     name: "Heritage Fort Venue",
     city: "Nashville",
     type: "Destination Wedding",
-    image: "https://images.unsplash.com/photo-1519167758993-403d7b6d9dd9?w=500&h=300&fit=crop",
+    image: getEventImage("Traditional Wedding"),
     capacity: { min: 200, max: 800 },
     pricing: { min: 6500, max: 15000 },
     amenities: ["Garden", "Parking", "Accommodation", "Catering", "Multi-level"],
